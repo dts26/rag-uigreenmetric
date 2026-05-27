@@ -21,6 +21,15 @@ This system intelligently combines unstructured narrative data (PDFs) with highl
 2. **Structured Data (CSV):** Indexing → Question-Grouped Chunks (combining criteria, options, and dynamically injected mathematical formulas) → Embed → Store in ChromaDB.
 3. **Retrieval & Generation:** User Query → Embed → Cosine Similarity Search → Strict Threshold Filtering (Guardrail) → Context Concatenation → DeepSeek LLM Generation.
 
+## 📊 Evaluation Metrics (RAGAS)
+
+| Metric | What it measures |
+|---|---|
+| **Faithfulness** | Whether the generated answer is factually supported by the retrieved context. |
+| **Context Recall** | Whether the retrieved context contains all the information needed to answer the question. |
+| **Response Relevancy** | How relevant the generated answer is to the original question. |
+| **Answer Correctness** | How well the generated answer matches the ground truth. |
+
 ## 🧠 Design Decisions & Engineering Choices
 * **Why Cosine Similarity?** It perfectly matches the training metric used by the `all-MiniLM-L6-v2` embedding model.
 * **Why Question-Grouped CSV Chunks?** Prevents the retriever from fetching partial or orphaned indicators, ensuring the LLM sees the complete context of a scoring criterion.
