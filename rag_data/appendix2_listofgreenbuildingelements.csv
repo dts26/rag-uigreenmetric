@@ -1,0 +1,52 @@
+﻿element_category;gbi_non-residential_existing_building_category;gbi_non-residential_existing_building_element;gbi_non-residential_new_construction_(nrnc)_category;gbi_non-residential_new_construction_(nrnc)_element
+Element 1. Energy Efficiency;Design & Performance;Minimum EE Performance;Design;Minimum EE Performance
+Element 1. Energy Efficiency;Design & Performance;Lighting Zoning;Design;Lighting Zoning
+Element 1. Energy Efficiency;Design & Performance;Electrical Sub-metering;Design;Electrical Sub-metering
+Element 1. Energy Efficiency;Design & Performance;Renewable Energy;Design;Renewable Energy
+Element 1. Energy Efficiency;Design & Performance;Advanced or Improved EE Performance - BEI;Design;Advanced EE Performance - BEI
+Element 1. Energy Efficiency;Commissioning;Enhanced or Re-commissioning;Commissioning;Enhanced Commissioning
+Element 1. Energy Efficiency;Commissioning;On-going Post Occupancy Commissioning;Commissioning;Post Occupancy Commissioning
+Element 1. Energy Efficiency;Monitoring, Improvement & Maintenance;EE Monitoring & Improvement;Verification & Maintenance;EE Verification
+Element 1. Energy Efficiency;Monitoring, Improvement & Maintenance;Sustainable Maintenance;Verification & Maintenance;Sustainable Maintenance
+Element 2. Indoor Environmental Quality;Air Quality;Minimum IAQ Performance;Air Quality;Minimum IAQ Performance
+Element 2. Indoor Environmental Quality;Air Quality;Environmental Tobacco Smoke (ETS) Control;Air Quality;Sustainable Maintenance
+Element 2. Indoor Environmental Quality;Air Quality;Carbon Dioxide Monitoring and Control;Air Quality;Carbon Dioxide Monitoring and Control
+Element 2. Indoor Environmental Quality;Air Quality;Indoor Air Pollutants;Air Quality;Indoor Air Pollutants
+Element 2. Indoor Environmental Quality;Air Quality;Mould Prevention;Air Quality;Mould Prevention
+Element 2. Indoor Environmental Quality;Thermal Comfort;Thermal Comfort: Controllability of Systems;Thermal Comfort;Indoor Air Pollutants
+Element 2. Indoor Environmental Quality;Thermal Comfort;Air Change Effectiveness;Thermal Comfort;Air Change Effectiveness
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;Daylighting;Lighting, Visual & Acoustic Comfort;Daylighting
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;Daylight Glare Control;Lighting, Visual & Acoustic Comfort;Daylight Glare Control
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;Electric Lighting Levels;Lighting, Visual & Acoustic Comfort;Electric Lighting Levels
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;High Frequency Ballasts;Lighting, Visual & Acoustic Comfort;High Frequency Ballasts
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;External Views;Lighting, Visual & Acoustic Comfort;External Views
+Element 2. Indoor Environmental Quality;Lighting, Visual & Acoustic Comfort;Internal Noise Levels;Lighting, Visual & Acoustic Comfort;Internal Noise Levels
+Element 2. Indoor Environmental Quality;Verification;IAQ Before/During Occupancy;Verification;IAQ Before & During Occupancy
+Element 2. Indoor Environmental Quality;Verification;Occupancy Comfort Survey: Verification;Verification;Post Occupancy Comfort Survey: Verification
+Element 3. Sustainable Site Planning & Management;Facility Management;GBI Rated Design & Construction;Site Planning;Site Selection
+Element 3. Sustainable Site Planning & Management;Facility Management;Building Exterior Management;Site Planning;Brownfield Redevelopment
+Element 3. Sustainable Site Planning & Management;Facility Management;Integrated Pest Management, Erosion Control & Landscape Management;Site Planning;Development Density & Community Connectivity
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Site Planning;Environment Management
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Construction Management;Earthworks - Construction Activity Pollution Control
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Construction Management;QLASSIC
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Construction Management;Workers’ Site Amenities
+Element 3. Sustainable Site Planning & Management;Transportation;Green Vehicle Priority - Low Emitting & Fuel Efficient Vehicles;Transportation;Public Transportation Access
+Element 3. Sustainable Site Planning & Management;Transportation;Parking Capacity;Transportation;Green Vehicle Priority
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Transportation;Parking Capacity
+Element 3. Sustainable Site Planning & Management;Reduce Heat Island Effect;Greenery & Roof;Design;Stormwater Design – Quantity & Quality Control
+Element 3. Sustainable Site Planning & Management;Reduce Heat Island Effect;Building User Manual;Design;Greenery & Roof
+Element 3. Sustainable Site Planning & Management;N/A;N/A;Design;Building User Manual
+Element 4. Materials & Resources;Reused & Recycled Materials;Materials Reuse and Selection;Reused & Recycled Materials;Materials Reuse and Selection
+Element 4. Materials & Resources;Reused & Recycled Materials;Recycled Content Materials;Reused & Recycled Materials;Recycled Content Materials
+Element 4. Materials & Resources;Sustainable Materials & Resources and Policy;Sustainable Timber;Sustainable Resources;Regional Materials
+Element 4. Materials & Resources;Sustainable Materials & Resources and Policy;Sustainable Purchasing Policy;Sustainable Resources;Sustainable Timber
+Element 4. Materials & Resources;Waste Management;Storage, Collection & Disposal of Recyclables;Waste Management;Storage & Collection of Recyclables
+Element 4. Materials & Resources;N/A;N/A;Waste Management;Construction Waste Management
+Element 4. Materials & Resources;Green Products;Refrigerants & Clean Agents;Green Products;Refrigerants & Clean Agents
+Element 5. Water Efficiency;Water Harvesting & Recycling;Rainwater Harvesting;Water Harvesting & Recycling;Rainwater Harvesting
+Element 5. Water Efficiency;Water Harvesting & Recycling;Water Recycling;Water Harvesting & Recycling;Water Recycling
+Element 5. Water Efficiency;Increased Efficiency;Water Efficient - Irrigation/Landscaping;Increased Efficiency;Water Efficient - Irrigation/Landscaping
+Element 5. Water Efficiency;Increased Efficiency;Water Efficient Fittings;Increased Efficiency;Water Efficient Fittings
+Element 5. Water Efficiency;Increased Efficiency;Metering & Leak Detection System;Increased Efficiency;Metering & Leak Detection System
+Element 6. Innovation;N/A;Innovation & Environmental Initiatives;N/A;Innovation in Design & Environmental Design Initiatives
+Element 6. Innovation;N/A;Green Building Index Facilitator;N/A;Green Building Index Accredited Facilitator

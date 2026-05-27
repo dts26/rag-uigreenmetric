@@ -1,0 +1,10 @@
+scope;emission_source;description_or_examples
+Scope 1 (Direct emissions);Stationary combustion;Fuel burned in fixed equipment (boilers, heaters, kilns, engines).
+Scope 1 (Direct emissions);Mobile combustion;Fuel burned by institution-owned vehicles.
+Scope 1 (Direct emissions);Process emissions;Direct emissions from physical/chemical processes (not fuel combustion).
+Scope 1 (Direct emissions);Fugitive emissions;"Refrigerant leaks from AC/refrigeration equipment; methane leakage from gas transport."
+Scope 2 (Indirect emissions);Purchased electricity;Emissions from generating purchased electricity used by the institution.
+Scope 3 (Other indirect emissions);Waste;Emissions from incineration/landfill of institutional solid waste.
+Scope 3 (Other indirect emissions);Purchased water;Emissions related to purchased water supply and use.
+Scope 3 (Other indirect emissions);Commuting;Emissions from commuting by students and employees.
+Scope 3 (Other indirect emissions);Air travel;Emissions from institution-funded air travel.

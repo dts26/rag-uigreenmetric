@@ -1,0 +1,406 @@
+category;no;indicator_code;criteria;answer;max_score;calculated_score;evidence_required;colored
+Setting and Infrastructure (SI);1.1;N/A;Types of higher education institution;[1] Comprehensive;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.1;N/A;Types of higher education institution;[2] Specialized higher education institution;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[1] Tropical wet;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[2] Tropical wet and dry;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[3] Semiarid;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[4] Arid;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[5] Mediterranean;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[6] Humid subtropical;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[7] Marine west coast / oceanic climate;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[8] Humid continental;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.2;N/A;Climate;[9] Subarctic;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.3;N/A;Number of campus sites;Provide number;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.4;N/A;Campus setting;[1] Rural;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.4;N/A;Campus setting;[2] Suburban;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.4;N/A;Campus setting;[3] Urban;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.4;N/A;Campus setting;[4] City center;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.5;N/A;Total campus area (m2);Provide number;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.6;N/A;Total campus ground floor area of buildings (m2);Provide number;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.7;N/A;Total campus buildings area (m2);Provide number;N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.8;SI1;The ratio of open space area to total area;[1] ? 1%;200;0.05x200;Yes;N/A
+Setting and Infrastructure (SI);1.8;SI1;The ratio of open space area to total area;[2] > 1 - 80%;200;0.25x200;Yes;N/A
+Setting and Infrastructure (SI);1.8;SI1;The ratio of open space area to total area;[3] > 80 - 90%;200;0.50x200;Yes;N/A
+Setting and Infrastructure (SI);1.8;SI1;The ratio of open space area to total area;[4] > 90 - 95%;200;0.75x200;Yes;N/A
+Setting and Infrastructure (SI);1.8;SI1;The ratio of open space area to total area;[5] > 95%;200;1.00x200;Yes;N/A
+Setting and Infrastructure (SI);1.9;SI2;Total area on campus covered in forest vegetation used for research, teaching, and/or community engagement;[1] ? 2%;100;0.05x100;Yes;N/A
+Setting and Infrastructure (SI);1.9;SI2;Total area on campus covered in forest vegetation used for research, teaching, and/or community engagement;[2] > 2 - 10%;100;0.25x100;Yes;N/A
+Setting and Infrastructure (SI);1.9;SI2;Total area on campus covered in forest vegetation used for research, teaching, and/or community engagement;[3] > 10 - 25%;100;0.50x100;Yes;N/A
+Setting and Infrastructure (SI);1.9;SI2;Total area on campus covered in forest vegetation used for research, teaching, and/or community engagement;[4] > 25 - 35%;100;0.75x100;Yes;N/A
+Setting and Infrastructure (SI);1.9;SI2;Total area on campus covered in forest vegetation used for research, teaching, and/or community engagement;[5] > 35%;100;1.00x100;Yes;N/A
+Setting and Infrastructure (SI);1.10;SI3;Total area on campus covered in planted vegetation;[1] ? 10%;200;0.05x200;Yes;N/A
+Setting and Infrastructure (SI);1.10;SI3;Total area on campus covered in planted vegetation;[2] > 10 - 20%;200;0.25x200;Yes;N/A
+Setting and Infrastructure (SI);1.10;SI3;Total area on campus covered in planted vegetation;[3] > 20 - 30%;200;0.50x200;Yes;N/A
+Setting and Infrastructure (SI);1.10;SI3;Total area on campus covered in planted vegetation;[4] > 30 - 50%;200;0.75x200;Yes;N/A
+Setting and Infrastructure (SI);1.10;SI3;Total area on campus covered in planted vegetation;[5] > 50%;200;1.00x200;Yes;N/A
+Setting and Infrastructure (SI);1.11;N/A;Total number ofo regular students;Provide number;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.12;N/A;Total online students;Provide number;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.13;N/A;Total academic and administrative staff;Provide number;N/A;N/A;No;N/A
+Setting and Infrastructure (SI);1.14;SI4;The total open space area divided by the total campus population;[1] ? 10  m²/person;200;0.05x200;No;N/A
+Setting and Infrastructure (SI);1.14;SI4;The total open space area divided by the total campus population;[2] > 10 - 20  m²/person;200;0.25x200;No;N/A
+Setting and Infrastructure (SI);1.14;SI4;The total open space area divided by the total campus population;[3] > 20 - 40  m²/person;200;0.50x200;No;N/A
+Setting and Infrastructure (SI);1.14;SI4;The total open space area divided by the total campus population;[4] > 40 - 70  m²/person;200;0.75x200;No;N/A
+Setting and Infrastructure (SI);1.14;SI4;The total open space area divided by the total campus population;[5] > 70  m²/person;200;1.00x200;No;N/A
+Setting and Infrastructure (SI);1.15;SI5;Campus facilities for disabled special needs and/or maternity care;[1] None;100;0x100;Yes;N/A
+Setting and Infrastructure (SI);1.15;SI5;Campus facilities for disabled special needs and/or maternity care;[2] Policy is in place;100;0.25x100;Yes;N/A
+Setting and Infrastructure (SI);1.15;SI5;Campus facilities for disabled special needs and/or maternity care;[3] Facilities are in the planning stage;100;0.50.x100;Yes;N/A
+Setting and Infrastructure (SI);1.15;SI5;Campus facilities for disabled special needs and/or maternity care;[4] Facilities are partially available and operated;100;0.75x100;Yes;N/A
+Setting and Infrastructure (SI);1.15;SI5;Campus facilities for disabled special needs and/or maternity care;[5] Facilities exist in all buildings and are fully operated;100;1.00x100;Yes;N/A
+Setting and Infrastructure (SI);1.16;SI6;Security and safety facilities;[1] Passive security and safety system;100;0x100;Yes;N/A
+Setting and Infrastructure (SI);1.16;SI6;Security and safety facilities;[2] Security and safety infrastructure (CCTV, emergency hotline/button) available and fully functioning;100;0.25x100;Yes;N/A
+Setting and Infrastructure (SI);1.16;SI6;Security and safety facilities;[3] Security and safety infrastructure (CCTV, emergency hotline/button, certified personnel, fire extinguisher, hydrant) available and fully functioning;100;0.50x100;Yes;N/A
+Setting and Infrastructure (SI);1.16;SI6;Security and safety facilities;[4] Security and safety infrastructure available and fully functioning and security responding time for accidents, crime, fire, and natural disasters is more than 5 minutes;100;0.75x100;Yes;N/A
+Setting and Infrastructure (SI);1.16;SI6;Security and safety facilities;[5] Security and safety infrastructure available and fully functioning and security responding time for accidents, crime, fire, and natural disasters is less than 5 minutes;100;1.00x100;Yes;N/A
+Setting and Infrastructure (SI);1.17;SI7;Health infrastructure facilities for students, academics and administrative staffs' well-being;[1] Health infrastructure (first aid) is not available;100;0x100;Yes;N/A
+Setting and Infrastructure (SI);1.17;SI7;Health infrastructure facilities for students, academics and administrative staffs' well-being;[2] Health infrastructure (first aid, emergency room, clinic and personnel ) are available;100;0.25x100;Yes;N/A
+Setting and Infrastructure (SI);1.17;SI7;Health infrastructure facilities for students, academics and administrative staffs' well-being;[3] Health infrastructure (first aid, emergency room, clinic, and certified personnel) are available;100;0.50x100;Yes;N/A
+Setting and Infrastructure (SI);1.17;SI7;Health infrastructure facilities for students, academics and administrative staffs' well-being;[4] Health infrastructure (first aid, emergency room, clinic, hospital and certified personnel) are available;100;0.75x100;Yes;N/A
+Setting and Infrastructure (SI);1.17;SI7;Health infrastructure facilities for students, academics and administrative staffs' well-being;[5] Health infrastructure available (first aid, emergency room, clinic, hospital and certified personnel), system and accessible for public;100;1.00x100;Yes;N/A
+Setting and Infrastructure (SI);1.18;SI8;Conservation: plant (flora), animal (fauna), or wildlife, genetic resources for food and agriculture secured in either medium or long-term conservation facilities;[1] Conservation program in preparation;100;0.05x100;Yes;N/A
+Setting and Infrastructure (SI);1.18;SI8;Conservation: plant (flora), animal (fauna), or wildlife, genetic resources for food and agriculture secured in either medium or long-term conservation facilities;[2] Conservation program 1 25% implemented;100;0.25x100;Yes;N/A
+Setting and Infrastructure (SI);1.18;SI8;Conservation: plant (flora), animal (fauna), or wildlife, genetic resources for food and agriculture secured in either medium or long-term conservation facilities;[3] Conservation program 25 50% implemented;100;0.50x100;Yes;N/A
+Setting and Infrastructure (SI);1.18;SI8;Conservation: plant (flora), animal (fauna), or wildlife, genetic resources for food and agriculture secured in either medium or long-term conservation facilities;[4] Conservation program 50 75% implemented;100;0.75x100;Yes;N/A
+Setting and Infrastructure (SI);1.18;SI8;Conservation: plant (flora), animal (fauna), or wildlife, genetic resources for food and agriculture secured in either medium or long-term conservation facilities;[5] Conservation program >75% implemented;100;1.00x100;Yes;N/A
+Setting and Infrastructure (SI);1.19;N/A;Impact of Setting and Infrastructure programs in supporting the Sustainable Development Goals (SDGs).;[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.19;N/A;Impact of Setting and Infrastructure programs in supporting the Sustainable Development Goals (SDGs).;[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.19;N/A;Impact of Setting and Infrastructure programs in supporting the Sustainable Development Goals (SDGs).;[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.19;N/A;Impact of Setting and Infrastructure programs in supporting the Sustainable Development Goals (SDGs).;[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Setting and Infrastructure (SI);1.19;N/A;Impact of Setting and Infrastructure programs in supporting the Sustainable Development Goals (SDGs).;[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.1;EC1;Energy efficient appliances usage;[1] < 1%;200;0.05x200;Yes;N/A
+Energy and Climate Change (EC);2.1;EC1;Energy efficient appliances usage;[2] 1 - 25%;200;0.25x200;Yes;N/A
+Energy and Climate Change (EC);2.1;EC1;Energy efficient appliances usage;[3] > 25 - 50%;200;0.50x200;Yes;N/A
+Energy and Climate Change (EC);2.1;EC1;Energy efficient appliances usage;[4] > 50 - 75%;200;0.75x200;Yes;N/A
+Energy and Climate Change (EC);2.1;EC1;Energy efficient appliances usage;[5] > 75%;200;1.00x200;Yes;N/A
+Energy and Climate Change (EC);2.2;N/A;Total campus' smart building area (m2);Provide number;N/A;N/A;No;N/A
+Energy and Climate Change (EC);2.3;EC2;Smart building implementation;[1] < 1%;300;0.05x300;Yes;N/A
+Energy and Climate Change (EC);2.3;EC2;Smart building implementation;[2] 1 - 25%;300;0.25x300;Yes;N/A
+Energy and Climate Change (EC);2.3;EC2;Smart building implementation;[3] > 25 - 50%;300;0.50x300;Yes;N/A
+Energy and Climate Change (EC);2.3;EC2;Smart building implementation;[4] > 50 - 75%;300;0.75x300;Yes;N/A
+Energy and Climate Change (EC);2.3;EC2;Smart building implementation;[5] > 75%;300;1.00x300;Yes;N/A
+Energy and Climate Change (EC);2.4;EC3;Number of renewable energy sources on campus;[1] None;300;0x300;No;N/A
+Energy and Climate Change (EC);2.4;EC3;Number of renewable energy sources on campus;[2] 1 source;300;0.25x300;No;N/A
+Energy and Climate Change (EC);2.4;EC3;Number of renewable energy sources on campus;[3] 2 sources;300;0.50x300;No;N/A
+Energy and Climate Change (EC);2.4;EC3;Number of renewable energy sources on campus;[4] 3 sources;300;0.75x300;No;N/A
+Energy and Climate Change (EC);2.4;EC3;Number of renewable energy sources on campus;[5] > 3 sources;300;1.00x300;No;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[1] None;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[2] Bio diesel;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[3] Clean biomass;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[4] Solar power;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[5] Geothermal;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[6] Wind power;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[7] Hydropower;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.5;N/A;Renewable energy sources and their amount of the energy produced;[8] Combined Heat and Power;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.6;N/A;Electricity usage per year (in kilowatt hours);Provide number;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.7;EC4;Total electricity usage divided by total campus' population (kWh per person);[1] ? 2400 kWh;200;0.05x200;No;N/A
+Energy and Climate Change (EC);2.7;EC4;Total electricity usage divided by total campus' population (kWh per person);[2] > 1500 - 2400 kWh;200;0.25x200;No;N/A
+Energy and Climate Change (EC);2.7;EC4;Total electricity usage divided by total campus' population (kWh per person);[3] > 600 - 1500 kWh;200;0.50x200;No;N/A
+Energy and Climate Change (EC);2.7;EC4;Total electricity usage divided by total campus' population (kWh per person);[4] > 250 - 600 kWh;200;0.75x200;No;N/A
+Energy and Climate Change (EC);2.7;EC4;Total electricity usage divided by total campus' population (kWh per person);[5] < 250 kWh;200;1.00x200;No;N/A
+Energy and Climate Change (EC);2.8;EC5;The ratio of renewable energy production divided by total energy usage per year;[1] ? 0.5%;200;0.05x200;Yes;N/A
+Energy and Climate Change (EC);2.8;EC5;The ratio of renewable energy production divided by total energy usage per year;[2] > 0.5 - 1%;200;0.25x200;Yes;N/A
+Energy and Climate Change (EC);2.8;EC5;The ratio of renewable energy production divided by total energy usage per year;[3] > 1 - 2%;200;0.50x200;Yes;N/A
+Energy and Climate Change (EC);2.8;EC5;The ratio of renewable energy production divided by total energy usage per year;[4] > 2 - 25%;200;0.75x200;Yes;N/A
+Energy and Climate Change (EC);2.8;EC5;The ratio of renewable energy production divided by total energy usage per year;[5] > 25%;200;1.00x200;Yes;N/A
+Energy and Climate Change (EC);2.9;EC6;Elements of green building implementation as reflected in all buildings;[1] None (There is no green building implementation in your university);200;0x200;Yes;N/A
+Energy and Climate Change (EC);2.9;EC6;Elements of green building implementation as reflected in all buildings;[2] 1 element;200;0.25x200;Yes;N/A
+Energy and Climate Change (EC);2.9;EC6;Elements of green building implementation as reflected in all buildings;[3] 2 elements;200;0.50x200;Yes;N/A
+Energy and Climate Change (EC);2.9;EC6;Elements of green building implementation as reflected in all buildings;[4] 3 elements;200;0.75x200;Yes;N/A
+Energy and Climate Change (EC);2.9;EC6;Elements of green building implementation as reflected in all buildings;[5] > 3 elements;200;1.00x200;Yes;N/A
+Energy and Climate Change (EC);2.10;EC7;Greenhouse gas emission reduction program;[1] None (Reduction program is needed, but nothing has been done);200;0x200;Yes;N/A
+Energy and Climate Change (EC);2.10;EC7;Greenhouse gas emission reduction program;[2] Program in preparation;200;0.25x200;Yes;N/A
+Energy and Climate Change (EC);2.10;EC7;Greenhouse gas emission reduction program;[3] Program(s) aims to reduce one out of three scopes emissions (Scope 1 or 2 or 3);200;0.50x200;Yes;N/A
+Energy and Climate Change (EC);2.10;EC7;Greenhouse gas emission reduction program;[4] Program(s) aims to reduce two out of three scopes emissions (Scope 1 and 2 or Scope 1 and 3 or Scope 2 and 3);200;0.75x200;Yes;N/A
+Energy and Climate Change (EC);2.10;EC7;Greenhouse gas emission reduction program;[5] Program(s) aimed to reduce all three scopes emissions (Scope 1, 2 and 3);200;1.00x200;Yes;N/A
+Energy and Climate Change (EC);2.11;N/A;Total carbon footprint (CO? emission in the last 12 months, in metric tons);Provide number;N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.12;EC8;Total carbon footprint divided by total campus' population (metric tons per person);[1] ? 2.05 metric tons;200;0.05x200;No;N/A
+Energy and Climate Change (EC);2.12;EC8;Total carbon footprint divided by total campus' population (metric tons per person);[2] > 1.11 - 2.05 metric tons;200;0.25x200;No;N/A
+Energy and Climate Change (EC);2.12;EC8;Total carbon footprint divided by total campus' population (metric tons per person);[3] > 0.42 - 1.11 metric tons;200;0.50x200;No;N/A
+Energy and Climate Change (EC);2.12;EC8;Total carbon footprint divided by total campus' population (metric tons per person);[4] > 0.10 - 0.42 metric ton;200;0.75x200;No;N/A
+Energy and Climate Change (EC);2.12;EC8;Total carbon footprint divided by total campus' population (metric tons per person);[5] < 0.10 metric ton;200;1.00x200;No;N/A
+Energy and Climate Change (EC);2.13;EC9;Number of innovative program(s) in energy and climate change;[1] None;100;0x100;Yes;N/A
+Energy and Climate Change (EC);2.13;EC9;Number of innovative program(s) in energy and climate change;[2] 1 program;100;0.25x100;Yes;N/A
+Energy and Climate Change (EC);2.13;EC9;Number of innovative program(s) in energy and climate change;[3] 2 programs;100;0.50x100;Yes;N/A
+Energy and Climate Change (EC);2.13;EC9;Number of innovative program(s) in energy and climate change;[4] 3 programs;100;0.75x100;Yes;N/A
+Energy and Climate Change (EC);2.13;EC9;Number of innovative program(s) in energy and climate change;[5] More than 3 programs;100;1.00x100;Yes;N/A
+Energy and Climate Change (EC);2.14;EC10;Impactful university program(s) on climate change;[1] None;100;0x100;Yes;N/A
+Energy and Climate Change (EC);2.14;EC10;Impactful university program(s) on climate change;[2] Program in preparation;100;0.25x100;Yes;N/A
+Energy and Climate Change (EC);2.14;EC10;Impactful university program(s) on climate change;[3] Provide training, educational materials, seminars/conferences, and activities which are implemented by surrounding communities;100;0.50x100;Yes;N/A
+Energy and Climate Change (EC);2.14;EC10;Impactful university program(s) on climate change;[4] Provide training, educational materials, seminars/conferences, and activities which are implemented by communities at the national level;100;0.75x100;Yes;N/A
+Energy and Climate Change (EC);2.14;EC10;Impactful university program(s) on climate change;[5] Provide training, educational materials, seminars/conferences, and activities which are implemented by communities at the international level;100;1.00x100;Yes;N/A
+Energy and Climate Change (EC);2.15;N/A;Impact of Energy and Climate Change programs in supporting the Sustainable Development Goals (SDGs).;[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.15;N/A;Impact of Energy and Climate Change programs in supporting the Sustainable Development Goals (SDGs).;[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.15;N/A;Impact of Energy and Climate Change programs in supporting the Sustainable Development Goals (SDGs).;[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.15;N/A;Impact of Energy and Climate Change programs in supporting the Sustainable Development Goals (SDGs).;[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Energy and Climate Change (EC);2.15;N/A;Impact of Energy and Climate Change programs in supporting the Sustainable Development Goals (SDGs).;[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Waste (WS);3.1;WS1;3R (Reduce, Reuse, Recycle) program for university's waste;[1] None;200;0x200;Yes;N/A
+Waste (WS);3.1;WS1;3R (Reduce, Reuse, Recycle) program for university's waste;[2] 3R program in preparation;200;0.25x200;Yes;N/A
+Waste (WS);3.1;WS1;3R (Reduce, Reuse, Recycle) program for university's waste;[3] 3R program 1 – 50% implemented;200;0.50x200;Yes;N/A
+Waste (WS);3.1;WS1;3R (Reduce, Reuse, Recycle) program for university's waste;[4] 3R program > 50 – 75% implemented;200;0.75x200;Yes;N/A
+Waste (WS);3.1;WS1;3R (Reduce, Reuse, Recycle) program for university's waste;[5] 3R program > 75% implemented;200;1.00x200;Yes;N/A
+Waste (WS);3.2;N/A;Total volume of paper and plastic produced this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.3;N/A;Total volume of paper and plastic produced last year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.4;WS2;Program to reduce the use of paper and plastic on campus;[1] None;300;0x300;Yes;N/A
+Waste (WS);3.4;WS2;Program to reduce the use of paper and plastic on campus;[2] 1 - 3 programs;300;0.25x300;Yes;N/A
+Waste (WS);3.4;WS2;Program to reduce the use of paper and plastic on campus;[3] 4 - 6 programs;300;0.50x300;Yes;N/A
+Waste (WS);3.4;WS2;Program to reduce the use of paper and plastic on campus;[4] 7 - 10 programs;300;0.75x300;Yes;N/A
+Waste (WS);3.4;WS2;Program to reduce the use of paper and plastic on campus;[5] More than 10 programs;300;1.00x300;Yes;N/A
+Waste (WS);3.5;N/A;Total volume organic waste produced this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.6;N/A;Total volume organic waste produced last year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.7;N/A;Total volume organic waste treated this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.8;WS3;Organic waste treatment;[1] Open dumping;300;0x300;Yes;N/A
+Waste (WS);3.8;WS3;Organic waste treatment;[2] Partial (1 - 35% treated);300;0.25x300;Yes;N/A
+Waste (WS);3.8;WS3;Organic waste treatment;[3] Partial (> 35 - 65% treated);300;0.50x300;Yes;N/A
+Waste (WS);3.8;WS3;Organic waste treatment;[4] Partial (> 65 - 85% treated);300;0.75x300;Yes;N/A
+Waste (WS);3.8;WS3;Organic waste treatment;[5] Extensive (> 85% treated);300;1.00x300;Yes;N/A
+Waste (WS);3.9;N/A;Total volume inorganic waste produced this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.10;N/A;Total volume inorganic waste produced last year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.11;N/A;Total volume inorganic waste treated this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.12;WS4;Inorganic waste treatment;[1] Burned in open area;300;0x300;Yes;N/A
+Waste (WS);3.12;WS4;Inorganic waste treatment;[2] Partial (1 - 35% treated);300;0.25x300;Yes;N/A
+Waste (WS);3.12;WS4;Inorganic waste treatment;[3] Partial (> 35 - 65% treated);300;0.50x300;Yes;N/A
+Waste (WS);3.12;WS4;Inorganic waste treatment;[4] Partial (> 65 - 85% treated);300;0.75x300;Yes;N/A
+Waste (WS);3.12;WS4;Inorganic waste treatment;[5] Extensive (> 85% treated);300;1.00x300;Yes;N/A
+Waste (WS);3.13;N/A;Total volume toxic waste produced this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.14;N/A;Total volume toxic waste produced last year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.15;N/A;Total volume toxic waste treated this year;Provide number;N/A;N/A;Yes;N/A
+Waste (WS);3.16;WS5;Toxic waste treatment;[1] Not managed;300;0x300;Yes;N/A
+Waste (WS);3.16;WS5;Toxic waste treatment;[2] Partial (1 - 35% treated);300;0.25x300;Yes;N/A
+Waste (WS);3.16;WS5;Toxic waste treatment;[3] Partial (> 35 - 65% treated);300;0.50x300;Yes;N/A
+Waste (WS);3.16;WS5;Toxic waste treatment;[4] Partial (> 65 - 85% treated);300;0.75x300;Yes;N/A
+Waste (WS);3.16;WS5;Toxic waste treatment;[5] Extensive (> 85% treated) or campus produces a minimum amount of toxic waste;300;1.00x300;Yes;N/A
+Waste (WS);3.17;WS6;Sewage disposal;[1] Untreated into waterways;300;0x300;Yes;N/A
+Waste (WS);3.17;WS6;Sewage disposal;[2] Treated with preliminary treatment;300;0.25x300;Yes;N/A
+Waste (WS);3.17;WS6;Sewage disposal;[3] Treated with primary treatment;300;0.50x300;Yes;N/A
+Waste (WS);3.17;WS6;Sewage disposal;[4] Treated with secondary treatment;300;0.75x300;Yes;N/A
+Waste (WS);3.17;WS6;Sewage disposal;[5] Treated with tertiary treatment;300;1.00x300;Yes;N/A
+Waste (WS);3.18;N/A;Impact of Waste Management programs in supporting the Sustainable Development Goals (SDGs).;[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Waste (WS);3.18;N/A;Impact of Waste Management programs in supporting the Sustainable Development Goals (SDGs).;[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Waste (WS);3.18;N/A;Impact of Waste Management programs in supporting the Sustainable Development Goals (SDGs).;[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Waste (WS);3.18;N/A;Impact of Waste Management programs in supporting the Sustainable Development Goals (SDGs).;[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Waste (WS);3.18;N/A;Impact of Waste Management programs in supporting the Sustainable Development Goals (SDGs).;[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Water (WR);4.1;WR1;Total area on campus for water absorption besides the forest and planted vegetation;[1] ? 2%;100;0.05x100;Yes;N/A
+Water (WR);4.1;WR1;Total area on campus for water absorption besides the forest and planted vegetation;[2] > 2 - 10%;100;0.25x100;Yes;N/A
+Water (WR);4.1;WR1;Total area on campus for water absorption besides the forest and planted vegetation;[3] > 10 - 20%;100;0.50x100;Yes;N/A
+Water (WR);4.1;WR1;Total area on campus for water absorption besides the forest and planted vegetation;[4] > 20 - 40%;100;0.75x100;Yes;N/A
+Water (WR);4.1;WR1;Total area on campus for water absorption besides the forest and planted vegetation;[5] > 40%;100;1.00x100;Yes;N/A
+Water (WR);4.2;WR2;Water conservation program and implementation;[1] None (Conservation program is needed, but nothing has been done);200;0x200;Yes;N/A
+Water (WR);4.2;WR2;Water conservation program and implementation;[2] Program in preparation;200;0.25x200;Yes;N/A
+Water (WR);4.2;WR2;Water conservation program and implementation;[3] 1 - 25% water conserved;200;0.50x200;Yes;N/A
+Water (WR);4.2;WR2;Water conservation program and implementation;[4] > 25 - 50% water conserved;200;0.75x200;Yes;N/A
+Water (WR);4.2;WR2;Water conservation program and implementation;[5] > 50% water conserved;200;1.00x200;Yes;N/A
+Water (WR);4.3;WR3;Water recycling program implementation;[1] None (Water recycling program is needed, but nothing has been done;200;0x200;Yes;N/A
+Water (WR);4.3;WR3;Water recycling program implementation;[2] Program in preparation;200;0.25x200;Yes;N/A
+Water (WR);4.3;WR3;Water recycling program implementation;[3] 1 - 25% water recycled;200;0.50x200;Yes;N/A
+Water (WR);4.3;WR3;Water recycling program implementation;[4] > 25 - 50% water recycled;200;0.75x200;Yes;N/A
+Water (WR);4.3;WR3;Water recycling program implementation;[5] > 50% water recycled;200;1.00x200;Yes;N/A
+Water (WR);4.4;WR4;Water efficient appliances usage;[1] < 20% of water efficient appliances installed;200;0x200;Yes;N/A
+Water (WR);4.4;WR4;Water efficient appliances usage;[2] 20 - 40% of water efficient appliances installed;200;0.25x200;Yes;N/A
+Water (WR);4.4;WR4;Water efficient appliances usage;[3] > 40 - 60% of water efficient appliances installed;200;0.50x200;Yes;N/A
+Water (WR);4.4;WR4;Water efficient appliances usage;[4] > 60 - 80% of water efficient appliances installed;200;0.75x200;Yes;N/A
+Water (WR);4.4;WR4;Water efficient appliances usage;[5] > 80% of water efficient appliances installed;200;1.00x200;Yes;N/A
+Water (WR);4.5;WR5;Consumption of treated water;[1] None;200;0x200;Yes;N/A
+Water (WR);4.5;WR5;Consumption of treated water;[2] 1 - 25% treated water consumed;200;0.25x200;Yes;N/A
+Water (WR);4.5;WR5;Consumption of treated water;[3] > 25 - 50% treated water consumed;200;0.50x200;Yes;N/A
+Water (WR);4.5;WR5;Consumption of treated water;[4] > 50 - 75% treated water consumed;200;0.75x200;Yes;N/A
+Water (WR);4.5;WR5;Consumption of treated water;[5] > 75% treated water consumed;200;1.00x200;Yes;N/A
+Water (WR);4.6;WR6;Water pollution control in the campus area;[1] Policy and programs for water pollution control are in the designing stage;200;0.05x200;Yes;N/A
+Water (WR);4.6;WR6;Water pollution control in the campus area;[2] Policy and programs for water pollution control are in the construction stage;200;0.25x200;Yes;N/A
+Water (WR);4.6;WR6;Water pollution control in the campus area;[3] Policy and programs for water pollution control are in the early implementation stage;200;0.50x200;Yes;N/A
+Water (WR);4.6;WR6;Water pollution control in the campus area;[4] Policy and programs for water pollution control are fully implemented and monitored occasionally;200;0.75x200;Yes;N/A
+Water (WR);4.6;WR6;Water pollution control in the campus area;[5] Policy and programs for water pollution control are fully implemented and monitored regularly;200;1.00x200;Yes;N/A
+Water (WR);4.7;N/A;Impact of Water Management programs in supporting the Sustainable Development Goals (SDGs).;[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Water (WR);4.7;N/A;Impact of Water Management programs in supporting the Sustainable Development Goals (SDGs).;[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Water (WR);4.7;N/A;Impact of Water Management programs in supporting the Sustainable Development Goals (SDGs).;[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Water (WR);4.7;N/A;Impact of Water Management programs in supporting the Sustainable Development Goals (SDGs).;[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Water (WR);4.7;N/A;Impact of Water Management programs in supporting the Sustainable Development Goals (SDGs).;[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Transportation (TR);5.1;N/A;Number of cars actively used and managed by the university;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.2;N/A;Number of cars entering the university daily;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.3;N/A;Number of motorcycles entering the university daily;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.4;TR1;The total number of vehicles (cars and motorcycles with combustion engines) divided by the total campus' population;[1] ? 1;200;0x200;Yes;N/A
+Transportation (TR);5.4;TR1;The total number of vehicles (cars and motorcycles with combustion engines) divided by the total campus' population;[2] > 0.5 - 1;200;0.25x200;Yes;N/A
+Transportation (TR);5.4;TR1;The total number of vehicles (cars and motorcycles with combustion engines) divided by the total campus' population;[3] > 0.125 - 0.5;200;0.50x200;Yes;N/A
+Transportation (TR);5.4;TR1;The total number of vehicles (cars and motorcycles with combustion engines) divided by the total campus' population;[4] > 0.045 - 0.125;200;0.75x200;Yes;N/A
+Transportation (TR);5.4;TR1;The total number of vehicles (cars and motorcycles with combustion engines) divided by the total campus' population;[5] < 0.045;200;1.00x200;Yes;N/A
+Transportation (TR);5.5;TR2;Shuttle services;[1] Possible but not provided by university;250;0x250;Yes;N/A
+Transportation (TR);5.5;TR2;Shuttle services;[2] Provided (by university or other parties) and regular but not free;250;0.25x250;Yes;N/A
+Transportation (TR);5.5;TR2;Shuttle services;[3] Provided (by university or other parties) and the university contributes a part of the cost;250;0.50x250;Yes;N/A
+Transportation (TR);5.5;TR2;Shuttle services;[4] Provided by university, regular, and free;250;0.75x250;Yes;N/A
+Transportation (TR);5.5;TR2;Shuttle services;[5] Provided by university, regular, and zero emission vehicle. Or shuttle use is not applicable;250;1.00x250;Yes;N/A
+Transportation (TR);5.6;N/A;Number of shuttles operating in the university;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.7;N/A;Average number of passengers of each shuttle;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.8;N/A;Total trips of each shuttle services each day;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.9;TR3;Zero Emission Vehicles (ZEV) availability on campus;[1] ZEV are not available;200;0x200;Yes;N/A
+Transportation (TR);5.9;TR3;Zero Emission Vehicles (ZEV) availability on campus;[2] ZEV use is not possible or practical;200;0.25x200;Yes;N/A
+Transportation (TR);5.9;TR3;Zero Emission Vehicles (ZEV) availability on campus;[3] ZEV are available, but not provided by the university;200;0.50x200;Yes;N/A
+Transportation (TR);5.9;TR3;Zero Emission Vehicles (ZEV) availability on campus;[4] ZEV are available, provided by the university and charged;200;0.75x200;Yes;N/A
+Transportation (TR);5.9;TR3;Zero Emission Vehicles (ZEV) availability on campus;[5] ZEV are available, and provided by the university for free;200;1.00x200;Yes;N/A
+Transportation (TR);5.10;N/A;Average number of Zero Emission Vehicles on campus per day;Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.11;TR4;The total number of Zero Emission Vehicles (ZEV) divided by the total campus population;[1] ? 02;200;0.05x200;No;N/A
+Transportation (TR);5.11;TR4;The total number of Zero Emission Vehicles (ZEV) divided by the total campus population;[2] > 02 - 04;200;0.25x200;No;N/A
+Transportation (TR);5.11;TR4;The total number of Zero Emission Vehicles (ZEV) divided by the total campus population;[3] > 04 - 08;200;0.50x200;No;N/A
+Transportation (TR);5.11;TR4;The total number of Zero Emission Vehicles (ZEV) divided by the total campus population;[4] > 08 - 0.02;200;0.75x200;No;N/A
+Transportation (TR);5.11;TR4;The total number of Zero Emission Vehicles (ZEV) divided by the total campus population;[5] > 0.02;200;1.00x200;No;N/A
+Transportation (TR);5.12;N/A;Total ground parking area (m2);Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.13;TR5;The ratio of the ground parking area to total campus area;[1] > 11%;200;0x200;Yes;N/A
+Transportation (TR);5.13;TR5;The ratio of the ground parking area to total campus area;[2] > 7 - 11%;200;0.25x200;Yes;N/A
+Transportation (TR);5.13;TR5;The ratio of the ground parking area to total campus area;[3] > 4 - 7%;200;0.50x200;Yes;N/A
+Transportation (TR);5.13;TR5;The ratio of the ground parking area to total campus area;[4] > 1 - 4%;200;0.75x200;Yes;N/A
+Transportation (TR);5.13;TR5;The ratio of the ground parking area to total campus area;[5] < 1%;200;1.00x200;Yes;N/A
+Transportation (TR);5.14;TR6;Program to limit or decrease the parking area on campus for the last 3 years;[1] None;200;0x200;Yes;N/A
+Transportation (TR);5.14;TR6;Program to limit or decrease the parking area on campus for the last 3 years;[2] In preparation;200;0.25x200;Yes;N/A
+Transportation (TR);5.14;TR6;Program to limit or decrease the parking area on campus for the last 3 years;[3] Less than 10% decrease in parking area;200;0.50x200;Yes;N/A
+Transportation (TR);5.14;TR6;Program to limit or decrease the parking area on campus for the last 3 years;[4] 10 - 30% decrease in parking area;200;0.75x200;Yes;N/A
+Transportation (TR);5.14;TR6;Program to limit or decrease the parking area on campus for the last 3 years;[5] More than 30% decrease in parking area or parking area reduction reaching its limit.;200;1.00x200;Yes;N/A
+Transportation (TR);5.15;TR7;Number of initiatives to decrease private vehicles on campus;[1] No initiative;200;0x200;Yes;N/A
+Transportation (TR);5.15;TR7;Number of initiatives to decrease private vehicles on campus;[2] 1 initiative;200;0.25x200;Yes;N/A
+Transportation (TR);5.15;TR7;Number of initiatives to decrease private vehicles on campus;[3] 2 initiatives;200;0.50x200;Yes;N/A
+Transportation (TR);5.15;TR7;Number of initiatives to decrease private vehicles on campus;[4] 3 initiatives;200;0.75x200;Yes;N/A
+Transportation (TR);5.15;TR7;Number of initiatives to decrease private vehicles on campus;[5] > 3 initiatives, or initiative is no longer required;200;1.00x200;Yes;N/A
+Transportation (TR);5.16;TR8;Pedestrian path on campus;[1] None;250;0x250;Yes;N/A
+Transportation (TR);5.16;TR8;Pedestrian path on campus;[2] Available;250;0.25x250;Yes;N/A
+Transportation (TR);5.16;TR8;Pedestrian path on campus;[3] Available, and designed for safety;250;0.50x250;Yes;N/A
+Transportation (TR);5.16;TR8;Pedestrian path on campus;[4] Available, designed for safety and convenience;250;0.75x250;Yes;N/A
+Transportation (TR);5.16;TR8;Pedestrian path on campus;[5] Available, designed for safety, convenience, and in some parts provided with disabled-friendly features;250;1.00x250;Yes;N/A
+Transportation (TR);5.17;N/A;The approximate daily travel distance of a vehicle inside your campus only (in Kilometers);Provide number;N/A;N/A;No;N/A
+Transportation (TR);5.18;N/A;Impact of Transportation programs in supporting the Sustainable Development Goals (SDGs).;[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Transportation (TR);5.18;N/A;Impact of Transportation programs in supporting the Sustainable Development Goals (SDGs).;[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Transportation (TR);5.18;N/A;Impact of Transportation programs in supporting the Sustainable Development Goals (SDGs).;[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Transportation (TR);5.18;N/A;Impact of Transportation programs in supporting the Sustainable Development Goals (SDGs).;[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Transportation (TR);5.18;N/A;Impact of Transportation programs in supporting the Sustainable Development Goals (SDGs).;[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Education and Research (ED);6.1;N/A;Number of courses/subjects related to sustainability offered;Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.2;N/A;Total number of courses/subjects offered;Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.3;N/A;Total number of study program related to sustainability offered;Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.4;ED1;The ratio of sustainability courses to total courses/subjects;[1] ? 1%;200;0.05x200;No;N/A
+Education and Research (ED);6.4;ED1;The ratio of sustainability courses to total courses/subjects;[2] > 1 - 5%;200;0.25x200;No;N/A
+Education and Research (ED);6.4;ED1;The ratio of sustainability courses to total courses/subjects;[3] > 5 - 10%;200;0.50x200;No;N/A
+Education and Research (ED);6.4;ED1;The ratio of sustainability courses to total courses/subjects;[4] > 10 - 20%;200;0.75x200;No;N/A
+Education and Research (ED);6.4;ED1;The ratio of sustainability courses to total courses/subjects;[5] > 20%;200;1.00x200;No;N/A
+Education and Research (ED);6.5;N/A;Total research funds dedicated to sustainability research (in US Dollars);Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.6;N/A;Total research funds (in US Dollars);Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.7;ED2;The ratio of sustainability research funding to total research funding;[1] ? 1%;200;0.05x200;No;N/A
+Education and Research (ED);6.7;ED2;The ratio of sustainability research funding to total research funding;[2] > 1 - 10%;200;0.25x200;No;N/A
+Education and Research (ED);6.7;ED2;The ratio of sustainability research funding to total research funding;[3] > 10 - 20%;200;0.50x200;No;N/A
+Education and Research (ED);6.7;ED2;The ratio of sustainability research funding to total research funding;[4] > 20 - 40%;200;0.75x200;No;N/A
+Education and Research (ED);6.7;ED2;The ratio of sustainability research funding to total research funding;[5] > 40%;200;1.00x200;No;N/A
+Education and Research (ED);6.8;N/A;Number of lecturers and researchers on campus in one year period;Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.9;N/A;Number of scholarly publications on sustainability in one year period;Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.10;ED3;Ratio of scholarly publications on sustainability to lecturers and researchers on campus in one year period;[1] < 0.5;200;0x200;Yes;N/A
+Education and Research (ED);6.10;ED3;Ratio of scholarly publications on sustainability to lecturers and researchers on campus in one year period;[2] 0.5 - 1;200;0.25x200;Yes;N/A
+Education and Research (ED);6.10;ED3;Ratio of scholarly publications on sustainability to lecturers and researchers on campus in one year period;[3] > 1 - 2;200;0.50x200;Yes;N/A
+Education and Research (ED);6.10;ED3;Ratio of scholarly publications on sustainability to lecturers and researchers on campus in one year period;[4] > 2 - 3;200;0.75x200;Yes;N/A
+Education and Research (ED);6.10;ED3;Ratio of scholarly publications on sustainability to lecturers and researchers on campus in one year period;[5] > 3;200;1.00x200;Yes;N/A
+Education and Research (ED);6.11;ED4;Number of events related to sustainability (environment);[1] 0;100;0x100;Yes;N/A
+Education and Research (ED);6.11;ED4;Number of events related to sustainability (environment);[2] 1 - 5;100;0.25x100;Yes;N/A
+Education and Research (ED);6.11;ED4;Number of events related to sustainability (environment);[3] 6 - 20;100;0.50x100;Yes;N/A
+Education and Research (ED);6.11;ED4;Number of events related to sustainability (environment);[4] 21 - 50;100;0.75x100;Yes;N/A
+Education and Research (ED);6.11;ED4;Number of events related to sustainability (environment);[5] > 50;100;1.00x100;Yes;N/A
+Education and Research (ED);6.12;ED5;Number of activities organized by student organizations related to sustainability per year;[1] 0;150;0x150;Yes;N/A
+Education and Research (ED);6.12;ED5;Number of activities organized by student organizations related to sustainability per year;[2] 1 - 5;150;0.25x150;Yes;N/A
+Education and Research (ED);6.12;ED5;Number of activities organized by student organizations related to sustainability per year;[3] 6 - 10;150;0.50x150;Yes;N/A
+Education and Research (ED);6.12;ED5;Number of activities organized by student organizations related to sustainability per year;[4] 11 - 20;150;0.75x150;Yes;N/A
+Education and Research (ED);6.12;ED5;Number of activities organized by student organizations related to sustainability per year;[5] > 20;150;1.00x150;Yes;N/A
+Education and Research (ED);6.13;ED6;Number of cultural activities on campus;[1] None;100;0x100;Yes;N/A
+Education and Research (ED);6.13;ED6;Number of cultural activities on campus;[2] 1 - 3 events per year;100;0.25x100;Yes;N/A
+Education and Research (ED);6.13;ED6;Number of cultural activities on campus;[3] 4 - 6 events per year;100;0.50x100;Yes;N/A
+Education and Research (ED);6.13;ED6;Number of cultural activities on campus;[4] 7 - 10 events per year;100;0.75x100;Yes;N/A
+Education and Research (ED);6.13;ED6;Number of cultural activities on campus;[5] More than 10 events per year;100;1.00x100;Yes;N/A
+Education and Research (ED);6.14;ED7;Number of university sustainability program(s) with international collaborations;[1] None;100;0x100;Yes;N/A
+Education and Research (ED);6.14;ED7;Number of university sustainability program(s) with international collaborations;[2] 1 - 3 programs per year;100;0.25x100;Yes;N/A
+Education and Research (ED);6.14;ED7;Number of university sustainability program(s) with international collaborations;[3] 4 - 6 programs per year;100;0.50x100;Yes;N/A
+Education and Research (ED);6.14;ED7;Number of university sustainability program(s) with international collaborations;[4] 7 - 10 programs per year;100;0.75x100;Yes;N/A
+Education and Research (ED);6.14;ED7;Number of university sustainability program(s) with international collaborations;[5] More than 10 programs per year;100;1.00x100;Yes;N/A
+Education and Research (ED);6.15;ED8;Number of community services related to sustainability organized by university and involving students;[1] None;100;0x100;Yes;N/A
+Education and Research (ED);6.15;ED8;Number of community services related to sustainability organized by university and involving students;[2] 1 - 3 projects per year;100;0.25x100;Yes;N/A
+Education and Research (ED);6.15;ED8;Number of community services related to sustainability organized by university and involving students;[3] 4 - 6 projects per year;100;0.50x100;Yes;N/A
+Education and Research (ED);6.15;ED8;Number of community services related to sustainability organized by university and involving students;[4] 7 - 10 projects per year;100;0.75x100;Yes;N/A
+Education and Research (ED);6.15;ED8;Number of community services related to sustainability organized by university and involving students;[5] More than 10 projects per year;100;1.00x100;Yes;N/A
+Education and Research (ED);6.16;ED9;Number of sustainability-related startups;[1] None;100;0x100;Yes;N/A
+Education and Research (ED);6.16;ED9;Number of sustainability-related startups;[2] 1 - 5 startups;100;0.25x100;Yes;N/A
+Education and Research (ED);6.16;ED9;Number of sustainability-related startups;[3] 6 - 10 startups;100;0.50x100;Yes;N/A
+Education and Research (ED);6.16;ED9;Number of sustainability-related startups;[4] 11 - 15 startups;100;0.75x100;Yes;N/A
+Education and Research (ED);6.16;ED9;Number of sustainability-related startups;[5] More than 15 startups;100;1.00x100;Yes;N/A
+Education and Research (ED);6.17;N/A;Total number of graduates with green jobs (for the last 3 years);Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.18;N/A;Total number of graduates (for the last 3 years);Provide number;N/A;N/A;Yes;N/A
+Education and Research (ED);6.19;ED10;Percentage of number of graduates with green jobs (for the last 3 years);[1] ? 1%;50;0.05x50;Yes;N/A
+Education and Research (ED);6.19;ED10;Percentage of number of graduates with green jobs (for the last 3 years);[2] > 1 - 5%;50;0.25x50;Yes;N/A
+Education and Research (ED);6.19;ED10;Percentage of number of graduates with green jobs (for the last 3 years);[3] > 5 - 10%;50;0.50x50;Yes;N/A
+Education and Research (ED);6.19;ED10;Percentage of number of graduates with green jobs (for the last 3 years);[4] > 10 - 20%;50;0.75x50;Yes;N/A
+Education and Research (ED);6.19;ED10;Percentage of number of graduates with green jobs (for the last 3 years);[5] > 20%;50;1.00x50;Yes;N/A
+Education and Research (ED);6.20;N/A;Impact of Education and Research programs in supporting the Sustainable Development Goals (SDGs);[1] Low impact (supporting 1–2 SDGs);N/A;N/A;Yes;N/A
+Education and Research (ED);6.20;N/A;Impact of Education and Research programs in supporting the Sustainable Development Goals (SDGs);[2] Moderate impact (supporting 3–5 SDGs);N/A;N/A;Yes;N/A
+Education and Research (ED);6.20;N/A;Impact of Education and Research programs in supporting the Sustainable Development Goals (SDGs);[3] Significant impact (supporting 6–9 SDGs);N/A;N/A;Yes;N/A
+Education and Research (ED);6.20;N/A;Impact of Education and Research programs in supporting the Sustainable Development Goals (SDGs);[4] High impact (supporting 10–13 SDGs);N/A;N/A;Yes;N/A
+Education and Research (ED);6.20;N/A;Impact of Education and Research programs in supporting the Sustainable Development Goals (SDGs);[5] Very high impact (supporting 14–17 SDGs);N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.1;N/A;Total university budget (in US Dollars);Provide number;N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.2;N/A;University budget for sustainability effort (in US Dollars);Provide number;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.3;GD1;Percentage of university budget for sustainability efforts;[1] ? 1%;200;0.05x200;No;N/A
+Governance and Digitalization (GD);7.3;GD1;Percentage of university budget for sustainability efforts;[2] > 1 - 5%;200;0.25x200;No;N/A
+Governance and Digitalization (GD);7.3;GD1;Percentage of university budget for sustainability efforts;[3] > 5 - 10%;200;0.50x200;No;N/A
+Governance and Digitalization (GD);7.3;GD1;Percentage of university budget for sustainability efforts;[4] > 10 - 15%;200;0.75x200;No;N/A
+Governance and Digitalization (GD);7.3;GD1;Percentage of university budget for sustainability efforts;[5] > 15%;200;1.00x200;No;N/A
+Governance and Digitalization (GD);7.4;GD2;University-run sustainability website;[1] Not available;200;0x200;No;N/A
+Governance and Digitalization (GD);7.4;GD2;University-run sustainability website;[2] Website in progress or under construction;200;0.25x200;No;N/A
+Governance and Digitalization (GD);7.4;GD2;University-run sustainability website;[3] Website is available and accessible;200;0.50x200;No;N/A
+Governance and Digitalization (GD);7.4;GD2;University-run sustainability website;[4] Website is available, accessible, and updated occasionally;200;0.75x200;No;N/A
+Governance and Digitalization (GD);7.4;GD2;University-run sustainability website;[5] Website is available, accessible, and updated regularly;200;1.00x200;No;N/A
+Governance and Digitalization (GD);7.5;N/A;Sustainability website address (URL) if available;Provide website address (URL);N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.6;GD3;Sustainability report;[1] Not available;100;0x100;Yes;N/A
+Governance and Digitalization (GD);7.6;GD3;Sustainability report;[2] Sustainability report is in preparation;100;0.25x100;Yes;N/A
+Governance and Digitalization (GD);7.6;GD3;Sustainability report;[3] Available but not publicly accessible;100;0.50x100;Yes;N/A
+Governance and Digitalization (GD);7.6;GD3;Sustainability report;[4] Sustainability report is accessible and published occasionally;100;0.75x100;Yes;N/A
+Governance and Digitalization (GD);7.6;GD3;Sustainability report;[5] Sustainability report is accessible and published annually;100;1.00x100;Yes;N/A
+Governance and Digitalization (GD);7.7;N/A;Sustainability report link address (URL) if available;Provide website address (URL);N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.8;GD4;Financial report;[1] Not available;100;0x100;No;light green
+Governance and Digitalization (GD);7.8;GD4;Financial report;[2] Financial report is in preparation;100;0.25x100;No;light green
+Governance and Digitalization (GD);7.8;GD4;Financial report;[3] Available but not publicly accessible;100;0.50x100;No;light green
+Governance and Digitalization (GD);7.8;GD4;Financial report;[4] Financial report is accessible and published occasionally;100;0.75x100;No;light green
+Governance and Digitalization (GD);7.8;GD4;Financial report;[5] Financial report is accessible and published annually;100;1.00x100;No;light green
+Governance and Digitalization (GD);7.9;N/A;Financial report link address (URL) if available;Provide website address (URL);N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.10;GD5;Availability of unit or office that coordinate sustainability on campus;[1] Ad-hoc / task force;100;0x100;Yes;N/A
+Governance and Digitalization (GD);7.10;GD5;Availability of unit or office that coordinate sustainability on campus;[2] Unit or office in development;100;0.25x100;Yes;N/A
+Governance and Digitalization (GD);7.10;GD5;Availability of unit or office that coordinate sustainability on campus;[3] Unit or office with university leader decree of establishment, structure and duties at early stage;100;0.50x100;Yes;N/A
+Governance and Digitalization (GD);7.10;GD5;Availability of unit or office that coordinate sustainability on campus;[4] Unit or office with university leader decree of establishment, structure and duties has been operational;100;0.75x100;Yes;N/A
+Governance and Digitalization (GD);7.10;GD5;Availability of unit or office that coordinate sustainability on campus;[5] Unit or office with university leader decree of establishment, structure and duties has been operational and lead the university implementation of sustainability;100;1.00x100;Yes;N/A
+Governance and Digitalization (GD);7.11;N/A;Number of dedicated staff members assigned to the unit or office responsible for coordinating sustainability initiatives on campus;Provide number;N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.12;GD6;Use of ICT for sustainability program planning, implementation, monitoring and evaluation;[1] None;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.12;GD6;Use of ICT for sustainability program planning, implementation, monitoring and evaluation;[2] Planning Stage;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.12;GD6;Use of ICT for sustainability program planning, implementation, monitoring and evaluation;[3] Implemented;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.12;GD6;Use of ICT for sustainability program planning, implementation, monitoring and evaluation;[4] Implemented and evaluated;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.12;GD6;Use of ICT for sustainability program planning, implementation, monitoring and evaluation;[5] Implemented, evaluated, and currently being revised/improved;50;1.00x50;Yes;light green
+Governance and Digitalization (GD);7.13;GD7;Policy of advanced digital technologies usage, such as Artificial Intelligence and Internet of Things, to support decision-making, operational efficiency, and service delivery across university administrative and academic business processes.;[1] No policy;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.13;GD7;Policy of advanced digital technologies usage, such as Artificial Intelligence and Internet of Things, to support decision-making, operational efficiency, and service delivery across university administrative and academic business processes.;[2] Initial adoption of policy. Limited policy implementation in specific units.;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.13;GD7;Policy of advanced digital technologies usage, such as Artificial Intelligence and Internet of Things, to support decision-making, operational efficiency, and service delivery across university administrative and academic business processes.;[3] Partial implementation. Policy is used in several administrative or academic processes but are not integrated institution-wide.;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.13;GD7;Policy of advanced digital technologies usage, such as Artificial Intelligence and Internet of Things, to support decision-making, operational efficiency, and service delivery across university administrative and academic business processes.;[4] Broad implementation. Policy is integrated across multiple administrative and academic functions and support routine decision-making and service delivery.;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.13;GD7;Policy of advanced digital technologies usage, such as Artificial Intelligence and Internet of Things, to support decision-making, operational efficiency, and service delivery across university administrative and academic business processes.;[5] Advanced and integrated implementation. Policy implemented institution-wide, systematically support strategic decision making, operational optimization, and service delivery, and are continuously evaluated and improved.;50;1.00x50;Yes;light green
+Governance and Digitalization (GD);7.14;N/A;Compliance with the General Data Protection Regulation (GDPR) or Equivalent National Data Protection Regulations;[1] No data protection policy or mechanism is in place.;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.14;N/A;Compliance with the General Data Protection Regulation (GDPR) or Equivalent National Data Protection Regulations;[2] Compliance framework is in preparation, including draft policies or procedures.;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.14;N/A;Compliance with the General Data Protection Regulation (GDPR) or Equivalent National Data Protection Regulations;[3] Compliance is partially implemented, with policies in place but limited enforcement or coverage.;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.14;N/A;Compliance with the General Data Protection Regulation (GDPR) or Equivalent National Data Protection Regulations;[4] Compliance is fully implemented, monitored, and applied across most university units and digital systems.;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.14;N/A;Compliance with the General Data Protection Regulation (GDPR) or Equivalent National Data Protection Regulations;[5] Compliance is fully implemented, regularly audited, continuously improved, and transparently communicated to stakeholders.;N/A;N/A;Yes;N/A
+Governance and Digitalization (GD);7.15;N/A;Total Number of Institutional Leaders and Deputy Leaders at University, Faculty, Study Program, and University-Level Units;Provide number;N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.16;N/A;Number of Female Representation on Leadership Position at University, Faculty, Study Program, and University-Level Units;Provide number;N/A;N/A;No;N/A
+Governance and Digitalization (GD);7.17;GD8;Ratio of Female Leaders to Total Institutional Leaders;[1] ? 5%;100;0x100;Yes;light green
+Governance and Digitalization (GD);7.17;GD8;Ratio of Female Leaders to Total Institutional Leaders;[2] > 5 - 20%;100;0.25x100;Yes;light green
+Governance and Digitalization (GD);7.17;GD8;Ratio of Female Leaders to Total Institutional Leaders;[3] > 20 - 35%;100;0.50x100;Yes;light green
+Governance and Digitalization (GD);7.17;GD8;Ratio of Female Leaders to Total Institutional Leaders;[4] > 35 - 50%;100;0.75x100;Yes;light green
+Governance and Digitalization (GD);7.17;GD8;Ratio of Female Leaders to Total Institutional Leaders;[5] > 50%;100;1.00x100;Yes;light green
+Governance and Digitalization (GD);7.18;GD9;Anti-Corruption and Integrity System of the University;[1] None;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.18;GD9;Anti-Corruption and Integrity System of the University;[2] The anti-corruption and integrity system is currently in the planning stage;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.18;GD9;Anti-Corruption and Integrity System of the University;[3] The anti-corruption and integrity system has been implemented;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.18;GD9;Anti-Corruption and Integrity System of the University;[4] The anti-corruption and integrity system has been implemented and evaluated;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.18;GD9;Anti-Corruption and Integrity System of the University;[5] The anti-corruption and integrity system has been implemented, evaluated, and is currently revised;50;1.00x50;Yes;light green
+Governance and Digitalization (GD);7.19;GD10;Whistle Blowing and Complaint System of the University;[1] None;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.19;GD10;Whistle Blowing and Complaint System of the University;[2] Whistle blowing and complaint system is currently in the planning stage;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.19;GD10;Whistle Blowing and Complaint System of the University;[3] Whistle blowing and complaint system has been implemented;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.19;GD10;Whistle Blowing and Complaint System of the University;[4] Whistle blowing and complaint system has been implemented and evaluated;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.19;GD10;Whistle Blowing and Complaint System of the University;[5] Whistle blowing and complaint system has been implemented, evaluated, and is currently revised;50;1.00x50;Yes;light green
+Governance and Digitalization (GD);7.20;GD11;LMS-Enabled Digital Literacy Program for Students and Staff;[1] None;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.20;GD11;LMS-Enabled Digital Literacy Program for Students and Staff;[2] The program is currently in the planning stage;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.20;GD11;LMS-Enabled Digital Literacy Program for Students and Staff;[3] Program has been implemented;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.20;GD11;LMS-Enabled Digital Literacy Program for Students and Staff;[4] Program has been implemented and evaluated;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.20;GD11;LMS-Enabled Digital Literacy Program for Students and Staff;[5] Program has been implemented, evaluated, and is currently revised;50;1.00x50;Yes;light green
+Governance and Digitalization (GD);7.21;GD12;Written Code of Ethics that applies to university leaders, academic staff, administrative staff, and students;[1] No written Code of Ethics is available.;50;0x50;Yes;light green
+Governance and Digitalization (GD);7.21;GD12;Written Code of Ethics that applies to university leaders, academic staff, administrative staff, and students;[2] A Code of Ethics is in preparation or draft form.;50;0.25x50;Yes;light green
+Governance and Digitalization (GD);7.21;GD12;Written Code of Ethics that applies to university leaders, academic staff, administrative staff, and students;[3] A written Code of Ethics is formally established but applies only to certain groups or is not consistently enforced.;50;0.50x50;Yes;light green
+Governance and Digitalization (GD);7.21;GD12;Written Code of Ethics that applies to university leaders, academic staff, administrative staff, and students;[4] A written Code of Ethics applies to all groups and is implemented and monitored.;50;0.75x50;Yes;light green
+Governance and Digitalization (GD);7.21;GD12;Written Code of Ethics that applies to university leaders, academic staff, administrative staff, and students;[5] A written Code of Ethics applies to all groups, is fully implemented, regularly reviewed, and actively enforced through institutional mechanisms.;50;1.00x50;Yes;light green

@@ -1,0 +1,19 @@
+field_code	field_name	requirement_code	requirement_name	description
+B	Automation	B1	BMS	Presence of Building Management System (BMS)/Building Information Modelling (BIM)/Building Automation System (BAS)/Facility Management System (FMS) (recommended requirement)
+B	Automation	B2	APP	Interactive support for users via APP or online service
+S	Safety	S1	Intruder Alarm System	Intruder alarm system (recommended: interfaced with BMS)
+S	Safety	S2	Fire-fighting	Fire-fighting system (recommended: interfaced with BMS)
+S	Safety	S3	Video surveillance	Video surveillance system (recommended: interfaced with BMS)
+S	Safety	S4	Anti-flooding	Anti-flooding system (recommended: interfaced with BMS)
+E	Energy	E1	Monitoring	Automatic acquisition and logging system of energy consumption (recommended: interfaced with BMS)
+E	Energy	E2	Management	Automatic management system for energy supplies and production (recommended: interfaced with BMS)
+A	Water	A1	Monitoring	Automatic acquisition and logging system of water consumption (recommended: interfaced with BMS)
+A	Water	A2	Recovery	Rainwater recovery system for covering the flushing and irrigation
+I	Indoor environment	I1	Thermal comfort	Monitoring (recommended: interfaced with BMS) of environmental parameters related to thermo hygrometric comfort (i.e. air temperature, relative humidity, air velocity, etc.)
+I	Indoor environment	I2	Air quality	Monitoring (recommended: interfaced with BMS) of pollutants (i.e. VOC, PM, CO? ...)
+I	Indoor environment	I3	Real-time	Programming and management in real time according to the occupancy profile of the premises (recommended: interfaced with BMS)
+I	Indoor environment	I4	Passive system	Passive cooling and/or exploitation/limitation systems for free supplies
+L	Lighting	L1	LEDs	High-efficiency luminaires (LEDs)
+L	Lighting	L2	Sensors	Automatic lighting control (recommended: presence/illuminance sensors interfaced with BMS)
+L	Lighting	L3	Shielding	Shielding adjustment and solar control
+L	Lighting	L4	Natural light	Passive systems for natural light exploitation
