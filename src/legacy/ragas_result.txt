@@ -1,0 +1,640 @@
+Batches: 100%|██████████| 1/1 [00:00<00:00, 63.70it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 69.04it/s]
+------------------------------
+Test case 0: 
+Question=Kampusku ada lahan buat pertanian yang disewakan untuk menunjang keuangan kampus, apakah bisa dianggap hutan kampus? Dan seberapa besar lahan hijau yang diperlukan untuk mendapatkan nilai maksimum untuk kriteria ini?
+Expected source=both_pdf_csv_appendix1
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Berdasarkan kriteria UI GreenMetric, lahan pertanian yang disewakan untuk menunjang keuangan kampus **tidak dapat** dianggap sebagai hutan kampus. Hal ini karena hutan pada indikator SI.2 harus:
+- Dimiliki oleh universitas,
+- Digunakan untuk tujuan akademik atau kemasyarakatan (penelitian, pengajaran, dan/atau keterlibatan masyarakat),
+- Bukan semata-mata untuk kepentingan finansial seperti penyewaan.
+
+Untuk mendapatkan **nilai maksimum (skor 100)** pada kriteria hutan kampus (Indikator SI.2), luas area yang tertutup vegetasi hutan harus **lebih dari 35%** dari total luas kampus, dengan syarat seluruhnya memenuhi definisi dan persyaratan bukti yang diminta.
+------------------------------
+
+------------------------------
+Test case 1: 
+Question=Di tahun 2026 apakah ada kategori dan kriteria/indikator baru?
+Expected source=both_pdf_csv_appendix1
+Result:
+  → route={'source': 'none', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=I don't have the required information to answer this question.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 61.84it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 51.59it/s]
+------------------------------
+Test case 2: 
+Question=Pedoman utama menyebutkan bahwa program daur ulang limbah universitas (WS.2) harus mencakup berbagai jenis limbah seperti kertas, plastik, dan logam. Jika universitas kami hanya mengumpulkan limbah kertas tanpa memprosesnya lebih lanjut, apakah kami bisa mendapatkan poin maksimum pada indikator ini di lampiran penilaian?
+Expected source=both_pdf_csv_appendix1
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Tidak bisa. Berdasarkan konteks yang disediakan, indikator WS.2 (Pertanyaan 3.4) adalah "Program to reduce the use of paper and plastic on campus" (Program pengurangan penggunaan kertas dan plastik di kampus), bukan program daur ulang limbah yang mencakup kertas, plastik, dan logam. Opsi penilaian untuk indikator ini didasarkan pada jumlah program yang dimiliki, dan skor maksimum hanya diberikan jika universitas memiliki lebih dari 10 program. Mengumpulkan limbah kertas tanpa pemrosesan lebih lanjut paling banyak dihitung sebagai satu program (jika dianggap sebagai program), yang masuk ke dalam opsi 1–3 program dengan skor 0.25 dari 300, bukan skor maksimum.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 60.61it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 65.84it/s]
+------------------------------
+Test case 3: 
+Question=According to the main text, a university can reduce parking areas to discourage the use of private vehicles (TR.6). To claim the highest possible points for this indicator in the scoring appendix, is it sufficient to just have a written policy since we've just starting out the enforcement?
+Expected source=both_pdf_csv_appendix1
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=No, just having a written policy is not sufficient to claim the highest possible points for indicator TR.6. The scoring appendix (Option [5]) requires a demonstrated decrease in parking area of more than 30% (or parking area reduction reaching its limit), not merely a policy or the beginning of enforcement. A written policy without actual reduction would likely correspond to Option [2] (“In preparation”), which awards only 25% of the maximum score.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 65.67it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 72.21it/s]
+------------------------------
+Test case 4: 
+Question=Pedoman utama menyebutkan "certified green building status" sebagai salah satu contoh elemen gedung hijau. Apa nama elemen spesifik dalam lampiran 2 untuk bangunan yang sudah ada (existing building) yang paling merepresentasikan status sertifikasi ini, dan di bawah subkategori apa elemen tersebut berada?
+Expected source=both_pdf_csv_appendix2
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix2', 'query_type': 'lookup'}
+  → answer=Elemen spesifik yang paling merepresentasikan status sertifikasi gedung hijau untuk bangunan yang sudah ada (existing building) adalah **GBI Rated Design & Construction**. Elemen ini berada di bawah subkategori **Facility Management**, yang termasuk dalam Kategori Elemen 3. Sustainable Site Planning & Management.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.65it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 66.92it/s]
+------------------------------
+Test case 5: 
+Question=Within EC category, it is said that campuses can report smart building area. If a campus utilizes a BAS, is this system valid as a core system according to the requirements, and what is its official requirement code?
+Expected source=both_pdf_csv_appendix3
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix3', 'query_type': 'lookup'}
+  → answer=Yes, a Building Automation System (BAS) is explicitly listed as a valid core system. Its official requirement code is **B1** (presence of BMS/BIM/BAS/FMS).
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.60it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 53.76it/s]
+------------------------------
+Test case 6: 
+Question=What's the purpose of national coordinators of UI GreenMetric? And how many national coordinators are there?
+Expected source=both_pdf_csv_table1
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_table1', 'query_type': 'aggregate'}
+  → answer=Sorry, I don't know.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.78it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 64.55it/s]
+------------------------------
+Test case 7: 
+Question=Sebutkan kategori yang memiliki bobot penilaian paling kecil di UI GreenMetric yang memiliki kriteria mengenai pendanaan mahasiswa kurang mampu di dalamnya.
+Expected source=both_pdf_csv_table2
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Maaf, saya tidak tahu. Berdasarkan konteks yang diberikan, tidak terdapat informasi mengenai kriteria pendanaan mahasiswa kurang mampu di kategori mana pun.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 60.16it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 67.13it/s]
+------------------------------
+Test case 8: 
+Question=The appendix provides a detailed calculation example for emissions generated by purchased electricity. According to the greenhouse gas reference table, what is the precise scope classification for this specific emission source?
+Expected source=both_pdf_csv_table4
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_table4', 'query_type': 'lookup'}
+  → answer=According to the greenhouse gas reference table (Table 4), the precise scope classification for emissions from purchased electricity is **Scope 2 (Indirect emissions)**.
+------------------------------
+
+------------------------------
+Test case 9: 
+Question=Which category has the most questions in it?
+Expected source=csv_appendix1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'aggregate'}
+  → answer=Governance and Digitalization (GD) has the most questions, with a total of 21 (Questions 7.1 through 7.21).
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 63.34it/s]
+------------------------------
+Test case 10: 
+Question=How do I know if that questions is scored or not for the final rankings?
+Expected source=csv_appendix1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Sorry, I don't know.
+------------------------------
+
+------------------------------
+Test case 11: 
+Question=Berapa skor terbesar dan terkecil yang bisa diraih dalam 1 kriteria saja?
+Expected source=csv_appendix1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'aggregate'}
+  → answer=Skor terbesar yang bisa diraih untuk satu indikator adalah **300** (misalnya pada indikator EC2, EC3, WS2, dll.), sedangkan skor terkecil adalah **50** (misalnya pada indikator ED10, GD6, GD7, dll.).
+------------------------------
+
+------------------------------
+Test case 12: 
+Question=Apa kriteria dengan opsi jawaban paling banyak?
+Expected source=csv_appendix1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'aggregate'}
+  → answer=Berdasarkan konteks yang diberikan, kriteria dengan opsi jawaban paling banyak adalah **Question 1.2 — Climate** (Kategori: Setting and Infrastructure), dengan **9 opsi** jawaban:
+
+1.  Tropical wet
+2.  Tropical wet and dry
+3.  Semiarid
+4.  Arid
+5.  Mediterranean
+6.  Humid subtropical
+7.  Marine west coast / oceanic climate
+8.  Humid continental
+9.  Subarctic
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 51.38it/s]
+------------------------------
+Test case 13: 
+Question=Based on the green building elements list, is the "QLASSIC" element required for both existing non-residential buildings and new constructions?
+Expected source=csv_appendix2
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix2', 'query_type': 'lookup'}
+  → answer=No, the QLASSIC element is listed only under the new construction category for Element 3 (Sustainable Site Planning & Management), not under the existing building category.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 63.57it/s]
+------------------------------
+Test case 14: 
+Question=What are the exact elements required under the "Air Quality" sub-category for existing non-residential buildings?
+Expected source=csv_appendix2
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix2', 'query_type': 'lookup'}
+  → answer=The exact elements under the "Air Quality" sub-category for existing buildings are:
+
+- Minimum IAQ Performance
+- Environmental Tobacco Smoke (ETS) Control
+- Carbon Dioxide Monitoring and Control
+- Indoor Air Pollutants
+- Mould Prevention
+------------------------------
+
+------------------------------
+Test case 15: 
+Question=Kategori elemen manakah yang mempunyai jumlah elemen paling sedikit di antara kedua sub-kategori yang ada?
+Expected source=csv_appendix2
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix2', 'query_type': 'aggregate'}
+  → answer=Kategori elemen dengan jumlah elemen paling sedikit adalah **Elemen 6. Inovasi** (Innovation), dengan masing-masing sub-kategori hanya memiliki 2 elemen.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 48.93it/s]
+------------------------------
+Test case 16: 
+Question=Is BMS classified under the Energy field?
+Expected source=csv_appendix3
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix3', 'query_type': 'lookup'}
+  → answer=No, BMS (Building Management System) is classified under the Automation field (field code B), not under the Energy field (field code E). The Energy field focuses on monitoring and management of energy consumption and supplies.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 57.85it/s]
+------------------------------
+Test case 17: 
+Question=Kode requirement mana yang merupakan "Rainwater recovery system for covering the flushing and irrigation", dan apa nama kategorinya?
+Expected source=csv_appendix3
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix3', 'query_type': 'lookup'}
+  → answer=Kode requirement tersebut adalah **A2**, dan nama kategorinya adalah **Water**.
+------------------------------
+
+------------------------------
+Test case 18: 
+Question=Kategori persyaratan smart building manakah yang memiliki jumlah persyaratan yang paling sedikit?
+Expected source=csv_appendix3
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix3', 'query_type': 'aggregate'}
+  → answer=Berdasarkan konteks yang diberikan, kategori dengan jumlah persyaratan paling sedikit adalah **Automation**, **Energy**, dan **Water**, yang masing-masing memiliki 2 persyaratan.
+------------------------------
+
+------------------------------
+Test case 19: 
+Question=Apa saja universitas yang jadi koordinator yang berasal dari negara ASEAN?
+Expected source=csv_table1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table1', 'query_type': 'aggregate'}
+  → answer=Berdasarkan konteks yang diberikan, universitas yang menjadi koordinator dari negara-negara ASEAN adalah:
+
+- **Universitas Diponegoro** (Indonesia)
+- **Siam University** (Thailand)
+- **Batangas State University** (Filipina)
+
+Tidak ada universitas koordinator dari negara ASEAN lain yang tercantum dalam data ini.
+------------------------------
+
+------------------------------
+Test case 20: 
+Question=How many coordinator universities that comes from the Americas?
+Expected source=csv_table1
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table1', 'query_type': 'aggregate'}
+  → answer=There are 6 coordinator universities from the Americas: University of São Paulo (Brazil), Toronto Metropolitan University (Canada), Universidad Católica de Córdoba (Argentina), Universidad Privada Dr. Rafael Belloso Chacín (Venezuela), El Bosque University (Colombia), and Escuela Superior Politécnica de Chimborazo (Ecuador).
+------------------------------
+
+------------------------------
+Test case 21: 
+Question=Apa saja 7 kategori utama yang digunakan dalam evaluasi UI GreenMetric Sustainable University Rankings 2026 beserta persentase bobotnya?
+Expected source=csv_table2
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table2', 'query_type': 'aggregate'}
+  → answer=Tujuh kategori utama dalam evaluasi UI GreenMetric Sustainable University Rankings 2026 beserta bobotnya adalah:
+
+1. Setting and Infrastructure (SI) – 11%
+2. Energy and Climate Change (EC) – 20%
+3. Waste (WS) – 17%
+4. Water (WR) – 11%
+5. Transportation (TR) – 17%
+6. Education and Research (ED) – 13%
+7. Governance and Digitalization (GD) – 11%
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 63.31it/s]
+------------------------------
+Test case 22: 
+Question=Isn't GD the category with the most weight in this ranking?
+Expected source=csv_table2
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table2', 'query_type': 'lookup'}
+  → answer=Sorry, I don't know.
+------------------------------
+
+------------------------------
+Test case 23: 
+Question=Sebutkan seluruh sumber emisi yang secara resmi tergolong dalam kategori Scope 3 (Other indirect emissions).
+Expected source=csv_table4
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table4', 'query_type': 'aggregate'}
+  → answer=Berdasarkan konteks yang diberikan, sumber emisi yang secara resmi tergolong dalam Scope 3 (Other indirect emissions) adalah:
+
+- **Waste**: Emisi dari insinerasi/landfill limbah padat institusi.
+- **Purchased water**: Emisi terkait penyediaan dan penggunaan air yang dibeli.
+- **Commuting**: Emisi dari perjalanan pulang-pergi mahasiswa dan karyawan.
+- **Air travel**: Emisi dari perjalanan udara yang didanai institusi.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 48.92it/s]
+------------------------------
+Test case 24: 
+Question=Is "Purchased electricity" considered a direct or an indirect emission, and what is its exact scope classification in the guidelines?
+Expected source=csv_table4
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_table4', 'query_type': 'lookup'}
+  → answer="Purchased electricity" is classified as an indirect emission under **Scope 2**.
+------------------------------
+
+------------------------------
+Test case 25: 
+Question=Berapa total dana yang dihabiskan Universitas Indonesia untuk membangun panel surya pada tahun 2023?
+Expected source=none
+Result:
+  → route={'source': 'none', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=I don't have the required information to answer this question.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 44.32it/s]
+------------------------------
+Test case 26: 
+Question=Why is sustainability so important? And why do we even need rankings.
+Expected source=none
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Sorry, I don't know why sustainability is so important because the context does not explain that.
+
+Regarding why rankings are needed, the UI GreenMetric Sustainable University Rankings aim to:
+
+- Contribute to the academic discourse on sustainability in higher education and campus greening.
+- Promote university-led social change toward sustainability goals.
+- Serve as a self-assessment tool for campus sustainability for higher education institutions.
+- Inform governments, international and local environmental agencies, and society about sustainability programs on campuses.
+------------------------------
+
+------------------------------
+Test case 27: 
+Question=Which university ranked first globally in the 2025 edition of the UI GreenMetric evaluation?
+Expected source=none
+Result:
+  → route={'source': 'none', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=I don't have the required information to answer this question.
+------------------------------
+
+------------------------------
+Test case 28: 
+Question=Are there any questions which overlaps with another sustainability ranking, like THE Impact and QS Sustainability?
+Expected source=none
+Result:
+  → route={'source': 'none', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=I don't have the required information to answer this question.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 73.14it/s]
+------------------------------
+Test case 29: 
+Question=When was UI GM created for the first time?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=UI GreenMetric was first created in 2010.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 64.62it/s]
+------------------------------
+Test case 30: 
+Question=Bagaimana caranya agar kampusku bisa ikut ke ranking UI GM?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Untuk mengikutsertakan kampus Anda dalam UI GreenMetric Sustainable University Rankings, langkah-langkahnya adalah:
+
+1. Kunjungi situs web resmi di [https://uigreenmetric.com](https://uigreenmetric.com) untuk mempelajari informasi mengenai pemeringkatan.
+2. Jika berminat, kirimkan surel kepada Sekretariat UI GreenMetric di **support@uigreenmetric.com** untuk meminta surat undangan dan akses ke sistem daring.
+3. Tunjuk satu orang penanggung jawab khusus yang akan mengoordinasikan pengumpulan data dan komunikasi dengan sekretariat.
+
+Pendaftaran tidak dipungut biaya. Universitas yang pernah berpartisipasi sebelumnya akan menerima undangan untuk mengikuti kembali.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 61.50it/s]
+------------------------------
+Test case 31: 
+Question=I don't remember waste programs and students' activities being an indicator here?
+Expected source=pdf
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Yes, both waste programs and student activities are indicators. The provided context includes:
+
+- **Waste programs**:
+  - Question 3.1 — 3R (Reduce, Reuse, Recycle) program for university's waste (Indicator Code: WS1)
+  - Question 3.4 — Program to reduce the use of paper and plastic on campus (Indicator Code: WS2)
+  - Question 3.18 — Impact of Waste Management programs in supporting the SDGs.
+
+- **Student activities**:
+  - Question 6.12 — Number of activities organized by student organizations related to sustainability per year (Indicator Code: ED5)
+
+These are all part of the UI GreenMetric indicators.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 62.77it/s]
+------------------------------
+Test case 32: 
+Question=Kalo misalnya ada beberapa kampus yang sama nilainya, gimana nentuin pemenangnya?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Sorry, I don't know.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 68.47it/s]
+------------------------------
+Test case 33: 
+Question=What's the first category in the questionnaire about?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=The first category in the UI GreenMetric questionnaire is **Setting and Infrastructure (SI)**.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 60.33it/s]
+------------------------------
+Test case 34: 
+Question=What do you mean by regular students? How do I know the difference of a regular and a non-regular student?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Regular students are defined as registered and active students (full-time or part-time) in one semester, measured as Effective Full-Time Students (EFTS). Non-regular (or short‑term) students are those explicitly excluded, such as exchange students, continuing education students, and short‑course students. The key difference is that regular students are enrolled in an ongoing degree program and counted on an EFTS basis, while non‑regular students are temporary, short‑term, or not pursuing a full qualification.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 44.57it/s]
+------------------------------
+Test case 35: 
+Question=Can you tell me the definition of each options in the question about renewable energy sources and annual energy produced?
+Expected source=pdf
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Sorry, I don't know. The provided context only lists the option names (None, Bio diesel, Clean biomass, Solar power, Geothermal, Wind power, Hydropower, Combined Heat and Power) without definitions.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 67.46it/s]
+------------------------------
+Test case 36: 
+Question=What is the format of the evidence that are accepted?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Accepted evidence file formats are **.pdf** files. As an alternative, you may provide a publicly accessible link.
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 67.00it/s]
+------------------------------
+Test case 37: 
+Question=Do we need to provide evidence when submitting our data? And any tips if evidence are mandatory?
+Expected source=pdf
+Result:
+  → route={'source': 'pdf', 'csv_source': None, 'query_type': 'lookup'}
+  → answer=Yes, evidence is mandatory for most questions, though some items may be optional or allow separate uploads. Missing evidence can lead to a reduced or declined score.
+
+Key tips from the guidelines:
+- Use the official template at https://bit.ly/UIGreenmetricEvidences2026
+- Provide a clear quantitative explanation (numbers, percentages, dates, etc.) for each piece of evidence
+- Evidence can include photographs, graphs, tables, datasets, maps, etc.
+- All descriptions must be in English; translate non-English documents
+- Keep each file under 2 MB, in .pdf format; if using a link, ensure it is publicly accessible
+- Include necessary supporting details like activity data tables, emission factors, spreadsheets, and boundary statements where relevant
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.04it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 62.91it/s]
+------------------------------
+Test case 38: 
+Question=Apakah universitas harus memasukkan emisi penerbangan udara (Scope 3) saat menghitung total jejak karbon untuk indikator 2.11?
+Expected source=pdf
+Result:
+  → route={'source': 'both', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Tidak, universitas harus mengecualikan emisi dari penerbangan (Scope 3) saat menghitung total jejak karbon untuk indikator 2.11. Hal ini dinyatakan secara eksplisit dalam beberapa bagian konteks, yaitu:  
+- "Please exclude emissions from flights and secondary carbon sources" (deskripsi pertanyaan 2.11).  
+- Catatan pada Tabel 4: "for Question 2.11 ... universities should exclude emissions from flights."
+------------------------------
+
+Batches: 100%|██████████| 1/1 [00:00<00:00, 66.64it/s]
+------------------------------
+Test case 39: 
+Question=What is the maximum allowable greenhouse gas (CO2) emission tonnage for a university to achieve a full score on the EC.7 indicator?
+Expected source=pdf
+Result:
+  → route={'source': 'csv', 'csv_source': 'csv_appendix1', 'query_type': 'lookup'}
+  → answer=Sorry, I don't know.
+------------------------------
+
+Evaluating:   0%|          | 0/144 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:   1%|          | 1/144 [05:04<12:04:35, 304.02s/it]Exception raised in Job[3]: TimeoutError()
+Exception raised in Job[7]: TimeoutError()
+Exception raised in Job[11]: TimeoutError()
+Exception raised in Job[15]: TimeoutError()
+Exception raised in Job[19]: TimeoutError()
+Exception raised in Job[23]: TimeoutError()
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  34%|███▍      | 49/144 [05:24<07:35,  4.80s/it]   LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Exception raised in Job[27]: TimeoutError()
+Evaluating:  39%|███▉      | 56/144 [05:50<06:45,  4.61s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  42%|████▏     | 61/144 [06:49<07:50,  5.67s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  51%|█████▏    | 74/144 [07:21<05:16,  4.52s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  58%|█████▊    | 84/144 [08:06<04:31,  4.52s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  65%|██████▍   | 93/144 [08:52<03:59,  4.69s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  70%|███████   | 101/144 [09:44<03:41,  5.15s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  76%|███████▌  | 109/144 [10:46<03:23,  5.81s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  82%|████████▏ | 118/144 [11:38<02:30,  5.80s/it]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating: 100%|██████████| 144/144 [11:49<00:00,  4.93s/it]
+
+======================================================================
+  1. AGGREGATE RAGAS SCORES
+======================================================================
+     F  faithfulness               0.7882
+    CR  context_recall             0.7500
+    RR  answer_relevancy           0.6411
+    AC  answer_correctness         0.5964
+
+======================================================================
+  2. PER-SOURCE BREAKDOWN
+======================================================================
+  Source                           #        F       CR       RR       AC
+  ------------------------------ --- -------- -------- -------- --------
+  both_pdf_csv_appendix1           3   0.9167   0.7778   0.7759      N/A
+  both_pdf_csv_appendix2           1   0.6667   1.0000   0.8750      N/A
+  both_pdf_csv_appendix3           1   0.6667   1.0000   0.6601      N/A
+  both_pdf_csv_table1              1   1.0000   0.0000   0.0000      N/A
+  both_pdf_csv_table2              1   0.5000   1.0000   0.0000      N/A
+  both_pdf_csv_table4              1   0.5000   1.0000   0.8377   0.7200
+  csv_appendix1                    4   0.7500   0.7500   0.6363   0.5866
+  csv_appendix2                    3   1.0000   1.0000   0.8949   0.7235
+  csv_appendix3                    3   0.8333   1.0000   0.7904   0.7033
+  csv_table1                       2   0.6250   1.0000   0.9777   0.9248
+  csv_table2                       2   0.5000   0.5000   0.4699   0.4418
+  csv_table4                       2   1.0000   1.0000   0.8883   0.8527
+  none                             1   1.0000   1.0000   0.0000   0.1598
+  pdf                             11   0.7765   0.5152   0.5551   0.4863
+
+======================================================================
+  3. ROUTER ACCURACY
+======================================================================
+  33/40  (82.5%)
+
+  ✗ #1  expected=both_pdf_csv_appendix1  got=none
+    Q: Di tahun 2026 apakah ada kategori dan kriteria/indikator baru?...
+  ✗ #7  expected=both_pdf_csv_table2  got=both/csv_appendix1
+    Q: Sebutkan kategori yang memiliki bobot penilaian paling kecil di UI GreenMetric yang memiliki kriteri...
+  ✗ #26  expected=none  got=pdf
+    Q: Why is sustainability so important? And why do we even need rankings....
+  ✗ #31  expected=pdf  got=csv/csv_appendix1
+    Q: I don't remember waste programs and students' activities being an indicator here?...
+  ✗ #35  expected=pdf  got=csv/csv_appendix1
+    Q: Can you tell me the definition of each options in the question about renewable energy sources and an...
+  ✗ #38  expected=pdf  got=both/csv_appendix1
+    Q: Apakah universitas harus memasukkan emisi penerbangan udara (Scope 3) saat menghitung total jejak ka...
+  ✗ #39  expected=pdf  got=csv/csv_appendix1
+    Q: What is the maximum allowable greenhouse gas (CO2) emission tonnage for a university to achieve a fu...
+
+======================================================================
+  4. WEAKEST 5 (by avg RAGAS score)
+======================================================================
+
+  #1  avg=0.0032  Isn't GD the category with the most weight in this ranking?...
+          F  faithfulness               0.0000
+         CR  context_recall             0.0000
+         RR  answer_relevancy           0.0000
+         AC  answer_correctness         0.0127
+
+  #2  avg=0.0033  Kalo misalnya ada beberapa kampus yang sama nilainya, gimana nentuin pemenangnya?...
+          F  faithfulness               0.0000
+         CR  context_recall             0.0000
+         RR  answer_relevancy           0.0000
+         AC  answer_correctness         0.0133
+
+  #3  avg=0.0092  How do I know if that questions is scored or not for the final rankings?...
+          F  faithfulness               0.0000
+         CR  context_recall             0.0000
+         RR  answer_relevancy           0.0000
+         AC  answer_correctness         0.0369
+
+  #4  avg=0.2236  Can you tell me the definition of each options in the question about renewable energy sour...
+          F  faithfulness               0.7500
+         CR  context_recall             0.0000
+         RR  answer_relevancy           0.0000
+         AC  answer_correctness         0.1443
+
+  #5  avg=0.3333  What's the purpose of national coordinators of UI GreenMetric? And how many national coord...
+          F  faithfulness               1.0000
+         CR  context_recall             0.0000
+         RR  answer_relevancy           0.0000
+
+======================================================================
+  5. PER-QUESTION RESULTS
+======================================================================
+    # Question                                              F     CR     RR     AC  Route
+  --------------------------------------------------------------------------------------
+    0 Kampusku ada lahan buat pertanian yang disewa...   1.00   1.00   0.90    N/A      ✓
+    1 Di tahun 2026 apakah ada kategori dan kriteri...   NONE                           ✗
+    2 Pedoman utama menyebutkan bahwa program daur ...   0.75   0.33   0.78    N/A      ✓
+    3 According to the main text, a university can ...   1.00   1.00   0.64    N/A      ✓
+    4 Pedoman utama menyebutkan "certified green bu...   0.67   1.00   0.88    N/A      ✓
+    5 Within EC category, it is said that campuses ...   0.67   1.00   0.66    N/A      ✓
+    6 What's the purpose of national coordinators o...   1.00   0.00   0.00    N/A      ✓
+    7 Sebutkan kategori yang memiliki bobot penilai...   0.50   1.00   0.00    N/A      ✗
+    8 The appendix provides a detailed calculation ...   0.50   1.00   0.84   0.72      ✓
+    9 Which category has the most questions in it?       1.00   1.00   0.75   0.84      ✓
+   10 How do I know if that questions is scored or ...   0.00   0.00   0.00   0.04      ✓
+   11 Berapa skor terbesar dan terkecil yang bisa d...   1.00   1.00   0.86   0.53      ✓
+   12 Apa kriteria dengan opsi jawaban paling banyak?    1.00   1.00   0.93   0.94      ✓
+   13 Based on the green building elements list, is...   1.00   1.00   0.77   0.78      ✓
+   14 What are the exact elements required under th...   1.00   1.00   0.96   0.99      ✓
+   15 Kategori elemen manakah yang mempunyai jumlah...   1.00   1.00   0.95   0.40      ✓
+   16 Is BMS classified under the Energy field?          1.00   1.00   1.00   0.67      ✓
+   17 Kode requirement mana yang merupakan "Rainwat...   1.00   1.00   0.62   0.97      ✓
+   18 Kategori persyaratan smart building manakah y...   0.50   1.00   0.75   0.47      ✓
+   19 Apa saja universitas yang jadi koordinator ya...   0.25   1.00   0.98   0.85      ✓
+   20 How many coordinator universities that comes ...   1.00   1.00   0.98   1.00      ✓
+   21 Apa saja 7 kategori utama yang digunakan dala...   1.00   1.00   0.94   0.87      ✓
+   22 Isn't GD the category with the most weight in...   0.00   0.00   0.00   0.01      ✓
+   23 Sebutkan seluruh sumber emisi yang secara res...   1.00   1.00   0.88   0.72      ✓
+   24 Is "Purchased electricity" considered a direc...   1.00   1.00   0.89   0.98      ✓
+   25 Berapa total dana yang dihabiskan Universitas...   NONE                           ✓
+   26 Why is sustainability so important? And why d...   1.00   1.00   0.00   0.16      ✗
+   27 Which university ranked first globally in the...   NONE                           ✓
+   28 Are there any questions which overlaps with a...   NONE                           ✓
+   29 When was UI GM created for the first time?         0.00   0.00   0.68   0.90      ✓
+   30 Bagaimana caranya agar kampusku bisa ikut ke ...   1.00   1.00   0.59   0.72      ✓
+   31 I don't remember waste programs and students'...   0.92   0.00   0.75   0.39      ✗
+   32 Kalo misalnya ada beberapa kampus yang sama n...   0.00   0.00   0.00   0.01      ✓
+   33 What's the first category in the questionnair...   1.00   0.00   0.80   0.34      ✓
+   34 What do you mean by regular students? How do ...   0.88   1.00   0.94   0.63      ✓
+   35 Can you tell me the definition of each option...   0.75   0.00   0.00   0.14      ✗
+   36 What is the format of the evidence that are a...   1.00   0.67   0.82   0.55      ✓
+   37 Do we need to provide evidence when submittin...   1.00   1.00   0.64   0.90      ✓
+   38 Apakah universitas harus memasukkan emisi pen...   1.00   1.00   0.91   0.77      ✗
+   39 What is the maximum allowable greenhouse gas ...   1.00   1.00   0.00  -0.01      ✗
