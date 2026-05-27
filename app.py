@@ -79,7 +79,7 @@ def _debug_blocked(message: str) -> str:
 
 def reset_session():
     """Return a fresh empty chat and session state."""
-    return [], {"conversation_history": [], "turn_count": 0}
+    return [], {"turn_count": 0}
 
 
 # ---------------------------------------------------------------------------
@@ -113,7 +113,7 @@ def respond(message: str, chat_history: list[dict], session: dict):
     yield chat_history, session, ""
 
     try:
-        result = ask(message, conversation_history=session["conversation_history"])
+        result = ask(message)
     except APIError:
         chat_history[-1]["content"] = (
             "⚠️ **The AI service is temporarily unavailable.** "
@@ -137,7 +137,6 @@ def respond(message: str, chat_history: list[dict], session: dict):
     chat_history[-1]["content"] = answer
 
     session = {
-        "conversation_history": result["conversation_history"],
         "turn_count": turn_count + 1,
     }
 
@@ -167,7 +166,7 @@ with gr.Blocks(title="UI GreenMetric RAG Assistant v0.5") as app:
         turn_counter = gr.Markdown("0 / 7 messages used")
         reset_btn = gr.Button("🔄 Reset Session", size="sm")
 
-    session_state = gr.State({"conversation_history": [], "turn_count": 0})
+    session_state = gr.State({"turn_count": 0})
 
     with gr.Accordion("Debug Info", open=False):
         debug_panel = gr.Textbox(
@@ -203,7 +202,7 @@ with gr.Blocks(title="UI GreenMetric RAG Assistant v0.5") as app:
 
     reset_btn.click(
         fn=lambda: ([], "0 / 7 messages used", "*No query submitted yet.*",
-                     {"conversation_history": [], "turn_count": 0},
+                     {"turn_count": 0},
                      "*No query submitted yet.*", ""),
         inputs=[],
         outputs=[chatbot, turn_counter, debug_panel, session_state, debug_state, msg_input],
