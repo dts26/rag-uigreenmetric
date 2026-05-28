@@ -1,8 +1,6 @@
 # 📚 RAG — Multi Source Information Retrieval
 
-> A hybrid Retrieval-Augmented Generation (RAG) project built to learn and implement context injection using the DeepSeek API.
-
-The system answers complex queries about the UI GreenMetric Sustainable University Rankings by combining unstructured narrative guidelines with structured tabular appendices.
+> A hybrid RAG system that answers complex queries about the UI GreenMetric Sustainable University Rankings, combining unstructured narrative guidelines with structured tabular appendices.
 
 **v0.5.1** · Python 3.12.13
 
@@ -111,5 +109,3 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 - **Contextual Precision = 0.45:** Relevant chunks are often ranked low — a re-ranker would help.
 
 ---
-
-*Developed with the assistance of [DeepSeek-Reasonix](https://github.com/esengine/deepseek-reasonix) (code) and Claude (architecture review).*
