@@ -29,7 +29,7 @@ def ask(query: str) -> dict:
         * ``"retrieved"`` — the number of chunks returned by
           :func:`retriever.retrieve` (0 for ``"none"``).
         * ``"contexts"`` — list of retrieved chunk content strings,
-          suitable for RAGAS evaluation.  Empty list for ``"none"``.
+          suitable for evaluation.  Empty list for ``"none"``.
         * ``"low_confidence"`` — ``True`` when the top retrieved chunk
           exceeded the 0.6 cosine-distance warning threshold.
     """
