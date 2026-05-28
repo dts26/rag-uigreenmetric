@@ -193,7 +193,6 @@ ALL_METRICS = [
     CONTEXT_RECALL,
     CONTEXT_PRECISION,
     STRICT_CORRECTNESS,
-    ROUTER_ACCURACY,
 ]
 
 _METRIC_LABELS = {
@@ -249,8 +248,9 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
     test_cases = load_test_cases(path=path)
     deep_eval_cases: list[LLMTestCase] = []
     none_idxs: set[int] = set()
-    # Stored for per-question table (includes none cases):
     case_route_marks: dict[int, bool] = {}
+    case_contexts: dict[int, list[str]] = {}  # case.idx -> retrieved chunks
+    case_answers: dict[int, str] = {}         # case.idx -> generated answer
 
     # ---- Phase 1: run all test cases through ask() ----
     for case in test_cases:
@@ -259,6 +259,8 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
             case.expected_source, result["route"]
         )
         case_route_marks[case.idx] = route_ok
+        case_contexts[case.idx] = result["contexts"]
+        case_answers[case.idx] = result["answer"]
 
         if result["route"]["source"] == "none":
             none_idxs.add(case.idx)
@@ -302,7 +304,8 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
                 print("\n[WARNING] No JSON saved — report will show N/A.")
 
     # ---- Phase 3: report (reads from JSON for guaranteed consistency) ----
-    _print_report(test_cases, json_path, none_idxs, case_route_marks)
+    _print_report(test_cases, json_path, none_idxs, case_route_marks,
+                  case_contexts, case_answers)
 
 
 # ---------------------------------------------------------------------------
@@ -315,6 +318,8 @@ def _print_report(
     json_path: str | None,
     none_idxs: set[int],
     case_route_marks: dict[int, bool],
+    case_contexts: dict[int, list[str]],
+    case_answers: dict[int, str],
 ) -> None:
     import json as _json
 
@@ -357,9 +362,14 @@ def _print_report(
         mean = sum(vals) / len(vals) if vals else float("nan")
         label = _METRIC_LABELS.get(name, name[:2])
         print(f"  {label:>4}  {name:<32}  {mean:.2f}")
+
+    # Router accuracy computed from all 40 cases (not just scored subset)
+    route_correct = sum(1 for v in case_route_marks.values() if v)
+    route_mean = route_correct / total if total else 0.0
+    print(f"  {'RT':>4}  {'Router Accuracy':<32}  {route_mean:.2f}")
     print()
 
-    # ---- 2. Router accuracy (aggregate from the metric, + misroute list) ----
+    # ---- 2. Router accuracy (aggregate from all 40 cases, + misroute list) ----
     route_correct = sum(1 for v in case_route_marks.values() if v)
     print(SEP)
     print("  2. ROUTER ACCURACY")
@@ -418,6 +428,34 @@ def _print_report(
         else:
             blanks = "".join(" " * 7 for _ in short_names)
             print(f"  {idx:>3} {q}{blanks} MISS   {route_mark:>6}")
+
+    # ---- 4. Context dump for retrieval failures (CR = 0.00) ----
+    _CR_ZERO = "Contextual Recall"
+    if scored_lookup:
+        cr_zero_idxs = {
+            idx for idx, scores in scored_lookup.items()
+            if scores.get(_CR_ZERO, 1.0) == 0.0
+        }
+        if cr_zero_idxs:
+            print()
+            print(SEP)
+            print("  4. RETRIEVED CONTEXTS (CR = 0.00 — retrieval failures)")
+            print(SEP)
+            for idx in sorted(cr_zero_idxs):
+                case = next((c for c in test_cases if c.idx == idx), None)
+                if case is None:
+                    continue
+                contexts = case_contexts.get(idx, [])
+                answer = case_answers.get(idx, "")
+                print(f"\n  --- #{idx}  Q: {case.question[:100]}")
+                print(f"  Route: {case.expected_source}")
+                print(f"  Answer: {answer[:120]}")
+                print(f"  Contexts retrieved: {len(contexts)}")
+                if not contexts:
+                    print(f"  (empty — all chunks above 0.7 cosine distance threshold)")
+                for i, c in enumerate(contexts):
+                    truncated = c[:200].replace('\n', ' ')
+                    print(f"  [{i}] ({len(c)} chars) {truncated}...")
     print()
 
 
