@@ -11,6 +11,7 @@ v0.5.1 — replaces the RAGAS-based evaluate_ragas.py with DeepEval metrics:
 
 import glob
 import os
+import time
 from dataclasses import dataclass
 
 import pandas as pd
@@ -89,6 +90,7 @@ class RouterAccuracyMetric(BaseMetric):
         strict_mode: bool = False,
         async_mode: bool = True,
     ):
+        super().__init__()
         self.threshold = threshold
         self.include_reason = include_reason
         self.strict_mode = strict_mode
@@ -253,12 +255,20 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
     case_answers: dict[int, str] = {}         # case.idx -> generated answer
 
     # ---- Phase 1: run all test cases through ask() ----
+    case_routes: dict[int, dict] = {}          # case.idx -> route dict
+    case_timing: dict[int, float] = {}          # case.idx -> total seconds
+    case_rerank_ms: dict[int, float] = {}       # case.idx -> reranker ms
     for case in test_cases:
+        t0 = time.perf_counter()
         result = ask(case.question)
+        elapsed = time.perf_counter() - t0
+        case_timing[case.idx] = elapsed
+        case_rerank_ms[case.idx] = result.get("rerank_ms", 0.0)
         route_ok = RouterAccuracyMetric._compare(
             case.expected_source, result["route"]
         )
         case_route_marks[case.idx] = route_ok
+        case_routes[case.idx] = result["route"]
         case_contexts[case.idx] = result["contexts"]
         case_answers[case.idx] = result["answer"]
 
@@ -305,7 +315,8 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
 
     # ---- Phase 3: report (reads from JSON for guaranteed consistency) ----
     _print_report(test_cases, json_path, none_idxs, case_route_marks,
-                  case_contexts, case_answers)
+                  case_routes, case_contexts, case_answers,
+                  case_timing, case_rerank_ms)
 
 
 # ---------------------------------------------------------------------------
@@ -318,8 +329,11 @@ def _print_report(
     json_path: str | None,
     none_idxs: set[int],
     case_route_marks: dict[int, bool],
+    case_routes: dict[int, dict],
     case_contexts: dict[int, list[str]],
     case_answers: dict[int, str],
+    case_timing: dict[int, float],
+    case_rerank_ms: dict[int, float],
 ) -> None:
     import json as _json
 
@@ -369,6 +383,15 @@ def _print_report(
     print(f"  {'RT':>4}  {'Router Accuracy':<32}  {route_mean:.2f}")
     print()
 
+    # Timing
+    timings = [case_timing[i] for i in case_timing]
+    avg_total = sum(timings) / len(timings) * 1000 if timings else 0
+    rerank_times = [case_rerank_ms[i] for i in case_rerank_ms if case_rerank_ms[i] > 0]
+    avg_rerank = sum(rerank_times) / len(rerank_times) if rerank_times else 0
+    print(f"  {'':>4}  {'Avg total per case (ms)':<32}  {avg_total:.0f}")
+    print(f"  {'':>4}  {'Avg reranker per case (ms)':<32}  {avg_rerank:.0f}")
+    print()
+
     # ---- 2. Router accuracy (aggregate from all 40 cases, + misroute list) ----
     route_correct = sum(1 for v in case_route_marks.values() if v)
     print(SEP)
@@ -398,10 +421,10 @@ def _print_report(
     header = (
         f"  {'#':>3} {'Question':<48}"
         + "".join(f" {s:>6}" for s in short_names)
-        + f" {'Route':>6}"
+        + f" {'Route':>6} {'Time':>8} {'Rerank':>7}"
     )
     print(header)
-    print(f"  {'-' * (72 + len(short_names) * 7)}")
+    print(f"  {'-' * (96 + len(short_names) * 7)}")
 
     for case in test_cases:
         q = (
@@ -411,10 +434,14 @@ def _print_report(
         )
         idx = case.idx
         route_mark = "yes" if case_route_marks.get(idx, False) else "no"
+        elapsed_s = case_timing.get(idx, 0.0)
+        rerank = case_rerank_ms.get(idx, 0.0)
+        time_str = f"{elapsed_s * 1000:>7.0f}ms"
+        rerank_str = f"{rerank:>6.0f}ms" if rerank > 0 else "      -"
 
         if idx in none_idxs:
             blanks = "".join(" " * 7 for _ in short_names)
-            print(f"  {idx:>3} {q}{blanks} NONE   {route_mark:>6}")
+            print(f"  {idx:>3} {q}{blanks} NONE   {route_mark:>6} {time_str} {rerank_str}")
         elif idx in scored_lookup:
             scores = scored_lookup[idx]
             score_strs = ""
@@ -424,10 +451,10 @@ def _print_report(
                     score_strs += f" {v:>6.2f}"
                 else:
                     score_strs += f" {'N/A':>6}"
-            print(f"  {idx:>3} {q}{score_strs} {route_mark:>6}")
+            print(f"  {idx:>3} {q}{score_strs} {route_mark:>6} {time_str} {rerank_str}")
         else:
             blanks = "".join(" " * 7 for _ in short_names)
-            print(f"  {idx:>3} {q}{blanks} MISS   {route_mark:>6}")
+            print(f"  {idx:>3} {q}{blanks} MISS   {route_mark:>6} {time_str} {rerank_str}")
 
     # ---- 4. Context dump for retrieval failures (CR = 0.00) ----
     _CR_ZERO = "Contextual Recall"
@@ -447,12 +474,18 @@ def _print_report(
                     continue
                 contexts = case_contexts.get(idx, [])
                 answer = case_answers.get(idx, "")
+                route = case_routes.get(idx, {})
+                actual_route = (
+                    f"{route.get('source', '?')}"
+                    + (f"/{route['csv_source']}" if route.get('csv_source') else "")
+                )
                 print(f"\n  --- #{idx}  Q: {case.question[:100]}")
-                print(f"  Route: {case.expected_source}")
+                print(f"  Expected route: {case.expected_source}")
+                print(f"  Actual route:   {actual_route}")
                 print(f"  Answer: {answer[:120]}")
                 print(f"  Contexts retrieved: {len(contexts)}")
                 if not contexts:
-                    print(f"  (empty — all chunks above 0.7 cosine distance threshold)")
+                    print(f"  (empty — all chunks above 0.5 cosine distance threshold)")
                 for i, c in enumerate(contexts):
                     truncated = c[:200].replace('\n', ' ')
                     print(f"  [{i}] ({len(c)} chars) {truncated}...")

@@ -157,3 +157,32 @@ def route(query: str,*,conversation_history: list[dict] | None = None) -> dict:
         return json.loads(response.choices[0].message.content.strip())
     except (json.JSONDecodeError, KeyError):
         return {"source": "none", "csv_source": None, "query_type": "lookup"}
+
+
+# ---------------------------------------------------------------------------
+# Query paraphrasing (RAG Fusion)
+# ---------------------------------------------------------------------------
+
+PARAPHRASE_SYSTEM_PROMPT = """You are a query paraphraser. Generate 3 alternative search queries
+for the given question. Each variant must use different keywords and
+phrasing while preserving the exact same intent. Return ONLY a valid
+JSON array of 3 strings. No markdown, no explanation."""
+
+
+def paraphrase(query: str) -> list[str]:
+    """Generate 3 paraphrased variants of *query* for multi-query retrieval."""
+    try:
+        response = ROUTER_CLIENT.chat.completions.create(
+            model="deepseek-v4-flash",
+            messages=[
+                {"role": "system", "content": PARAPHRASE_SYSTEM_PROMPT},
+                {"role": "user", "content": query},
+            ],
+            temperature=0.7,
+        )
+        variants = json.loads(response.choices[0].message.content.strip())
+        if isinstance(variants, list) and len(variants) >= 1:
+            return variants[:3]
+    except (json.JSONDecodeError, KeyError, TypeError):
+        pass
+    return []

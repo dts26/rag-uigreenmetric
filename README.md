@@ -1,8 +1,10 @@
 # 📚 RAG — Multi Source Information Retrieval
 
-> A hybrid RAG system that answers complex queries about the UI GreenMetric Sustainable University Rankings, combining unstructured narrative guidelines with structured tabular appendices.
+> A hybrid Retrieval-Augmented Generation (RAG) project built to learn and implement context injection using the DeepSeek API.
 
-**v0.5.1** · Python 3.12.13
+The system answers complex queries about the UI GreenMetric Sustainable University Rankings by combining unstructured narrative guidelines with structured tabular appendices.
+
+**v0.6.0** · Python 3.12.13
 
 ---
 
@@ -11,7 +13,7 @@
 | Layer | Component |
 |---|---|
 | Language | Python 3.12.13 |
-| Embedding | `paraphrase-multilingual-MiniLM-L12-v2` (SentenceTransformers, 384-dim) |
+| Embedding | `BAAI/bge-m3` (SentenceTransformers, 1024-dim) |
 | Vector DB | ChromaDB (cosine distance, top-k=5) |
 | Data | `pandas`, `openpyxl` |
 | LLM (pipeline) | DeepSeek API via OpenAI SDK (`v4-pro` generation, `v4-flash` routing) |
@@ -45,7 +47,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 |---|---|
 | `src/chunker.py` | Splits markdown (heading-level) and CSV tables (grouped by column) into embeddable chunks |
 | `src/embedder.py` | Loads the embedding model, encodes text into vectors, persists to ChromaDB |
-| `src/retriever.py` | Cosine similarity search with 0.7 threshold guardrail; full-source fetch for aggregate queries |
+| `src/retriever.py` | Cosine similarity search with 0.5 threshold guardrail; full-source fetch for aggregate queries |
 | `src/router.py` | LLM-based query classifier — routes to source (PDF/CSV/Both/None) and query type (lookup/aggregate) |
 | `src/generator.py` | Formats context + calls DeepSeek to produce answers; flags low-confidence results |
 | `src/pipeline.py` | Orchestrator — wires router → retriever → generator into a single `ask()` call |
@@ -58,22 +60,22 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 
 1. **Unstructured Data:** Markdown → Heading-Level Chunking → Embed → Store in ChromaDB.
 2. **Structured Data (CSV):** Question-Grouped Chunks (combining criteria, options, and injected formulas) → Embed → Store in ChromaDB.
-3. **Retrieval & Generation:** User Query → Router (LLM) → Cosine Similarity Search → 0.7 Low Confidence Filter → Context Concatenation → DeepSeek LLM Generation.
+3. **Retrieval & Generation:** User Query → Router (LLM) → Cosine Similarity Search → 0.5 Low Confidence Filter → Context Concatenation → DeepSeek LLM Generation.
 4. **Router Agent:** Classifies queries by source (PDF, CSV, Both, None) and query type (lookup, aggregate) before retrieval.
 
 ---
 
-## 📊 Evaluation (DeepEval, v0.5.1)
+## 📊 Evaluation (DeepEval)
 
-| Metric | Score | What it measures |
-|---|---|---|
-| Faithfulness | **0.91** | Whether the answer is factually supported by the retrieved context |
-| Contextual Recall | **0.74** | Whether retrieved context contains all information needed to answer |
-| Contextual Precision (NDCG@K) | **0.45** | Whether relevant chunks are ranked higher in results |
-| G-Eval Correctness | **0.43** | How well the answer matches the ground truth (LLM-as-judge, 0–1) |
-| Router Accuracy | **80.0%** | Whether the pipeline router correctly identifies the expected data source |
+| Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | +Reranker |
+|---|---|---|---|
+| Faithfulness | 0.91 | **0.93** | — |
+| Contextual Recall | 0.74 | **0.81** | — |
+| Contextual Precision (NDCG@K) | 0.45 | **0.56** | — |
+| G-Eval Correctness | 0.43 | **0.51** | — |
+| Router Accuracy | 80.0% | **77.5%** | — |
 
-***LLM-as-judge metrics show run-to-run variance of ±0.05–0.08 even at temperature 0**
+*LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0.*
 
 ---
 
@@ -84,7 +86,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | **Cosine similarity** | Matches the training metric of the embedding model |
 | **Question-grouped CSV chunks** | Prevents partial/ orphaned indicators — the LLM always sees a complete criterion |
 | **Formula injection in chunks** | Embedding formulas directly into chunk text reduces hallucination on calculation questions |
-| **0.7 cosine distance threshold** | Empirically calibrated guardrail on this dataset |
+| ~~**0.7 cosine distance threshold**~~ | ~~Empirically calibrated guardrail on this dataset~~ — lowered to 0.5 in preparation for reranker |
 | **Top-K = 5** | Multiple chunks improve synthesis for cross-indicator questions |
 | **Single ChromaDB collection** | At 317 chunks, per-source collections add complexity with no performance gain |
 | **No conversation history** | Degrades router accuracy — few-shot training uses single queries, and prior-turn vocabulary pulls the router toward stale sources |
@@ -93,10 +95,12 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 
 ## 🗺️ v0.5 → v1.0 Roadmap
 
-- Embedding model upgrade to **BGE-M3**
-- Add **bge-reranker-v2-m3** for re-ranking
-- Add **RAG Fusion** for multi-query retrieval
-- Budget management for API spending
+- [x] Embedding model upgrade to **BGE-M3**
+- [x] Rebuild ChromaDB collection (317 chunks, 1024-dim)
+- [ ] Add **bge-reranker-v2-m3** for re-ranking
+- [ ] Add **RAG Fusion** for multi-query retrieval
+- [ ] Budget management for API spending
+- [ ] Deploy on HuggingFace Spaces
 
 ---
 
@@ -106,6 +110,6 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 - **Aggregate queries use brute-force:** `_fetch_all` returns every chunk — clean but risks context window overflow.
 - **Vocabulary mismatch:** "UI GM" ≠ "UI GreenMetric", "created" ≠ "initiated" — semantic gaps cause retrieval misses.
 - **G-Eval language sensitivity:** Scoring dips when the answer and ground truth differ in language (EN ↔ ID) despite being semantically equivalent.
-- **Contextual Precision = 0.45:** Relevant chunks are often ranked low — a re-ranker would help.
+- **Contextual Precision = 0.53:** Improved with BGE-M3 but still the weakest metric — a re-ranker should help.
 
 ---

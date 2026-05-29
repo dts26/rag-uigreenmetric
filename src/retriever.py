@@ -15,10 +15,10 @@ def retrieve(
     query: str,
     route_result: dict,
     *,
-    top_k: int = 5,
-    threshold: float = 0.7,
+    top_k: int = 20, # Reranker preparation.
+    threshold: float = 0.5, # Reranker preparation.
     client_path: str = "./chroma_db",
-    collection_name: str = "greenmetric_v05",
+    collection_name: str = "greenmetric_v10",
 ) -> list[dict]:
     """Retrieve chunks for *query* based on the router's classification.
 
@@ -48,7 +48,7 @@ def retrieve(
         client_path:      Filesystem directory for the ChromaDB persistent
                           client (default ``"./chroma_db"``).
         collection_name:  Name of the ChromaDB collection to query
-                          (default ``"greenmetric_v05"``).
+                          (default ``"greenmetric_v10"``).
 
     Returns:
         list[dict]: Each dict has keys ``"content"`` (str),
@@ -69,10 +69,10 @@ def retrieve(
 
     if source == "both":
         pdf_results = _semantic_search(
-            query, {"source": "pdf"}, top_k, threshold, collection
+            query, {"source": "pdf"}, top_k, collection
         )
         csv_results = _semantic_search(
-            query, {"source": csv_source}, top_k, threshold, collection
+            query, {"source": csv_source}, top_k, collection
         )
         return _sort_by_distance(pdf_results + csv_results)
 
@@ -83,7 +83,7 @@ def retrieve(
     lookup_source = csv_source if csv_source else source
 
     return _semantic_search(
-        query, {"source": lookup_source}, top_k, threshold, collection
+        query, {"source": lookup_source}, top_k, collection
     )
 
 
@@ -95,10 +95,11 @@ def _semantic_search(
     query: str,
     where: dict,
     top_k: int,
-    threshold: float,
     collection,
 ) -> list[dict]:
-    """Embed *query*, run ChromaDB semantic search, post‑filter by threshold."""
+    """Embed *query*, run ChromaDB semantic search, return all top‑k results.
+    Distance threshold is applied after reranking in the pipeline."""
+
     query_vector = embed([query])
     raw = collection.query(
         query_embeddings=query_vector,
@@ -108,12 +109,11 @@ def _semantic_search(
     results = []
     for i in range(len(raw["documents"][0])):
         distance = raw["distances"][0][i]
-        if distance <= threshold:
-            results.append({
-                "content": raw["documents"][0][i],
-                "metadata": raw["metadatas"][0][i],
-                "distance": distance,
-            })
+        results.append({
+            "content": raw["documents"][0][i],
+            "metadata": raw["metadatas"][0][i],
+            "distance": distance,
+        })
     return results
 
 
@@ -138,3 +138,69 @@ def _sort_by_distance(results: list[dict]) -> list[dict]:
     """Sort *results* in-place by ascending ``"distance"``."""
     results.sort(key=lambda r: r["distance"])
     return results
+
+
+# ---------------------------------------------------------------------------
+# Multi-query retrieval + Reciprocal Rank Fusion
+# ---------------------------------------------------------------------------
+
+_RRF_K = 60
+
+
+def retrieve_multi(
+    queries: list[str],
+    route_result: dict,
+    *,
+    top_k: int = 10,
+    client_path: str = "./chroma_db",
+    collection_name: str = "greenmetric_v10",
+) -> list[dict]:
+    """Multi-query retrieval with Reciprocal Rank Fusion.
+
+    Runs semantic search for each query variant (original + paraphrases),
+    then merges results via RRF to produce a unified ranked list.
+
+    Parameters:
+        queries:          List of query strings (original + paraphrased).
+        route_result:     Dict from :func:`router.route`.
+        top_k:            Max results per query variant.
+        client_path:      ChromaDB persistent client directory.
+        collection_name:  ChromaDB collection name.
+
+    Returns:
+        list[dict]: Merged chunks sorted by RRF score descending.
+    """
+    source = route_result["source"]
+    csv_source = route_result.get("csv_source")
+
+    client = chromadb.PersistentClient(path=client_path)
+    collection = client.get_collection(collection_name)
+
+    # Build list of (metadata_filter) per search
+    if source == "both":
+        filters = [{"source": "pdf"}, {"source": csv_source}]
+    else:
+        lookup = csv_source if csv_source else source
+        filters = [{"source": lookup}]
+
+    # Run all searches: queries × filters
+    from collections import defaultdict
+    chunk_scores: dict[str, float] = defaultdict(float)
+    chunk_data: dict[str, dict] = {}
+
+    for q in queries:
+        for f in filters:
+            results = _semantic_search(q, f, top_k, collection)
+            for rank, r in enumerate(results):
+                cid = r["metadata"].get("chunk_id", r["content"][:80])
+                chunk_scores[cid] += 1.0 / (_RRF_K + rank + 1)
+                chunk_data[cid] = r
+
+    merged = []
+    for cid, score in chunk_scores.items():
+        data = chunk_data[cid].copy()
+        data["rrf_score"] = score
+        merged.append(data)
+
+    merged.sort(key=lambda r: r["rrf_score"], reverse=True)
+    return merged

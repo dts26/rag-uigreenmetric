@@ -11,10 +11,10 @@ import chromadb
 # Model
 # ---------------------------------------------------------------------------
 
-EMBED_MODEL = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+EMBED_MODEL = SentenceTransformer("BAAI/bge-m3")
 EMBED_DIM = EMBED_MODEL.get_embedding_dimension()
 
-print(f"Embedding model: paraphrase-multilingual-MiniLM-L12-v2")
+print(f"Embedding model: BAAI/bge-m3")
 print(f"Embedding dimension: {EMBED_DIM}")
 
 
@@ -23,7 +23,7 @@ print(f"Embedding dimension: {EMBED_DIM}")
 # ---------------------------------------------------------------------------
 
 def embed(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
-    """Encode a batch of text strings into 384-dimensional vectors.
+    """Encode a batch of text strings into 1024-dimensional vectors.
 
     Uses the loaded ``EMBED_MODEL``.  Input is a list
     of plain strings — no chunk‑wrapping required.  The text should be
@@ -46,7 +46,7 @@ def embed(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
 # ChromaDB storage
 # ---------------------------------------------------------------------------
 
-def store(source_chunks: dict[str, list[dict]], *, client_path: str = "./chroma_db", collection_name: str = "greenmetric_v05") -> None:
+def store(source_chunks: dict[str, list[dict]], *, client_path: str = "./chroma_db", collection_name: str = "greenmetric_v10") -> None:
     """Embed every chunk and persist them into a single ChromaDB collection.
 
     Iterates over every source in *source_chunks*, flattens their
@@ -63,7 +63,7 @@ def store(source_chunks: dict[str, list[dict]], *, client_path: str = "./chroma_
         client_path:    Filesystem directory for the ChromaDB persistent
                         client (default ``"./chroma_db"``).
         collection_name: Name of the ChromaDB collection to create / reuse
-                        (default ``"greenmetric_v05"``).
+                        (default ``"greenmetric_v10"``).
 
     Returns:
         None.  Side effect: the collection is populated in ChromaDB at
