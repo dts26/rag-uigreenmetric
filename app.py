@@ -85,7 +85,7 @@ with gr.Blocks(title="UI GreenMetric RAG Assistant v0.8") as app:
         )
         send_btn = gr.Button("Send", variant="primary", scale=1)
 
-    budget_display = gr.Markdown(_budget_display())
+    budget_display = gr.Markdown(_budget_display() + "\n\n*Conversations may be logged for quality monitoring.*")
 
     # --- event bindings ---
 

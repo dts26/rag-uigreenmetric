@@ -11,6 +11,13 @@ from src.router import route, paraphrase
 from src.retriever import retrieve, retrieve_multi
 from src.generator import generate
 from src.budget import BudgetManager, MemoryBudgetStore, HFBudgetStore
+from src.conversation import log_conversation, get_logger
+
+
+def _flush_logs() -> None:
+    logger = get_logger()
+    if logger:
+        logger.flush()
 
 _RERANK_ENABLED = os.getenv("RAG_RERANK", "0") == "1"
 
@@ -92,6 +99,9 @@ def ask(
         context = retrieve(query, route_result)
         answer, gen_tokens = generate(query, context, query_type="aggregate")
         _budget.track(gen_tokens)
+        log_conversation(query, answer, route_result,
+                         [c["content"] for c in context], gen_tokens)
+        _flush_logs()
         return {
             "answer": answer,
             "route": route_result,
@@ -127,6 +137,10 @@ def ask(
         bool(context)
         and context[0].get("distance", 0.0) > 0.6
     )
+
+    log_conversation(query, answer, route_result,
+                     [c["content"] for c in context], gen_tokens)
+    _flush_logs()
 
     return {
         "answer": answer,
