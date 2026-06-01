@@ -49,7 +49,7 @@ def ask(
             skip paraphrase and reranker.
         everything else
           → paraphrase (3 variants) → multi-query retrieval
-            → RRF merge → (optional reranker) → top 5.
+            → RRF merge → (optional reranker) → top 7.
 
     Parameters:
         query:  The user's question.

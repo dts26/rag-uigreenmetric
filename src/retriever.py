@@ -48,7 +48,7 @@ def retrieve(
         client_path:      Filesystem directory for the ChromaDB persistent
                           client (default ``"./chroma_db"``).
         collection_name:  Name of the ChromaDB collection to query
-                          (default ``"greenmetric_v10"``).
+                          (default ``"greenmetric_qwen3"``).
 
     Returns:
         list[dict]: Each dict has keys ``"content"`` (str),
