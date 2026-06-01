@@ -129,6 +129,22 @@ Key libraries beyond the standard Python data stack:
 
 ---
 
+## 🔮 Future Features
+
+| # | Feature | Description |
+|---|---|---|
+| 1 | Show retrieved context | Collapsible view of the chunks that fed each answer — full transparency into what the system based its response on |
+| 2 | Source citation | Display which data source answered the query (PDF guidelines, Appendix 1, etc.) |
+| 3 | Token cost per query | Show exact token usage and estimated cost under each answer |
+| 4 | Pipeline timing | Display response generation time to set latency expectations |
+| 5 | Route badge color-coding | Green/blue/purple/gray badges for pdf/csv/both/none sources |
+| 6 | Welcome + example chips | Clickable sample questions on empty chat for better first impression |
+| 7 | Feedback thumbs | ±1 per answer, logged for future evaluation |
+| 8 | Markdown rendering | Properly formatted lists, tables, and bold text in answers |
+| 9 | Copy answer button | One-click clipboard copy on each response |
+| 10 | Dark mode toggle | OS preference detection + manual toggle |
+---
+
 ## ⚠️ Known Limitations
 
 - **Router accuracy ~89%:** Improved with few-shot tuning but 3-5 cases still misrouted (mostly pdf→csv). Adding more targeted examples would help.
