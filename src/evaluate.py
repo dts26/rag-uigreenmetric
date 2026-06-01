@@ -505,7 +505,7 @@ def _print_report(
                 print(f"  Answer: {answer[:120]}")
                 print(f"  Contexts retrieved: {len(contexts)}")
                 if not contexts:
-                    print(f"  (empty — all chunks above 0.5 cosine distance threshold)")
+                    print(f"  (empty — no chunks retrieved)")
                 for i, c in enumerate(contexts):
                     truncated = c[:200].replace('\n', ' ')
                     print(f"  [{i}] ({len(c)} chars) {truncated}...")

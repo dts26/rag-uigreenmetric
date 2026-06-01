@@ -8,6 +8,7 @@ import json
 import os
 import time
 from datetime import datetime, timezone
+from threading import Lock
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,45 +23,47 @@ class ConversationLogger:
         self.repo_id = repo_id
         self.token = os.getenv("HF_TOKEN")
         self._buffer: list[dict] = []
+        self._lock = Lock()
 
     def log(self, entry: dict) -> None:
-        self._buffer.append(entry)
+        with self._lock:
+            self._buffer.append(entry)
 
     def flush(self) -> None:
-        if not self._buffer:
-            return
-        try:
-            from huggingface_hub import upload_file, hf_hub_download
-
-            tmp = "/tmp/rag_conversations.jsonl"
-
-            # Download existing file from HF to avoid overwriting on restart
+        with self._lock:
+            if not self._buffer:
+                return
             try:
-                existing = hf_hub_download(
+                from huggingface_hub import upload_file, hf_hub_download
+
+                tmp = "/tmp/rag_conversations.jsonl"
+
+                try:
+                    existing = hf_hub_download(
+                        repo_id=self.repo_id,
+                        filename="conversations.jsonl",
+                        repo_type="dataset",
+                        token=self.token,
+                    )
+                    import shutil
+                    shutil.copy(existing, tmp)
+                except Exception:
+                    open(tmp, "w").close()  # fresh file
+
+                with open(tmp, "a") as f:
+                    for e in self._buffer:
+                        f.write(json.dumps(e, ensure_ascii=False) + "\n")
+
+                upload_file(
+                    path_or_fileobj=tmp,
+                    path_in_repo="conversations.jsonl",
                     repo_id=self.repo_id,
-                    filename="conversations.jsonl",
                     repo_type="dataset",
                     token=self.token,
                 )
-                import shutil
-                shutil.copy(existing, tmp)
+                self._buffer.clear()
             except Exception:
-                open(tmp, "w").close()  # fresh file
-
-            with open(tmp, "a") as f:
-                for e in self._buffer:
-                    f.write(json.dumps(e, ensure_ascii=False) + "\n")
-
-            upload_file(
-                path_or_fileobj=tmp,
-                path_in_repo="conversations.jsonl",
-                repo_id=self.repo_id,
-                repo_type="dataset",
-                token=self.token,
-            )
-            self._buffer.clear()
-        except Exception:
-            pass  # silent — conversation logging is best-effort
+                pass  # silent — conversation logging is best-effort
 
 
 # ---------------------------------------------------------------------------

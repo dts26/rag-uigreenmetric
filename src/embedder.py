@@ -52,20 +52,23 @@ def _embed_local(texts: list[str], instruct: bool = False) -> list[list[float]]:
 
 
 def _embed_hf_api(texts: list[str], instruct: bool = False) -> list[list[float]]:
-    """Embed via HF Inference API (GPU-backed, serverless)."""
-    from huggingface_hub import InferenceClient
+    """Embed via HF Inference API, fall back to local on failure."""
+    try:
+        from huggingface_hub import InferenceClient
 
-    client = InferenceClient(
-        provider="hf-inference",
-        api_key=os.environ.get("HF_TOKEN"),
-        model="Qwen/Qwen3-Embedding-0.6B",
-    )
+        client = InferenceClient(
+            provider="hf-inference",
+            api_key=os.environ.get("HF_TOKEN"),
+            model="Qwen/Qwen3-Embedding-0.6B",
+        )
 
-    if instruct:
-        texts = [f"{_QUERY_INSTRUCTION} {t}" for t in texts]
+        if instruct:
+            texts = [f"{_QUERY_INSTRUCTION} {t}" for t in texts]
 
-    result = client.feature_extraction(texts)
-    return [r.tolist() if hasattr(r, "tolist") else r for r in result]
+        result = client.feature_extraction(texts)
+        return [r.tolist() if hasattr(r, "tolist") else r for r in result]
+    except Exception:
+        return _embed_local(texts, instruct=instruct)
 
 
 # ---------------------------------------------------------------------------

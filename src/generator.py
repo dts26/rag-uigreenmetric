@@ -105,8 +105,11 @@ def generate(
         temperature=0.3,
     )
 
-    tokens = getattr(response.usage, "total_tokens", 0)
-    answer = response.choices[0].message.content.strip()
+    try:
+        tokens = getattr(response.usage, "total_tokens", 0)
+        answer = response.choices[0].message.content.strip()
+    except (IndexError, AttributeError):
+        return "Sorry, I don't know.", 0
 
     return answer, tokens
 

@@ -15,8 +15,7 @@ def retrieve(
     query: str,
     route_result: dict,
     *,
-    top_k: int = 20, # Reranker preparation.
-    threshold: float = 0.5, # Reranker preparation.
+    top_k: int = 20,
     client_path: str = "./chroma_db",
     collection_name: str = "greenmetric_qwen3",
 ) -> list[dict]:
@@ -26,36 +25,26 @@ def retrieve(
     ``route_result["query_type"]``:
 
     * ``"none"`` — returns an empty list immediately (no retrieval).
-    * ``"lookup"`` — semantic search filtered to the source(s) specified
-      by *route_result*, with top‑k results post‑filtered by *threshold*.
+    * ``"lookup"`` — semantic search filtered by metadata source.
     * ``"both"`` — two parallel semantic searches (pdf + csv_source),
-      concatenated and post‑filtered by *threshold*.
+      concatenated and sorted by distance.
     * ``"aggregate"`` — fetches **all** chunks for the relevant source
-      via an exact metadata filter.  No cosine-distance threshold is
-      applied because the retrieval is deterministic, not
-      similarity‑based.
+      via an exact metadata filter (deterministic, no similarity check).
 
     Parameters:
-        query:            The user's question (already classified by the
-                          router).
+        query:            The user's question.
         route_result:     Dict from :func:`router.route` with keys
                           ``"source"``, ``"csv_source"``, and
                           ``"query_type"``.
         top_k:            Maximum results returned by each semantic‑search
                           call (``"lookup"`` and ``"both"`` paths only).
-        threshold:        Cosine-distance cut‑off, inclusive.  Only used
-                          for ``"lookup"`` and ``"both"``.
-        client_path:      Filesystem directory for the ChromaDB persistent
-                          client (default ``"./chroma_db"``).
-        collection_name:  Name of the ChromaDB collection to query
-                          (default ``"greenmetric_qwen3"``).
+        client_path:      ChromaDB persistent client directory.
+        collection_name:  ChromaDB collection name.
 
     Returns:
         list[dict]: Each dict has keys ``"content"`` (str),
         ``"metadata"`` (dict), and ``"distance"`` (float).  Sorted
-        ascending by distance.  ``"aggregate"`` results have
-        ``"distance": 0.0``.  An empty list is returned when the router
-        says ``"none"`` or when no results pass the threshold.
+        ascending by distance.
     """
     source = route_result["source"]
     csv_source = route_result.get("csv_source")
@@ -97,8 +86,7 @@ def _semantic_search(
     top_k: int,
     collection,
 ) -> list[dict]:
-    """Embed *query*, run ChromaDB semantic search, return all top‑k results.
-    Distance threshold is applied after reranking in the pipeline."""
+    """Embed *query*, run ChromaDB semantic search, return all top‑k results."""
 
     query_vector = embed_query([query])
     raw = collection.query(
