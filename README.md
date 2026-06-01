@@ -104,7 +104,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 - [x] Embedding model upgrade to **Qwen3-Embedding-0.6B**
 - [x] Implement **RAG Fusion** (paraphrase + multi-query RRF)
 - [x] Evaluate 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina) — none recommended, disabled by default
-- [ ] Budget management for API spending
+- [x] Budget management for API spending
 - [ ] Deploy on HuggingFace Spaces
 - [ ] Improve router accuracy (78.7%, the real bottleneck)
 
