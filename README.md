@@ -112,10 +112,10 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 
 ## ⚠️ Known Limitations
 
-- **Router accuracy ~78%:** Misclassifies `both`-source queries as single-source, or `pdf` as `csv`. Likely due to under-trained few-shot examples for edge cases. Fixing this would cascade into further CR/CP gains.
-- **Aggregate queries use brute-force:** `_fetch_all` returns every chunk — clean but risks context window overflow (118 chunks for appendix1).
+- **Router accuracy ~89%:** Improved with few-shot tuning but 3-5 cases still misrouted (mostly pdf→csv). Adding more targeted examples would help.
+- **Aggregate queries use brute-force:** `_fetch_all` returns every chunk — clean but risks context window overflow (118 chunks for appendix1). Postponed to v1.0.
+- **CP bottleneck (~0.50):** Contextual Precision is the hardest metric to move. Embedder upgrade (BGE-M3 → Qwen3), RAG Fusion, hybrid search (BM25), and 5 rerankers all failed to raise it past ~0.55 on 40 cases. Improving this requires embedding model fine-tuning on domain-specific data.
 - **G-Eval language sensitivity:** Scoring dips when the answer and ground truth differ in language (EN ↔ ID) despite being semantically equivalent.
-- **CP bottleneck:** Contextual Precision ~0.54 is the hardest metric to move. Limited by retrieval quality rather than re-ranking — further gains require hybrid search (BM25 + dense) or embedder fine-tuning.
 - **RAG Fusion latency:** Paraphrase LLM call + 4× embeddings adds ~1-2s per query vs single-query retrieval.
 
 ---
