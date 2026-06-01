@@ -55,16 +55,17 @@ def _embed_hf_api(texts: list[str], instruct: bool = False) -> list[list[float]]
     """Embed via HF Inference API (GPU-backed, serverless)."""
     from huggingface_hub import InferenceClient
 
-    client = InferenceClient(model="Qwen/Qwen3-Embedding-0.6B")
+    client = InferenceClient(
+        provider="hf-inference",
+        api_key=os.environ.get("HF_TOKEN"),
+        model="Qwen/Qwen3-Embedding-0.6B",
+    )
 
     if instruct:
         texts = [f"{_QUERY_INSTRUCTION} {t}" for t in texts]
 
     result = client.feature_extraction(texts)
-    # feature_extraction returns a list of vectors (numpy arrays or lists)
-    if hasattr(result[0], "tolist"):
-        return [r.tolist() for r in result]
-    return result
+    return [r.tolist() if hasattr(r, "tolist") else r for r in result]
 
 
 # ---------------------------------------------------------------------------
