@@ -33,7 +33,7 @@ appropriate."""
 
 LOW_CONFIDENCE_FOOTER = """---
 Note: I have low confidence in this answer. The retrieved information was
-close to the cosine distance threshold (0.7), so the answer may not be
+close to the cosine distance threshold (0.6), so the answer may not be
 fully accurate."""
 
 
@@ -82,8 +82,7 @@ def generate(
                               is active (skipped for aggregate).
 
     Returns:
-        str: The generated answer.  Returns ``"Sorry, I don't know."`` when
-        the context does not contain the required information.
+        tuple[str, int]: The generated answer and the token count from the API.
     """
     low_confidence = _is_low_confidence(context, query_type)
 
@@ -106,9 +105,10 @@ def generate(
         temperature=0.3,
     )
 
+    tokens = getattr(response.usage, "total_tokens", 0)
     answer = response.choices[0].message.content.strip()
 
-    return answer
+    return answer, tokens
 
 
 # ---------------------------------------------------------------------------

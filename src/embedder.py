@@ -11,67 +11,62 @@ import chromadb
 # Model
 # ---------------------------------------------------------------------------
 
-EMBED_MODEL = SentenceTransformer("BAAI/bge-m3")
+EMBED_MODEL = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
 EMBED_DIM = EMBED_MODEL.get_embedding_dimension()
 
-print(f"Embedding model: BAAI/bge-m3")
+print(f"Embedding model: Qwen3-Embedding-0.6B")
 print(f"Embedding dimension: {EMBED_DIM}")
+
+# ---------------------------------------------------------------------------
+# Query instruction (customized for our domain)
+# ---------------------------------------------------------------------------
+
+_QUERY_INSTRUCTION = (
+    "Instruct: Given a question about UI GreenMetric university sustainability "
+    "rankings, retrieve relevant guideline documents and indicator data\nQuery:"
+)
 
 
 # ---------------------------------------------------------------------------
-# Embedding
+# Embedding — documents (no instruction prefix)
 # ---------------------------------------------------------------------------
 
 def embed(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
-    """Encode a batch of text strings into 1024-dimensional vectors.
+    """Encode document/chunk text — no instruction prompt needed."""
+    return EMBED_MODEL.encode(
+        texts, show_progress_bar=show_progress, batch_size=4
+    ).tolist()
 
-    Uses the loaded ``EMBED_MODEL``.  Input is a list
-    of plain strings — no chunk‑wrapping required.  The text should be
-    pre‑processed and cleaned as needed before calling this function.
 
-    Parameters:
-        texts:          List of chunk ``"content"`` strings to embed.
-        show_progress:  Show a tqdm progress bar during encoding
-                        (useful for large batches like 300 + chunks).
+# ---------------------------------------------------------------------------
+# Embedding — queries (with instruction prompt)
+# ---------------------------------------------------------------------------
 
-    Returns:
-        list[list[float]]: One embedding vector per input string.  Outer
-        list is aligned with *texts* (``len(output) == len(texts)``).
-        Each inner list has ``EMBED_DIM`` floats.
-    """
-    return EMBED_MODEL.encode(texts, show_progress_bar=show_progress).tolist()
+def embed_query(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
+    """Encode search queries with task instruction for better retrieval."""
+    return EMBED_MODEL.encode(
+        texts, prompt=_QUERY_INSTRUCTION, show_progress_bar=show_progress, batch_size=4
+    ).tolist()
 
 
 # ---------------------------------------------------------------------------
 # ChromaDB storage
 # ---------------------------------------------------------------------------
 
-def store(source_chunks: dict[str, list[dict]], *, client_path: str = "./chroma_db", collection_name: str = "greenmetric_v10") -> None:
-    """Embed every chunk and persist them into a single ChromaDB collection.
-
-    Iterates over every source in *source_chunks*, flattens their
-    ``"content"`` strings into one batch, embeds them via :func:`embed`,
-    and inserts them together with their ``"metadata"`` dicts and
-    sequential per‑source IDs.  The collection uses cosine as its
-    distance metric and is created if it does not already exist.
-
-    Parameters:
-        source_chunks:  Dict produced by the chunker (or the notebook's
-                        ``sources`` variable), mapping source names
-                        (``"pdf"``, ``"csv_appendix1"``, ...) to lists of
-                        ``{content, metadata}`` dicts.
-        client_path:    Filesystem directory for the ChromaDB persistent
-                        client (default ``"./chroma_db"``).
-        collection_name: Name of the ChromaDB collection to create / reuse
-                        (default ``"greenmetric_v10"``).
-
-    Returns:
-        None.  Side effect: the collection is populated in ChromaDB at
-        *client_path*.  Subsequent calls with the same arguments will
-        add chunks with matching IDs.
-    """
+def store(
+    source_chunks: dict[str, list[dict]],
+    *,
+    client_path: str = "./chroma_db",
+    collection_name: str = "greenmetric_qwen3",
+) -> None:
+    """Embed every chunk and persist them into a single ChromaDB collection."""
     client = chromadb.PersistentClient(path=client_path)
-    collection = client.get_or_create_collection(
+    # Drop old collection if it exists to rebuild cleanly
+    try:
+        client.delete_collection(collection_name)
+    except Exception:
+        pass
+    collection = client.create_collection(
         name=collection_name,
         metadata={"hnsw:space": "cosine"},
     )

@@ -4,7 +4,7 @@ Queries ChromaDB with source-aware routing driven by router output.
 """
 
 import chromadb
-from src.embedder import embed
+from src.embedder import embed_query
 
 
 # ---------------------------------------------------------------------------
@@ -18,7 +18,7 @@ def retrieve(
     top_k: int = 20, # Reranker preparation.
     threshold: float = 0.5, # Reranker preparation.
     client_path: str = "./chroma_db",
-    collection_name: str = "greenmetric_v10",
+    collection_name: str = "greenmetric_qwen3",
 ) -> list[dict]:
     """Retrieve chunks for *query* based on the router's classification.
 
@@ -100,7 +100,7 @@ def _semantic_search(
     """Embed *query*, run ChromaDB semantic search, return all top‑k results.
     Distance threshold is applied after reranking in the pipeline."""
 
-    query_vector = embed([query])
+    query_vector = embed_query([query])
     raw = collection.query(
         query_embeddings=query_vector,
         n_results=top_k,
@@ -120,8 +120,8 @@ def _semantic_search(
 def _fetch_all(where: dict, collection) -> list[dict]:
     """Fetch every chunk matching *where* via exact metadata lookup.
 
-    No embedding, no semantic search, no threshold — deterministic
-    retrieval.  Used for aggregate queries that need the full dataset.
+    Deterministic retrieval, Used for aggregate queries that need 
+    the full dataset.
     """
     raw = collection.get(where=where)
     results = []
@@ -153,7 +153,7 @@ def retrieve_multi(
     *,
     top_k: int = 10,
     client_path: str = "./chroma_db",
-    collection_name: str = "greenmetric_v10",
+    collection_name: str = "greenmetric_qwen3",
 ) -> list[dict]:
     """Multi-query retrieval with Reciprocal Rank Fusion.
 

@@ -36,6 +36,21 @@ csv_table4 — Greenhouse gas emission sources. Categorized by Scope 1 (Direct),
 
 === FEW-SHOT EXAMPLES ===
 
+Q: "I don't remember waste programs being part of the questionnaire, when were they added?"
+A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
+
+Q: "What does each answer option mean in the renewable energy sources question?"
+A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
+
+Q: "What is the maximum allowable CO2 emission tonnage for a university to get full marks?"
+A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
+
+Q: "Are there any new indicators added in the 2026 edition?"
+A: {"source": "both", "csv_source": "csv_appendix1", "query_type": "lookup"}
+
+Q: "Why is sustainability important for universities?"
+A: {"source": "none", "csv_source": null, "query_type": "lookup"}
+
 Q: "What kind of evidence does UI GreenMetric accept for data submission?"
 A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
 
@@ -153,24 +168,28 @@ def route(query: str,*,conversation_history: list[dict] | None = None) -> dict:
         temperature=0.0,
     )
 
+    tokens = getattr(response.usage, "total_tokens", 0)
+
     try:
-        return json.loads(response.choices[0].message.content.strip())
+        return json.loads(response.choices[0].message.content.strip()), tokens
     except (json.JSONDecodeError, KeyError):
-        return {"source": "none", "csv_source": None, "query_type": "lookup"}
+        return {"source": "none", "csv_source": None, "query_type": "lookup"}, tokens
 
 
 # ---------------------------------------------------------------------------
 # Query paraphrasing (RAG Fusion)
 # ---------------------------------------------------------------------------
 
-PARAPHRASE_SYSTEM_PROMPT = """You are a query paraphraser. Generate 3 alternative search queries
-for the given question. Each variant must use different keywords and
-phrasing while preserving the exact same intent. Return ONLY a valid
-JSON array of 3 strings. No markdown, no explanation."""
+PARAPHRASE_SYSTEM_PROMPT = """You are a query paraphraser for the UI GreenMetric 
+university sustainability rankings system. Generate 3 alternative search queries 
+for the given question. Vary vocabulary including English/Indonesian equivalents 
+where relevant. Each variant must use different keywords and phrasing while 
+preserving the exact same intent. Return ONLY a valid JSON array of 3 strings."""
 
 
-def paraphrase(query: str) -> list[str]:
-    """Generate 3 paraphrased variants of *query* for multi-query retrieval."""
+def paraphrase(query: str) -> tuple[list[str], int]:
+    """Generate 3 paraphrased variants of *query* for multi-query retrieval.
+    Returns (variants, token_count)."""
     try:
         response = ROUTER_CLIENT.chat.completions.create(
             model="deepseek-v4-flash",
@@ -180,9 +199,10 @@ def paraphrase(query: str) -> list[str]:
             ],
             temperature=0.7,
         )
+        tokens = getattr(response.usage, "total_tokens", 0)
         variants = json.loads(response.choices[0].message.content.strip())
         if isinstance(variants, list) and len(variants) >= 1:
-            return variants[:3]
+            return variants[:3], tokens
     except (json.JSONDecodeError, KeyError, TypeError):
         pass
-    return []
+    return [], 0

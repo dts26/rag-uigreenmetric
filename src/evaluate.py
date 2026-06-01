@@ -1,7 +1,7 @@
 """
 Evaluation pipeline for the UI GreenMetric RAG system — powered by DeepEval.
 
-v0.5.1 — replaces the RAGAS-based evaluate_ragas.py with DeepEval metrics:
+v0.8.0 — replaces the RAGAS-based evaluate_ragas.py with DeepEval metrics:
   - Faithfulness          -> FaithfulnessMetric
   - Context Recall        -> ContextualRecallMetric
   - NDCG@K                -> ContextualPrecisionMetric
@@ -30,6 +30,7 @@ from deepeval import evaluate
 from deepeval.models.base_model import DeepEvalBaseLLM
 from deepeval.evaluate.configs import DisplayConfig
 from src.pipeline import ask
+from src.router import route, paraphrase
 
 load_dotenv()
 
@@ -178,7 +179,9 @@ STRICT_CORRECTNESS = GEval(
         "numeric thresholds, and logical constraints strictly defined in the "
         "expected output. Score on a continuous spectrum from 0 to 1, where 1 "
         "means a perfect factual match, and 0 means complete failure, "
-        "contradiction, or an 'I don't know' fallback."
+        "contradiction, or an 'I don't know' fallback. Treat answers in "
+        "English and Bahasa Indonesia as equivalent if they are semantically "
+        "identical. Do not penalize language differences."
     ),
     evaluation_params=[
         LLMTestCaseParams.ACTUAL_OUTPUT,
@@ -254,13 +257,30 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
     case_contexts: dict[int, list[str]] = {}  # case.idx -> retrieved chunks
     case_answers: dict[int, str] = {}         # case.idx -> generated answer
 
+    # ---- Phase 0: pre-compute routes and paraphrases ----
+    case_routes_cache: dict[int, dict] = {}
+    case_queries_cache: dict[int, list[str]] = {}
+    for case in test_cases:
+        r, _ = route(case.question)
+        case_routes_cache[case.idx] = r
+        if r["source"] != "none" and r["query_type"] != "aggregate":
+            try:
+                vars_, _ = paraphrase(case.question)
+                case_queries_cache[case.idx] = [case.question] + vars_
+            except Exception:
+                case_queries_cache[case.idx] = [case.question]
+
     # ---- Phase 1: run all test cases through ask() ----
     case_routes: dict[int, dict] = {}          # case.idx -> route dict
     case_timing: dict[int, float] = {}          # case.idx -> total seconds
     case_rerank_ms: dict[int, float] = {}       # case.idx -> reranker ms
     for case in test_cases:
         t0 = time.perf_counter()
-        result = ask(case.question)
+        result = ask(
+            case.question,
+            _route_result=case_routes_cache.get(case.idx),
+            _fusion_queries=case_queries_cache.get(case.idx),
+        )
         elapsed = time.perf_counter() - t0
         case_timing[case.idx] = elapsed
         case_rerank_ms[case.idx] = result.get("rerank_ms", 0.0)

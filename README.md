@@ -4,7 +4,7 @@
 
 The system answers complex queries about the UI GreenMetric Sustainable University Rankings by combining unstructured narrative guidelines with structured tabular appendices.
 
-**v0.6.0** · Python 3.12.13
+**v0.8.0** · Python 3.12.13
 
 ---
 
@@ -13,10 +13,10 @@ The system answers complex queries about the UI GreenMetric Sustainable Universi
 | Layer | Component |
 |---|---|
 | Language | Python 3.12.13 |
-| Embedding | `BAAI/bge-m3` (SentenceTransformers, 1024-dim) |
-| Vector DB | ChromaDB (cosine distance, top-k=5) |
+| Embedding | `Qwen/Qwen3-Embedding-0.6B` (SentenceTransformers, 1024-dim) |
+| Retrieval | RAG Fusion: paraphrase ×3 + ChromaDB (cosine, top-k=10) + RRF (k=60), top-n=7 |
 | Data | `pandas`, `openpyxl` |
-| LLM (pipeline) | DeepSeek API via OpenAI SDK (`v4-pro` generation, `v4-flash` routing) |
+| LLM (pipeline) | DeepSeek API via OpenAI SDK (`v4-pro` generation, `v4-flash` routing/paraphrase) |
 | LLM (evaluation) | `deepseek-v4-flash` with thinking disabled |
 | UI | Gradio |
 | Evaluation | DeepEval 4.0.4 |
@@ -46,36 +46,39 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | File | Role |
 |---|---|
 | `src/chunker.py` | Splits markdown (heading-level) and CSV tables (grouped by column) into embeddable chunks |
-| `src/embedder.py` | Loads the embedding model, encodes text into vectors, persists to ChromaDB |
-| `src/retriever.py` | Cosine similarity search with 0.5 threshold guardrail; full-source fetch for aggregate queries |
-| `src/router.py` | LLM-based query classifier — routes to source (PDF/CSV/Both/None) and query type (lookup/aggregate) |
+| `src/embedder.py` | Loads Qwen3-Embedding, encodes text into vectors (documents raw, queries with instruction), persists to ChromaDB |
+| `src/retriever.py` | Single-query retrieval + multi-query RRF merge; dispatches by source (pdf/csv/both) and query type (lookup/aggregate) |
+| `src/router.py` | LLM-based query classifier — routes to source (PDF/CSV/Both/None) and query type (lookup/aggregate); generates paraphrase variants for RAG Fusion |
 | `src/generator.py` | Formats context + calls DeepSeek to produce answers; flags low-confidence results |
-| `src/pipeline.py` | Orchestrator — wires router → retriever → generator into a single `ask()` call |
-| `src/evaluate.py` | Test case loader + DeepEval batch scorer + 5-section report with context debugging |
+| `src/pipeline.py` | Orchestrator — wires route → paraphrase → multi-query RRF → generate (reranker opt-in via `RAG_RERANK=1`) |
+| `src/reranker.py` | Optional Jina V3 cross-encoder reranker (not recommended — see reports) |
+| `src/evaluate.py` | Pre-computes routes + paraphrases, runs pipeline, DeepEval batch scorer, 5-section report with context debugging and per-case timing |
+| `build_collection.py` | Chunks all 7 sources, prints sanity check (317 expected), builds ChromaDB collection |
 | `app.py` | Gradio chat UI |
 
 ---
 
 ## ⚙️ Pipeline Architecture
 
-1. **Unstructured Data:** Markdown → Heading-Level Chunking → Embed → Store in ChromaDB.
-2. **Structured Data (CSV):** Question-Grouped Chunks (combining criteria, options, and injected formulas) → Embed → Store in ChromaDB.
-3. **Retrieval & Generation:** User Query → Router (LLM) → Cosine Similarity Search → 0.5 Low Confidence Filter → Context Concatenation → DeepSeek LLM Generation.
-4. **Router Agent:** Classifies queries by source (PDF, CSV, Both, None) and query type (lookup, aggregate) before retrieval.
+1. **Ingestion:** Markdown → Heading-Level Chunking, CSV → Group-Based Chunking (118 question groups, 6 green building categories, 6 smart building fields, 30 coordinator countries, 7 category weights, 3 emission scopes) → Embed with Qwen3 (no instruction) → Store in ChromaDB.
+2. **Retrieval & Generation:** User Query → Router (LLM) → Paraphrase (3 variants via DeepSeek) → Multi-query ChromaDB search (top-k=10 each) → RRF (k=60) → top 7 chunks → Context Concatenation → DeepSeek LLM Generation.
+3. **Query encoding:** Queries use a domain-specific instruction prompt (`Instruct: Given a question about UI GreenMetric university sustainability rankings, retrieve relevant guideline documents and indicator data`). Documents are encoded raw.
 
 ---
 
 ## 📊 Evaluation (DeepEval)
 
-| Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | +Reranker |
+| Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | v0.6 (Qwen3, RAG Fusion) |
 |---|---|---|---|
-| Faithfulness | 0.91 | **0.93** | — |
-| Contextual Recall | 0.74 | **0.81** | — |
-| Contextual Precision (NDCG@K) | 0.45 | **0.56** | — |
-| G-Eval Correctness | 0.43 | **0.51** | — |
-| Router Accuracy | 80.0% | **77.5%** | — |
+| Faithfulness | 0.91 | 0.93 | **0.91** |
+| Contextual Recall | 0.74 | 0.81 | **0.91** |
+| Contextual Precision (NDCG@K) | 0.45 | 0.56 | **0.54** |
+| G-Eval Correctness | 0.43 | 0.51 | **0.55** |
+| Router Accuracy | 80.0% | 77.5% | **78.7%** |
 
-*LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0.*
+*47 test cases (40 original + 7 synthetic). LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0.*
+
+**Full benchmark report:** `test_cases/RF_RERANKER_REPORT.md` — RAG Fusion + reranker configurations (5 rerankers, 2 embedders, 47 test cases)
 
 ---
 
@@ -84,32 +87,38 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | Decision | Reason |
 |---|---|
 | **Cosine similarity** | Matches the training metric of the embedding model |
-| **Question-grouped CSV chunks** | Prevents partial/ orphaned indicators — the LLM always sees a complete criterion |
+| **Qwen3-Embedding over BGE-M3** | +10 points on MTEB retrieval (64.64 vs 54.60), instruction-aware encoding, longer 32K context |
+| **Custom query instruction** | Domain-specific prompt (+0.08 CR over generic "web search" default) |
+| **RAG Fusion (paraphrase ×3 + RRF)** | Resolves vocabulary mismatches that cosine search alone misses; improved CR from 0.75 → 0.91 |
+| **Question-grouped CSV chunks** | Prevents partial/orphaned indicators — the LLM always sees a complete criterion |
 | **Formula injection in chunks** | Embedding formulas directly into chunk text reduces hallucination on calculation questions |
-| ~~**0.7 cosine distance threshold**~~ | ~~Empirically calibrated guardrail on this dataset~~ — lowered to 0.5 in preparation for reranker |
-| **Top-K = 5** | Multiple chunks improve synthesis for cross-indicator questions |
+| **No cosine distance threshold** | Removed 0.5 threshold — was discarding relevant chunks; RRF handles quality ordering |
 | **Single ChromaDB collection** | At 317 chunks, per-source collections add complexity with no performance gain |
 | **No conversation history** | Degrades router accuracy — few-shot training uses single queries, and prior-turn vocabulary pulls the router toward stale sources |
+| **No reranker** | Evaluated 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina). None add value on top of Qwen3 + RAG Fusion. Jina harms CR (-0.07) and GE (-0.06). GTE causes G-Eval collapse. Rerankers disabled by default. |
 
 ---
 
 ## 🗺️ v0.5 → v1.0 Roadmap
 
-- [x] Embedding model upgrade to **BGE-M3**
+- [x] Embedding model upgrade to **BGE-M3** (superseded by Qwen3)
 - [x] Rebuild ChromaDB collection (317 chunks, 1024-dim)
-- [ ] Add **bge-reranker-v2-m3** for re-ranking
-- [ ] Add **RAG Fusion** for multi-query retrieval
+- [x] Embedding model upgrade to **Qwen3-Embedding-0.6B**
+- [x] Implement **RAG Fusion** (paraphrase + multi-query RRF)
+- [x] Evaluate 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina) — none recommended, disabled by default
 - [ ] Budget management for API spending
 - [ ] Deploy on HuggingFace Spaces
+- [ ] Improve router accuracy (78.7%, the real bottleneck)
 
 ---
 
 ## ⚠️ Known Limitations
 
-- **Router accuracy ~80%:** Misclassifies `both`-source queries as single-source, or `pdf` as `csv`. Likely due to under-trained few-shot examples for edge cases.
-- **Aggregate queries use brute-force:** `_fetch_all` returns every chunk — clean but risks context window overflow.
-- **Vocabulary mismatch:** "UI GM" ≠ "UI GreenMetric", "created" ≠ "initiated" — semantic gaps cause retrieval misses.
+- **Router accuracy ~78%:** Misclassifies `both`-source queries as single-source, or `pdf` as `csv`. Likely due to under-trained few-shot examples for edge cases. Fixing this would cascade into further CR/CP gains.
+- **Aggregate queries use brute-force:** `_fetch_all` returns every chunk — clean but risks context window overflow (118 chunks for appendix1).
 - **G-Eval language sensitivity:** Scoring dips when the answer and ground truth differ in language (EN ↔ ID) despite being semantically equivalent.
-- **Contextual Precision = 0.53:** Improved with BGE-M3 but still the weakest metric — a re-ranker should help.
+- **CP bottleneck:** Contextual Precision ~0.54 is the hardest metric to move. Limited by retrieval quality rather than re-ranking — further gains require hybrid search (BM25 + dense) or embedder fine-tuning.
+- **RAG Fusion latency:** Paraphrase LLM call + 4× embeddings adds ~1-2s per query vs single-query retrieval.
 
 ---
+

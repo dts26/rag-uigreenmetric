@@ -10,15 +10,28 @@ import time
 from src.router import route, paraphrase
 from src.retriever import retrieve, retrieve_multi
 from src.generator import generate
+from src.budget import BudgetManager, MemoryBudgetStore, HFBudgetStore
 
 _RERANK_ENABLED = os.getenv("RAG_RERANK", "0") == "1"
+
+# Budget: use HF dataset store if repo configured, else in-memory
+_budget_repo = os.getenv("RAG_BUDGET_REPO", "")
+_budget = BudgetManager(
+    store=HFBudgetStore(_budget_repo) if _budget_repo else MemoryBudgetStore(),
+    daily_cap=int(os.getenv("RAG_BUDGET_TOKENS", "123000")),
+)
 
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
-def ask(query: str) -> dict:
+def ask(
+    query: str,
+    *,
+    _route_result: dict | None = None,
+    _fusion_queries: list[str] | None = None,
+) -> dict:
     """Run the full RAG pipeline.
 
     Flow:
@@ -46,7 +59,22 @@ def ask(query: str) -> dict:
         * ``"rerank_ms"`` — milliseconds spent in the reranker
           (0.0 when skipped).
     """
-    route_result = route(query)
+    # ── budget guard ─────────────────────────────────────────────────
+    if not _route_result and _budget.exceeded():
+        return {
+            "answer": "Daily token budget reached. Please try again tomorrow.",
+            "route": {"source": "none", "csv_source": None, "query_type": "lookup"},
+            "retrieved": 0,
+            "contexts": [],
+            "low_confidence": False,
+            "rerank_ms": 0.0,
+        }
+
+    if _route_result is not None:
+        route_result = _route_result  # pre-computed, no LLM call
+    else:
+        route_result, route_tokens = route(query)
+        _budget.track(route_tokens)
 
     # ── none ────────────────────────────────────────────────────────────
     if route_result["source"] == "none":
@@ -62,7 +90,8 @@ def ask(query: str) -> dict:
     # ── aggregate ───────────────────────────────────────────────────────
     if route_result["query_type"] == "aggregate":
         context = retrieve(query, route_result)
-        answer = generate(query, context, query_type="aggregate")
+        answer, gen_tokens = generate(query, context, query_type="aggregate")
+        _budget.track(gen_tokens)
         return {
             "answer": answer,
             "route": route_result,
@@ -73,8 +102,12 @@ def ask(query: str) -> dict:
         }
 
     # ── lookup / both → RAG Fusion ──────────────────────────────────────
-    variants = paraphrase(query)
-    queries = [query] + variants  # 1 original + up to 3 paraphrases
+    if _fusion_queries is not None:
+        queries = _fusion_queries
+    else:
+        variants, para_tokens = paraphrase(query)
+        _budget.track(para_tokens)
+        queries = [query] + variants
 
     context = retrieve_multi(queries, route_result)
 
@@ -84,8 +117,11 @@ def ask(query: str) -> dict:
         t0 = time.perf_counter()
         context = rerank(query, context, top_n=5)
         rerank_ms = (time.perf_counter() - t0) * 1000
+    else:
+        context = context[:7]
 
-    answer = generate(query, context, query_type=route_result["query_type"])
+    answer, gen_tokens = generate(query, context, query_type=route_result["query_type"])
+    _budget.track(gen_tokens)
 
     low_confidence = (
         bool(context)
@@ -100,17 +136,3 @@ def ask(query: str) -> dict:
         "low_confidence": low_confidence,
         "rerank_ms": rerank_ms,
     }
-
-
-# ---------------------------------------------------------------------------
-# Budget tracking (v1.0 placeholders)
-# ---------------------------------------------------------------------------
-
-def _track_budget(call_type: str, **kwargs) -> None:
-    """Placeholder — track token usage per LLM call.  Wired in v1.0."""
-    pass
-
-
-def _remaining_budget() -> bool:
-    """Placeholder — check if budget allows another call.  Always True."""
-    return True

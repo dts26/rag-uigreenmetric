@@ -1,7 +1,7 @@
 """Build (or rebuild) the ChromaDB collection from all 7 data sources.
 
 Chunks every source, prints per-source counts + sanity check against the
-expected 317-chunk total, then embeds with BGE-M3 and persists into a
+expected 317-chunk total, then embeds with Qwen3 and persists into a
 single ``greenmetric_v10`` collection.  Safe to re-run — overwrites
 existing chunks with matching IDs.
 """
