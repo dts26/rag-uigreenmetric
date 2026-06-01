@@ -69,7 +69,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 ## 📊 Evaluation (DeepEval)
 
 | Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | v0.8 (Qwen3, RAG Fusion) |
-|---|---|---|---|---|
+|---|---|---|---|
 | Faithfulness | 0.91 | 0.93 | **0.95** |
 | Contextual Recall | 0.74 | 0.81 | **0.83** |
 | Contextual Precision (NDCG@K) | 0.45 | 0.56 | **0.50** |
