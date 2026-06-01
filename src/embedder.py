@@ -2,23 +2,18 @@
 
 Manages the embedding model and provides utilities for encoding text
 into vectors for ChromaDB storage and query-time retrieval.
+
+Auto-detects environment:
+    Local/GitHub  → local Qwen3-Embedding via SentenceTransformers
+    HF Spaces     → HF Inference API (GPU) when EMBED_BACKEND=hf_api
 """
 
-from sentence_transformers import SentenceTransformer
+import os
+import numpy as np
 import chromadb
 
 # ---------------------------------------------------------------------------
-# Model
-# ---------------------------------------------------------------------------
-
-EMBED_MODEL = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
-EMBED_DIM = EMBED_MODEL.get_embedding_dimension()
-
-print(f"Embedding model: Qwen3-Embedding-0.6B")
-print(f"Embedding dimension: {EMBED_DIM}")
-
-# ---------------------------------------------------------------------------
-# Query instruction (customized for our domain)
+# Query instruction
 # ---------------------------------------------------------------------------
 
 _QUERY_INSTRUCTION = (
@@ -26,27 +21,68 @@ _QUERY_INSTRUCTION = (
     "rankings, retrieve relevant guideline documents and indicator data\nQuery:"
 )
 
+# ---------------------------------------------------------------------------
+# Backend detection
+# ---------------------------------------------------------------------------
+
+_BACKEND = os.getenv("EMBED_BACKEND", "local")
+_local_model = None
+
+
+def _get_local_model():
+    global _local_model
+    if _local_model is None:
+        from sentence_transformers import SentenceTransformer
+        _local_model = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
+        print(f"Embedding model: Qwen3-Embedding-0.6B (local)")
+        print(f"Embedding dimension: {_local_model.get_embedding_dimension()}")
+    return _local_model
+
+
+def _embed_local(texts: list[str], instruct: bool = False) -> list[list[float]]:
+    """Embed via local Qwen3 SentenceTransformer."""
+    model = _get_local_model()
+    if instruct:
+        return model.encode(
+            texts, prompt=_QUERY_INSTRUCTION, show_progress_bar=False, batch_size=4
+        ).tolist()
+    return model.encode(
+        texts, show_progress_bar=False, batch_size=4
+    ).tolist()
+
+
+def _embed_hf_api(texts: list[str], instruct: bool = False) -> list[list[float]]:
+    """Embed via HF Inference API (GPU-backed, serverless)."""
+    from huggingface_hub import InferenceClient
+
+    client = InferenceClient(model="Qwen/Qwen3-Embedding-0.6B")
+
+    if instruct:
+        texts = [f"{_QUERY_INSTRUCTION} {t}" for t in texts]
+
+    result = client.feature_extraction(texts)
+    # feature_extraction returns a list of vectors (numpy arrays or lists)
+    if hasattr(result[0], "tolist"):
+        return [r.tolist() for r in result]
+    return result
+
 
 # ---------------------------------------------------------------------------
-# Embedding — documents (no instruction prefix)
+# Public API
 # ---------------------------------------------------------------------------
 
 def embed(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
-    """Encode document/chunk text — no instruction prompt needed."""
-    return EMBED_MODEL.encode(
-        texts, show_progress_bar=show_progress, batch_size=4
-    ).tolist()
+    """Encode document/chunk text — no instruction prefix needed."""
+    if _BACKEND == "hf_api":
+        return _embed_hf_api(texts, instruct=False)
+    return _embed_local(texts, instruct=False)
 
-
-# ---------------------------------------------------------------------------
-# Embedding — queries (with instruction prompt)
-# ---------------------------------------------------------------------------
 
 def embed_query(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
     """Encode search queries with task instruction for better retrieval."""
-    return EMBED_MODEL.encode(
-        texts, prompt=_QUERY_INSTRUCTION, show_progress_bar=show_progress, batch_size=4
-    ).tolist()
+    if _BACKEND == "hf_api":
+        return _embed_hf_api(texts, instruct=True)
+    return _embed_local(texts, instruct=True)
 
 
 # ---------------------------------------------------------------------------
@@ -61,7 +97,6 @@ def store(
 ) -> None:
     """Embed every chunk and persist them into a single ChromaDB collection."""
     client = chromadb.PersistentClient(path=client_path)
-    # Drop old collection if it exists to rebuild cleanly
     try:
         client.delete_collection(collection_name)
     except Exception:
