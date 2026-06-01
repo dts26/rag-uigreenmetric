@@ -21,6 +21,15 @@ def _flush_logs() -> None:
 
 _RERANK_ENABLED = os.getenv("RAG_RERANK", "0") == "1"
 
+_BUDGET_BLOCKED_RESPONSE = {
+    "answer": "Daily token budget reached. Please try again tomorrow.",
+    "route": {"source": "none", "csv_source": None, "query_type": "lookup"},
+    "retrieved": 0,
+    "contexts": [],
+    "low_confidence": False,
+    "rerank_ms": 0.0,
+}
+
 # Budget: use HF dataset store if repo configured, else in-memory
 _budget_repo = os.getenv("RAG_BUDGET_REPO", "")
 _budget = BudgetManager(
@@ -67,15 +76,8 @@ def ask(
           (0.0 when skipped).
     """
     # ── budget guard ─────────────────────────────────────────────────
-    if not _route_result and _budget.exceeded():
-        return {
-            "answer": "Daily token budget reached. Please try again tomorrow.",
-            "route": {"source": "none", "csv_source": None, "query_type": "lookup"},
-            "retrieved": 0,
-            "contexts": [],
-            "low_confidence": False,
-            "rerank_ms": 0.0,
-        }
+    if _budget.exceeded():
+        return _BUDGET_BLOCKED_RESPONSE
 
     if _route_result is not None:
         route_result = _route_result  # pre-computed, no LLM call
@@ -97,6 +99,8 @@ def ask(
     # ── aggregate ───────────────────────────────────────────────────────
     if route_result["query_type"] == "aggregate":
         context = retrieve(query, route_result)
+        if _budget.exceeded():
+            return _BUDGET_BLOCKED_RESPONSE
         answer, gen_tokens = generate(query, context, query_type="aggregate")
         _budget.track(gen_tokens)
         log_conversation(query, answer, route_result,
@@ -129,6 +133,9 @@ def ask(
         rerank_ms = (time.perf_counter() - t0) * 1000
     else:
         context = context[:7]
+
+    if _budget.exceeded():
+        return _BUDGET_BLOCKED_RESPONSE
 
     answer, gen_tokens = generate(query, context, query_type=route_result["query_type"])
     _budget.track(gen_tokens)
