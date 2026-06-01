@@ -1,3 +1,14 @@
+---
+title: UI GreenMetric RAG Assistant
+emoji: 📚
+colorFrom: green
+colorTo: blue
+sdk: gradio
+sdk_version: 6.14.0
+app_file: app.py
+pinned: false
+---
+
 # 📚 RAG — Multi Source Information Retrieval
 
 > A hybrid Retrieval-Augmented Generation (RAG) project built to learn and implement context injection using the DeepSeek API.
@@ -57,6 +68,22 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | `src/evaluate.py` | Pre-computes routes + paraphrases, runs pipeline, DeepEval batch scorer, 5-section report with context debugging and per-case timing |
 | `build_collection.py` | Chunks all 7 sources, prints sanity check (317 expected), builds ChromaDB collection |
 | `app.py` | Gradio chat UI |
+
+---
+
+## 🛠️ Dependencies
+
+Key libraries beyond the standard Python data stack:
+
+| Package | Version | Purpose |
+|---|---|---|
+| `chromadb` | 1.5.9 | Vector database |
+| `sentence-transformers` | 5.5.1 | Embedding model (Qwen3) |
+| `openai` | 2.38.0 | DeepSeek API client |
+| `gradio` | 6.14.0 | Web UI |
+| `deepeval` | 4.0.4 | Evaluation metrics |
+| `huggingface-hub` | ≥0.20 | HF Datasets storage for budget + conversation logs |
+| `transformers` | 4.57.6 | LLM model loading |
 
 ---
 
