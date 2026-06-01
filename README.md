@@ -52,6 +52,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | `src/generator.py` | Formats context + calls DeepSeek to produce answers; flags low-confidence results |
 | `src/pipeline.py` | Orchestrator — wires route → paraphrase → multi-query RRF → (opt-in reranker) → generate |
 | `src/budget.py` | Token budget tracking with HF Datasets persistence; guards against API overspend |
+| `src/conversation.py` | Logs user prompts + responses to HF Datasets for quality monitoring |
 | `src/reranker.py` | Optional Jina V3 cross-encoder reranker (not recommended — see reports) |
 | `src/evaluate.py` | Pre-computes routes + paraphrases, runs pipeline, DeepEval batch scorer, 5-section report with context debugging and per-case timing |
 | `build_collection.py` | Chunks all 7 sources, prints sanity check (317 expected), builds ChromaDB collection |

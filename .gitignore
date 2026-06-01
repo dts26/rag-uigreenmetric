@@ -15,8 +15,8 @@ env/
 # Environment variables
 .env
 
-# ChromaDB (vector database — persistent, recreated by the chunking pipeline)
-chroma_db/
+# ChromaDB — pre-built and committed (317 chunks, Qwen3 embeddings).
+# Run build_collection.py to rebuild after modifying the chunker or upgrading the embedder.
 
 # Jupyter
 .ipynb_checkpoints/

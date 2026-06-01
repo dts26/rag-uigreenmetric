@@ -131,6 +131,6 @@ if __name__ == "__main__":
     # ---- Phase 2: embed + store (BGE-M3 download happens here) ----
     from src.embedder import store
 
-    print(f"Embedding {total} chunks with BGE-M3 → chroma_db/greenmetric_v10 ...")
-    store(sources, collection_name="greenmetric_v10")
-    print("Done — collection greenmetric_v10 is ready.")
+    print(f"Embedding {total} chunks with Qwen3 → chroma_db/greenmetric_qwen3 ...")
+    store(sources, collection_name="greenmetric_qwen3")
+    print("Done — collection greenmetric_qwen3 is ready.")
