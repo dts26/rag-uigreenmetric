@@ -25,7 +25,7 @@ _RERANK_ENABLED = os.getenv("RAG_RERANK", "0") == "1"
 _budget_repo = os.getenv("RAG_BUDGET_REPO", "")
 _budget = BudgetManager(
     store=HFBudgetStore(_budget_repo) if _budget_repo else MemoryBudgetStore(),
-    daily_cap=int(os.getenv("RAG_BUDGET_TOKENS", "26000")),
+    daily_cap=int(os.getenv("RAG_BUDGET_TOKENS", "200000")),
 )
 
 

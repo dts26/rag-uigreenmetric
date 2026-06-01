@@ -57,7 +57,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | File | Role |
 |---|---|
 | `src/chunker.py` | Splits markdown (heading-level) and CSV tables (grouped by column) into embeddable chunks |
-| `src/embedder.py` | Loads Qwen3-Embedding, encodes text into vectors (documents raw, queries with instruction), persists to ChromaDB |
+| `src/embedder.py` | Loads Qwen3-Embedding (local or HF Inference API via `EMBED_BACKEND=hf_api`), encodes text into vectors, persists to ChromaDB |
 | `src/retriever.py` | Single-query retrieval + multi-query RRF merge; dispatches by source (pdf/csv/both) and query type (lookup/aggregate) |
 | `src/router.py` | LLM-based query classifier — routes to source (PDF/CSV/Both/None) and query type (lookup/aggregate); generates paraphrase variants for RAG Fusion |
 | `src/generator.py` | Formats context + calls DeepSeek to produce answers; flags low-confidence results |
@@ -115,8 +115,8 @@ Key libraries beyond the standard Python data stack:
 |---|---|
 | **Cosine similarity** | Matches the training metric of the embedding model |
 | **Qwen3-Embedding over BGE-M3** | +10 points on MTEB retrieval (64.64 vs 54.60), instruction-aware encoding, longer 32K context |
-| **Custom query instruction** | Domain-specific prompt (+0.08 CR over generic "web search" default) |
-| **RAG Fusion (paraphrase ×3 + RRF)** | Resolves vocabulary mismatches that cosine search alone misses; improved CR from 0.75 → 0.91 |
+| **Custom query instruction** | Domain-specific prompt improves retrieval accuracy vs generic "web search" default |
+| **RAG Fusion (paraphrase ×3 + RRF)** | Resolves vocabulary mismatches that cosine search alone misses |
 | **Question-grouped CSV chunks** | Prevents partial/orphaned indicators — the LLM always sees a complete criterion |
 | **Formula injection in chunks** | Embedding formulas directly into chunk text reduces hallucination on calculation questions |
 | **No cosine distance threshold** | Removed 0.5 threshold — was discarding relevant chunks; RRF handles quality ordering |
@@ -134,7 +134,7 @@ Key libraries beyond the standard Python data stack:
 - [x] Implement **RAG Fusion** (paraphrase + multi-query RRF)
 - [x] Evaluate 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina) — none recommended, disabled by default
 - [x] Budget management for API spending
-- [ ] Deploy on HuggingFace Spaces
+- [x] Deploy on HuggingFace Spaces (`fortunius/rag-uigreenmetric`)
 - [ ] Router tuned to 89.4% with few-shot examples — 3-5 cases still misrouted; add targeted examples
 
 ---
