@@ -50,7 +50,8 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | `src/retriever.py` | Single-query retrieval + multi-query RRF merge; dispatches by source (pdf/csv/both) and query type (lookup/aggregate) |
 | `src/router.py` | LLM-based query classifier — routes to source (PDF/CSV/Both/None) and query type (lookup/aggregate); generates paraphrase variants for RAG Fusion |
 | `src/generator.py` | Formats context + calls DeepSeek to produce answers; flags low-confidence results |
-| `src/pipeline.py` | Orchestrator — wires route → paraphrase → multi-query RRF → generate (reranker opt-in via `RAG_RERANK=1`) |
+| `src/pipeline.py` | Orchestrator — wires route → paraphrase → multi-query RRF → (opt-in reranker) → generate |
+| `src/budget.py` | Token budget tracking with HF Datasets persistence; guards against API overspend |
 | `src/reranker.py` | Optional Jina V3 cross-encoder reranker (not recommended — see reports) |
 | `src/evaluate.py` | Pre-computes routes + paraphrases, runs pipeline, DeepEval batch scorer, 5-section report with context debugging and per-case timing |
 | `build_collection.py` | Chunks all 7 sources, prints sanity check (317 expected), builds ChromaDB collection |
@@ -61,7 +62,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 ## ⚙️ Pipeline Architecture
 
 1. **Ingestion:** Markdown → Heading-Level Chunking, CSV → Group-Based Chunking (118 question groups, 6 green building categories, 6 smart building fields, 30 coordinator countries, 7 category weights, 3 emission scopes) → Embed with Qwen3 (no instruction) → Store in ChromaDB.
-2. **Retrieval & Generation:** User Query → Router (LLM) → Paraphrase (3 variants via DeepSeek) → Multi-query ChromaDB search (top-k=10 each) → RRF (k=60) → top 7 chunks → Context Concatenation → DeepSeek LLM Generation.
+2. **Retrieval & Generation:** User Query → Budget Guard → Router (LLM) → Paraphrase (3 variants via DeepSeek) → Multi-query ChromaDB search (top-k=10 each) → RRF (k=60) → top 7 chunks → Context Concatenation → DeepSeek LLM Generation.
 3. **Query encoding:** Queries use a domain-specific instruction prompt (`Instruct: Given a question about UI GreenMetric university sustainability rankings, retrieve relevant guideline documents and indicator data`). Documents are encoded raw.
 
 ---
@@ -76,7 +77,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 | G-Eval Correctness | 0.43 | 0.51 | **0.59** |
 | Router Accuracy | 80.0% | 77.5% | **89.4%** |
 
-*47 test cases (v0.8 includes 7 synthetic). LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0. See `test_cases/RF_RERANKER_REPORT.md` for full benchmark.
+*47 test cases (v0.8 includes 7 synthetic). Scores not directly comparable to v0.5/v0.6 (40 cases) — the expanded test set is harder. LLM-as-judge metrics: ±0.05–0.08 variance. See `test_cases/RF_RERANKER_REPORT.md` for full benchmark.*
 
 ---
 
@@ -106,7 +107,7 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 - [x] Evaluate 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina) — none recommended, disabled by default
 - [x] Budget management for API spending
 - [ ] Deploy on HuggingFace Spaces
-- [ ] Improve router accuracy (78.7%, the real bottleneck)
+- [ ] Router tuned to 89.4% with few-shot examples — 3-5 cases still misrouted; add targeted examples
 
 ---
 
