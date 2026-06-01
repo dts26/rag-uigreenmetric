@@ -68,17 +68,15 @@ The UI GreenMetric guidelines document is split into **7 files** — 1 narrative
 
 ## 📊 Evaluation (DeepEval)
 
-| Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | v0.6 (Qwen3, RAG Fusion) |
-|---|---|---|---|
-| Faithfulness | 0.91 | 0.93 | **0.91** |
-| Contextual Recall | 0.74 | 0.81 | **0.91** |
-| Contextual Precision (NDCG@K) | 0.45 | 0.56 | **0.54** |
-| G-Eval Correctness | 0.43 | 0.51 | **0.55** |
-| Router Accuracy | 80.0% | 77.5% | **78.7%** |
+| Metric | v0.5 (MiniLM) | v0.6 (BGE-M3) | v0.8 (Qwen3, RAG Fusion) |
+|---|---|---|---|---|
+| Faithfulness | 0.91 | 0.93 | **0.95** |
+| Contextual Recall | 0.74 | 0.81 | **0.83** |
+| Contextual Precision (NDCG@K) | 0.45 | 0.56 | **0.50** |
+| G-Eval Correctness | 0.43 | 0.51 | **0.59** |
+| Router Accuracy | 80.0% | 77.5% | **89.4%** |
 
-*47 test cases (40 original + 7 synthetic). LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0.*
-
-**Full benchmark report:** `test_cases/RF_RERANKER_REPORT.md` — RAG Fusion + reranker configurations (5 rerankers, 2 embedders, 47 test cases)
+*47 test cases (v0.8 includes 7 synthetic). LLM-as-judge metrics: ±0.05–0.08 run-to-run variance at temperature 0. See `test_cases/RF_RERANKER_REPORT.md` for full benchmark.
 
 ---
 
