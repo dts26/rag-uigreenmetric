@@ -6,9 +6,10 @@ into a single end-to-end ``ask()`` entry point.
 
 import os
 import time
+import json
 
 from src.router import route, paraphrase
-from src.retriever import retrieve, retrieve_multi
+from src.retriever import retrieve, retrieve_multi, aggregate_stats
 from src.generator import generate
 from src.budget import BudgetManager, MemoryBudgetStore, HFBudgetStore
 from src.conversation import log_conversation, get_logger
@@ -98,7 +99,13 @@ def ask(
 
     # ── aggregate ───────────────────────────────────────────────────────
     if route_result["query_type"] == "aggregate":
-        context = retrieve(query, route_result)
+        agg_source = route_result.get("csv_source") or route_result["source"]
+        stats = aggregate_stats(agg_source)
+        if stats:
+            context = [{"content": stats, "distance": 0.0,
+                        "metadata": {"source": "aggregator", "chunk_type": "stats"}}]
+        else:
+            context = retrieve(query, route_result)  # fallback to _fetch_all
         if _budget.exceeded():
             return _BUDGET_BLOCKED_RESPONSE
         answer, gen_tokens = generate(query, context, query_type="aggregate")

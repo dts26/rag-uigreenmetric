@@ -135,8 +135,8 @@ Key libraries beyond the standard Python data stack:
 - [x] Evaluate 5 rerankers (BGE, GTE, Nemotron, Qwen3, Jina) — none recommended, disabled by default
 - [x] Budget management for API spending
 - [x] Deploy on HuggingFace Spaces (`fortunius/rag-uigreenmetric`)
-- [ ] Aggregate query optimization (118-chunk brute force → summary or directed LLM summarization)
-- [ ] Router tuned to 89.4% with few-shot examples — 3-5 cases still misrouted; add targeted examples
+- [x] Aggregate query optimization (metadata-driven stats, zero LLM, token reduction 15K→2K)
+- [x] Router tuned to 91-94% with 26 few-shot examples — LLM variance (±5-8%), some queries span both sources
 - [ ] Dense + sparse hybrid retrieval using BGE-M3 flag embeddings (inverted index + ChromaDB → RRF merge)
 
 ---
@@ -159,9 +159,8 @@ Key libraries beyond the standard Python data stack:
 
 ## ⚠️ Known Limitations
 
-- **Router accuracy ~89%:** Improved with few-shot tuning but 3-5 cases still misrouted (mostly pdf→csv). Adding more targeted examples would help.
-- **Aggregate queries use brute-force (planned for v1.0):** `_fetch_all` returns all 118 chunks for queries like "Which category has the most questions?" — correct but wastes ~15-20K tokens. Two fix paths: a pre-built summary (correct, fast, but manual to maintain) or directed LLM summarization instructing the model to capture key details (category counts, min/max scores, coordinator names, emission scopes) for the downstream generator.
-- **CP bottleneck (~0.50):** Contextual Precision is the hardest metric to move. Embedder upgrade (BGE-M3 → Qwen3), RAG Fusion, and 5 rerankers all failed to raise it past ~0.55 on 40 cases. Improving this requires embedding model fine-tuning on domain-specific data.
+- **Router accuracy ~91-94%:** Improved with few-shot tuning but 1-4 cases still misrouted per run due to LLM variance (±5-8%). Some queries genuinely span both PDF and CSV sources — neither route is wrong, just incomplete. A lucky run could hit 100%.
+- **CP bottleneck (~0.50-0.60):** Contextual Precision hit 0.60 with BGE-M3 + reranker but stays below 0.55 on raw embedding.
 - **G-Eval language sensitivity:** Scoring dips when the answer and ground truth differ in language (EN ↔ ID) despite being semantically equivalent.
 - **RAG Fusion latency:** Paraphrase LLM call + 4× embeddings adds ~1-2s per query vs single-query retrieval.
 

@@ -60,7 +60,28 @@ A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
 Q: "Pertanyaan 2.1. ada nilainya gak?"
 A: {"source": "csv", "csv_source": "csv_appendix1", "query_type": "lookup"}
 
+Q: "How do I know if that questions is scored or not for the final rankings?"
+A: {"source": "csv", "csv_source": "csv_appendix1", "query_type": "lookup"}
+
+Q: "Kategori mana yang bobotnya paling tinggi?"
+A: {"source": "csv", "csv_source": "csv_table2", "query_type": "lookup"}
+
+Q: "Which scope does stationary combustion fall under?"
+A: {"source": "csv", "csv_source": "csv_table4", "query_type": "lookup"}
+
+Q: "Does UI GreenMetric require universities to report emissions from their vehicle fleet?"
+A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
+
+Q: "Is a university required to include business travel emissions in their carbon footprint report?"
+A: {"source": "pdf", "csv_source": null, "query_type": "lookup"}
+
 Q: "Ada berapa total indikator yang dimiliki kategori SI dan berapa yang butuh evidence?"
+A: {"source": "csv", "csv_source": "csv_appendix1", "query_type": "aggregate"}
+
+Q: "Berapa skor terbesar dan terkecil yang bisa diraih dalam 1 kriteria saja?"
+A: {"source": "csv", "csv_source": "csv_appendix1", "query_type": "aggregate"}
+
+Q: "Apa kriteria dengan opsi jawaban paling banyak?"
 A: {"source": "csv", "csv_source": "csv_appendix1", "query_type": "aggregate"}
 
 Q: "How many answer options does the indicator 1.2 provide?"

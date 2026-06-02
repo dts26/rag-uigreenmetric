@@ -195,3 +195,125 @@ def retrieve_multi(
 
     merged.sort(key=lambda r: r["rrf_score"], reverse=True)
     return merged
+
+
+# ---------------------------------------------------------------------------
+# Aggregate stats from metadata (zero LLM)
+# ---------------------------------------------------------------------------
+
+def aggregate_stats(
+    source: str,
+    client_path: str = "./chroma_db",
+    collection_name: str = "greenmetric_bgem3",
+) -> dict | None:
+    """Extract aggregate facts from ChromaDB metadata. No LLM needed.
+
+    Returns a dict of structured stats for the generator, or None
+    if the source doesn't support metadata aggregation.
+    """
+    client = chromadb.PersistentClient(path=client_path)
+    collection = client.get_collection(collection_name)
+    raw = collection.get(where={"source": source})
+    docs = raw.get("documents", []) or []
+    metas = raw.get("metadatas", []) or []
+
+    if not docs:
+        return None
+
+    if source == "csv_appendix1":
+        counts = {}
+        max_score = 0
+        min_score = float("inf")
+        max_options_q = ""
+        max_options_count = 0
+        evidence_count = 0
+        for i, meta in enumerate(metas):
+            cat = meta.get("category", "?")
+            counts[cat] = counts.get(cat, 0) + 1
+            ms = meta.get("max_score", -1)
+            if isinstance(ms, (int, float)) and ms > 0:
+                max_score = max(max_score, ms)
+                min_score = min(min_score, ms)
+            if meta.get("evidence_required") == "Yes":
+                evidence_count += 1
+            doc = docs[i] if i < len(docs) else ""
+            opt_count = sum(1 for line in doc.split("\n") if line.strip().startswith("["))
+            if opt_count > max_options_count:
+                max_options_count = opt_count
+                max_options_q = meta.get("question_no", "?")
+        stats = (
+            f"Aggregate statistics from {sum(counts.values())} UI GreenMetric indicators across 7 categories:\n"
+            + "Category counts: " + ", ".join(f"{k}={v}" for k, v in counts.items()) + "\n"
+            + f"Maximum single-criterion score: {max_score}\n"
+            + f"Minimum single-criterion score: {min_score}\n"
+            + f"Most answer options: indicator {max_options_q} with {max_options_count} options\n"
+            + f"Indicators requiring evidence: {evidence_count} of {sum(counts.values())}"
+        )
+        return stats
+
+    if source == "csv_table1":
+        by_country = {}
+        for doc in docs:
+            lines = doc.strip().split("\n")
+            country = lines[0].replace("Country: ", "").strip() if lines else "?"
+            unis = [
+                l.strip() for l in lines[2:]
+                if l.strip() and not l.startswith("Country:")
+            ]
+            by_country[country] = by_country.get(country, []) + unis
+        stats = (
+            f"National coordinators across {len(by_country)} countries:\n"
+            + "\n".join(
+                f"  {c} ({len(u)}): {', '.join(u)}"
+                for c, u in sorted(by_country.items())
+            )
+        )
+        return stats
+
+    if source == "csv_table2":
+        weights = []
+        for doc in docs:
+            if "Category:" in doc and "Weight(%):" in doc:
+                cat = doc.split("Category:")[1].split("Weight")[0].strip() if "Category:" in doc else "?"
+                wt = doc.split("Weight(%):")[1].strip() if "Weight(%):" in doc else "?"
+                try:
+                    wt_val = float(wt)
+                except ValueError:
+                    wt_val = 0
+                weights.append((cat, wt_val, wt))
+        stats = (
+            "Category weight percentages for UI GreenMetric evaluation:\n"
+            + "\n".join(f"  {c}: {w}%" for c, _, w in sorted(weights, key=lambda x: -x[1]))
+        )
+        return stats
+
+    if source == "csv_table4":
+        lines = []
+        for doc in docs:
+            lines.append(doc.strip())
+        return "Emission source scopes:\n" + "\n\n".join(lines)
+
+    if source == "csv_appendix2":
+        categories = set()
+        for doc in docs:
+            line = doc.strip().split("\n")[0] if doc else ""
+            cat = line.replace("Category: ", "").strip() if "Category:" in line else ""
+            if cat:
+                categories.add(cat)
+        return "Green building element categories: " + ", ".join(sorted(categories))
+
+    if source == "csv_appendix3":
+        req_counts = {}
+        for doc in docs:
+            parts = doc.strip().split("\n") if doc else []
+            code = parts[0].replace("Field code: ", "").strip() if parts else "?"
+            name = parts[1].replace("Field category: ", "").strip() if len(parts) > 1 else "?"
+            reqs = [l.strip() for l in parts[2:] if l.strip() and not l.startswith("Field")]
+            req_counts[f"{code} ({name})"] = len(reqs)
+        stats = (
+            "Smart building requirement counts per field code:\n"
+            + "\n".join(f"  {k}: {v} requirements" for k, v in sorted(req_counts.items()))
+        )
+        return stats
+
+    return None
