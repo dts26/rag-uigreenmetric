@@ -20,6 +20,37 @@ if not os.getenv("DEEPSEEK_API_KEY"):
 
 
 # ---------------------------------------------------------------------------
+# ChromaDB startup check — auto-build if missing (HF Spaces deployment)
+# ---------------------------------------------------------------------------
+
+
+def _ensure_chromadb() -> None:
+    """Build ChromaDB collection if it doesn't exist on disk.
+
+    Handles the case where ``chroma_db/`` was not properly deployed to
+    HF Spaces, or the collection was accidentally dropped.
+    """
+    import chromadb
+
+    collection_name = os.getenv("RAG_COLLECTION", "greenmetric_bgem3")
+    client = chromadb.PersistentClient(path="./chroma_db")
+    try:
+        client.get_collection(collection_name)
+        print(f"ChromaDB collection '{collection_name}' found.")
+    except ValueError:
+        print(f"ChromaDB collection '{collection_name}' not found — building...")
+        from build_collection import chunk_all
+        from src.embedder import store
+
+        sources = chunk_all()
+        store(sources, collection_name=collection_name)
+        print("ChromaDB build complete.")
+
+
+_ensure_chromadb()
+
+
+# ---------------------------------------------------------------------------
 # Budget helpers
 # ---------------------------------------------------------------------------
 
