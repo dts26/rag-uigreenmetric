@@ -17,6 +17,7 @@
 
 ## Don't
 - **Never run evaluation without explicit permission** — a 47-case eval costs ~250K+ tokens ($0.10+)
+- **Never commit without explicit permission** — the user prefers manual review before commits
 - Don't modify the router few-shot examples without running full eval after
 - Don't add code to `src/summarizer.py` (deactivated, keep as reference)
 - Don't hardcode API keys — use `os.getenv()`
