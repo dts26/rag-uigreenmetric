@@ -1,7 +1,7 @@
 """
 Evaluation pipeline for the UI GreenMetric RAG system — powered by DeepEval.
 
-v0.8.0 — replaces the RAGAS-based evaluate_ragas.py with DeepEval metrics:
+v1.0 — replaces the RAGAS-based evaluate_ragas.py with DeepEval metrics:
   - Faithfulness          -> FaithfulnessMetric
   - Context Recall        -> ContextualRecallMetric
   - NDCG@K                -> ContextualPrecisionMetric
