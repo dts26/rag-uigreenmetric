@@ -54,6 +54,7 @@ Every tracked file in the repo (excluding `.gitignore`-covered):
 - ChromaDB pre-built and committed — rebuild only on embedder/chunker change
 - Source code in `src/`, data in `rag_data/`, tests in `test_cases/`
 - All secrets via `os.getenv()`, never hardcoded
+- Ask for the human's confirmation before writing down any codes.
 
 ## Commit Messages
 Format: `[TAG] short description`
