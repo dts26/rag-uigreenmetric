@@ -39,5 +39,5 @@ Thumbs.db
 data/
 package-lock.json
 rag_data/old_pdf/
-src/legacy/
+src/summarizer.py
 

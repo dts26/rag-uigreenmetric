@@ -30,7 +30,7 @@ def embed(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
 
 
 def embed_query(texts: list[str], *, show_progress: bool = True) -> list[list[float]]:
-    """Encode search queries. BGE-M3 doesn't need instruction prefix."""
+    """Encode search queries."""
     return EMBED_MODEL.encode(
         texts, show_progress_bar=show_progress, batch_size=8
     ).tolist()
