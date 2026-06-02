@@ -224,8 +224,8 @@ def aggregate_stats(
         counts = {}
         max_score = 0
         min_score = float("inf")
-        max_options_q = ""
         max_options_count = 0
+        max_options_meta: dict[str, object] = {}
         evidence_count = 0
         for i, meta in enumerate(metas):
             cat = meta.get("category", "?")
@@ -240,13 +240,16 @@ def aggregate_stats(
             opt_count = sum(1 for line in doc.split("\n") if line.strip().startswith("["))
             if opt_count > max_options_count:
                 max_options_count = opt_count
-                max_options_q = meta.get("question_no", "?")
+                max_options_meta = dict(meta)
+        winner_q = max_options_meta.get("question_no", "?") if max_options_meta else "?"
+        winner_ev = max_options_meta.get("evidence_required", "?") if max_options_meta else "?"
+        winner_cat = max_options_meta.get("category", "?") if max_options_meta else "?"
         stats = (
             f"Aggregate statistics from {sum(counts.values())} UI GreenMetric indicators across 7 categories:\n"
             + "Category counts: " + ", ".join(f"{k}={v}" for k, v in counts.items()) + "\n"
             + f"Maximum single-criterion score: {max_score}\n"
             + f"Minimum single-criterion score: {min_score}\n"
-            + f"Most answer options: indicator {max_options_q} with {max_options_count} options\n"
+            + f"Most answer options: indicator {winner_q} in {winner_cat} with {max_options_count} options (evidence required: {winner_ev})\n"
             + f"Indicators requiring evidence: {evidence_count} of {sum(counts.values())}"
         )
         return stats
