@@ -1,4 +1,4 @@
-"""UI GreenMetric RAG Assistant v0.8.0 — Gradio web interface."""
+"""UI GreenMetric RAG Assistant v1.0 — Gradio web interface."""
 
 import os
 import gradio as gr
@@ -72,8 +72,8 @@ def respond(message: str, chat_history: list[dict]):
 # Layout
 # ---------------------------------------------------------------------------
 
-with gr.Blocks(title="UI GreenMetric RAG Assistant v0.8") as app:
-    gr.Markdown("# UI GreenMetric RAG Assistant v0.8")
+with gr.Blocks(title="UI GreenMetric RAG Assistant v1.0") as app:
+    gr.Markdown("# UI GreenMetric RAG Assistant v1.0")
 
     chatbot = gr.Chatbot(label="Chat")
 
