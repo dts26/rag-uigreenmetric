@@ -19,7 +19,7 @@ def _flush_logs() -> None:
     if logger:
         logger.flush()
 
-_RERANK_ENABLED = os.getenv("RAG_RERANK", "0") == "1"
+_RERANK_ENABLED = os.getenv("RAG_RERANK", "1") == "1"
 
 _BUDGET_BLOCKED_RESPONSE = {
     "answer": "Daily token budget reached. Please try again tomorrow.",
@@ -129,7 +129,7 @@ def ask(
     if _RERANK_ENABLED and context:
         from src.reranker import rerank
         t0 = time.perf_counter()
-        context = rerank(query, context, top_n=5)
+        context = rerank(query, context, top_n=7)
         rerank_ms = (time.perf_counter() - t0) * 1000
     else:
         context = context[:7]

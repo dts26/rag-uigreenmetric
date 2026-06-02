@@ -309,27 +309,34 @@ def run_evaluation(path: str = "test_cases/test_cases.xlsx") -> None:
                 )
             )
 
-    # ---- Phase 2: batch DeepEval scoring ----
+    # ---- Phase 2: batch DeepEval scoring (with retry) ----
     json_path: str | None = None
     if deep_eval_cases:
-        try:
-            evaluate(
-                test_cases=deep_eval_cases,
-                metrics=ALL_METRICS,
-                display_config=DisplayConfig(
-                    print_results=False,
-                    show_indicator=True,
-                    results_folder="./data",
-                ),
-            )
-        except Exception as exc:
-            print(f"\n[WARNING] DeepEval evaluate() failed: {exc}")
-            print("  Continuing with report (scores will be N/A).")
-        else:
-            # Find the JSON that was just written
+        succeeded = False
+        for attempt in range(3):
+            try:
+                evaluate(
+                    test_cases=deep_eval_cases,
+                    metrics=ALL_METRICS,
+                    display_config=DisplayConfig(
+                        print_results=False,
+                        show_indicator=True,
+                        results_folder="./data",
+                    ),
+                )
+                succeeded = True
+                break
+            except Exception as exc:
+                if attempt < 2:
+                    print(f"\n[RETRY {attempt+1}/2] DeepEval failed: {exc}")
+                else:
+                    print(f"\n[WARNING] DeepEval evaluate() failed after 3 attempts: {exc}")
+                    print("  Continuing with report (scores will be N/A).")
+
+        if succeeded:
             files = sorted(glob.glob(os.path.join("./data", "test_run_*.json")))
             if files:
-                json_path = files[-1]  # latest
+                json_path = files[-1]
             else:
                 print("\n[WARNING] No JSON saved — report will show N/A.")
 

@@ -1,38 +1,35 @@
 """Reranker for the UI GreenMetric RAG system.
 
-Re-scores retrieved chunks with Jina V3 — a listwise cross-encoder
-that processes all documents jointly with causal self-attention.
+BGE V2-M3 cross-encoder. Opt-in via RAG_RERANK=1.
 """
 
-import torch
-from transformers import AutoModel
+from FlagEmbedding import FlagReranker
 
-_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-_reranker: AutoModel | None = None
+_reranker: FlagReranker | None = None
 
 
-def _get_model() -> AutoModel:
+def _get_model() -> FlagReranker:
     global _reranker
     if _reranker is None:
-        _reranker = AutoModel.from_pretrained(
-            "jinaai/jina-reranker-v3",
-            torch_dtype=torch.bfloat16 if _DEVICE == "cuda" else torch.float32,
-            trust_remote_code=True,
-        )
-        _reranker.to(_DEVICE)
-        _reranker.eval()
+        _reranker = FlagReranker("BAAI/bge-reranker-v2-m3", use_fp16=True)
     return _reranker
 
 
-def rerank(query: str, chunks: list[dict], *, top_n: int = 5) -> list[dict]:
+def rerank(
+    query: str,
+    chunks: list[dict],
+    *,
+    top_n: int = 7,
+) -> list[dict]:
     if not chunks:
         return []
+
     model = _get_model()
-    documents = [chunk["content"] for chunk in chunks]
-    results = model.rerank(query, documents, top_n=min(top_n, len(documents)))
-    reranked = []
-    for result in results:
-        chunk = chunks[result["index"]].copy()
-        chunk["rerank_score"] = float(result["relevance_score"])
-        reranked.append(chunk)
-    return reranked
+    pairs = [[query, chunk["content"]] for chunk in chunks]
+    scores = model.compute_score(pairs)
+
+    for chunk, score in zip(chunks, scores):
+        chunk["rerank_score"] = float(score)
+
+    chunks.sort(key=lambda c: c["rerank_score"], reverse=True)
+    return chunks[:top_n]

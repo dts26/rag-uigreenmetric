@@ -137,6 +137,7 @@ Key libraries beyond the standard Python data stack:
 - [x] Deploy on HuggingFace Spaces (`fortunius/rag-uigreenmetric`)
 - [ ] Aggregate query optimization (118-chunk brute force → summary or directed LLM summarization)
 - [ ] Router tuned to 89.4% with few-shot examples — 3-5 cases still misrouted; add targeted examples
+- [ ] Dense + sparse hybrid retrieval using BGE-M3 flag embeddings (inverted index + ChromaDB → RRF merge)
 
 ---
 

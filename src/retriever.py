@@ -3,6 +3,7 @@
 Queries ChromaDB with source-aware routing driven by router output.
 """
 
+import os
 import chromadb
 from src.embedder import embed_query
 
@@ -17,8 +18,9 @@ def retrieve(
     *,
     top_k: int = 20,
     client_path: str = "./chroma_db",
-    collection_name: str = "greenmetric_qwen3",
+    collection_name: str = "greenmetric_bgem3",
 ) -> list[dict]:
+    collection_name = os.getenv("RAG_COLLECTION", collection_name)
     """Retrieve chunks for *query* based on the router's classification.
 
     Opens a ChromaDB connection, embeds *query*, then dispatches on
@@ -141,8 +143,9 @@ def retrieve_multi(
     *,
     top_k: int = 10,
     client_path: str = "./chroma_db",
-    collection_name: str = "greenmetric_qwen3",
+    collection_name: str = "greenmetric_bgem3",
 ) -> list[dict]:
+    collection_name = os.getenv("RAG_COLLECTION", collection_name)
     """Multi-query retrieval with Reciprocal Rank Fusion.
 
     Runs semantic search for each query variant (original + paraphrases),
