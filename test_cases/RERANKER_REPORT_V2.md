@@ -34,7 +34,7 @@
 | 7 | Qwen3 | Jina | 0.87 | 0.84 | **0.61** | 0.53 | 87.2% | 474 |
 | 8 | Qwen3 | BGE | 0.93 | 0.90 | 0.60 | 0.59 | 87.2% | 589 |
 
-*LLM-based router: ±5-8% run-to-run variance. DeepEval LLM judge: ±0.05-0.08.*
+*LLM-based router: ±5-8% run-to-run variance. Router accuracy is independent of embedder and reranker — not a differentiating factor between configurations.*
 
 ---
 
@@ -42,7 +42,7 @@
 
 ### 1. BGE-M3 is the better embedder for this dataset
 
-BGE-M3 hits CP 0.60 **without a reranker**. Qwen3 solo lands at CP 0.44 — entirely dependent on a reranker to become competitive. BGE-M3's hybrid dense+sparse training signal encodes both semantic meaning and exact terminology (indicator codes, scores, category names) in a single vector. Qwen3's instruction-aware encoding helps recall (CR 0.91) but the precision gap makes it the weaker choice for structured CSV + markdown data.
+BGE-M3 hits CP 0.60 **without a reranker**. Qwen3 solo lands at CP 0.44 — entirely dependent on a reranker to become competitive. BGE-M3 natively supports dense, sparse (lexical), and ColBERT (multi-vector) retrieval modes via FlagEmbedding. While our current pipeline uses only dense retrieval through SentenceTransformers, the model's training objective combines all three signals — encoding both semantic meaning and exact terminology (indicator codes, scores, category names) in a single dense vector. Qwen3-Embedding is dense-only. On structured CSV + markdown data where exact terms matter as much as meaning, BGE-M3's hybrid training signal gives it a natural advantage.
 
 ### 2. Reranker helps Qwen3, barely touches BGE-M3
 
@@ -50,7 +50,7 @@ Qwen3 + any reranker jumps from CP 0.44 → 0.60-0.61 (+38%). BGE-M3 + any reran
 
 ### 3. Best overall: BGE-M3 + BGE (#4)
 
-CP 0.60, CR 0.91, GE 0.64, RT 89.4%. Same model family as embedder, zero instruction overhead, FlagEmbedding integration.
+CP 0.60, CR 0.91, GE 0.64. Same model family as embedder, zero instruction overhead, FlagEmbedding integration. Router accuracy (89.4% on this run) is independent of embedder/reranker and not a differentiating factor.
 
 ### 4. Qwen3 + GTE/Jina tie for highest CP (0.61)
 
@@ -62,10 +62,14 @@ The listwise architecture biases toward retrieving more context (F 0.96), but at
 
 ### 6. MTEB scores didn't translate
 
-Qwen3-Embedding scored +10 points higher than BGE-M3 on MTEB retrieval (64.64 vs 54.60). On our structured domain data, BGE-M3's hybrid dense+sparse signal proved more effective. Public benchmarks measure general web retrieval — structured CSV tables and methodology documents are a different game.
+Qwen3-Embedding scored +10 points higher than BGE-M3 on MTEB retrieval (64.64 vs 54.60). On our structured domain data, BGE-M3's hybrid dense+sparse+ColBERT training signal proved more effective than Qwen3's dense-only approach. Public benchmarks measure general web retrieval — structured CSV tables and methodology documents reward lexical precision that BGE-M3 was explicitly trained for.
 
 ---
 
 ## Recommendation
 
-**Use BGE-M3 embedder + BGE reranker (#4).** Best CP (0.60), CR (0.91), and RT (89.4%) with zero instruction overhead. The reranker is optional — BGE-M3 solo (#1) already matches the best Qwen3+reranker configs on CP. Enable the reranker when recall matters most (CR 0.91 with BGE reranker vs 0.88 solo).
+**Use BGE-M3 embedder + BGE reranker (#4).** Best CP (0.60), CR (0.91), and GE (0.64) with zero instruction overhead. The reranker is optional — BGE-M3 solo (#1) already matches the best Qwen3+reranker configs on CP. Enable the reranker when recall matters most (CR 0.91 with BGE reranker vs 0.88 solo).
+
+## Future Work (v1.0)
+
+BGE-M3 supports three retrieval modes natively via FlagEmbedding: dense (current), sparse (lexical/BM25-like), and ColBERT (multi-vector). Currently only dense is used through SentenceTransformers + ChromaDB. Implementing true dense + sparse hybrid retrieval — an inverted lexical index searched alongside ChromaDB, merged via RRF — is planned for v1.0. This would leverage BGE-M3's full training signal for further CP gains.
