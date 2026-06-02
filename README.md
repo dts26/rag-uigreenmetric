@@ -4,7 +4,7 @@
 
 The system answers complex queries about the UI GreenMetric Sustainable University Rankings by combining unstructured narrative guidelines with structured tabular appendices.
 
-**v1.0** · Python 3.12.13
+**v1.0** · Python 3.12.13 · [Live Demo](https://fortunius-rag-uigreenmetric.hf.space)
 
 ---
 
