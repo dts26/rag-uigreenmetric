@@ -1,6 +1,8 @@
 """UI GreenMetric RAG Assistant v1.0 — Gradio web interface."""
 
 import os
+import queue
+import threading
 import gradio as gr
 from openai import APIError
 from src.pipeline import ask, _budget
@@ -73,9 +75,35 @@ def respond(message: str, chat_history: list[dict]):
     chat_history.append({"role": "assistant", "content": "Thinking..."})
     yield chat_history
 
-    try:
-        result = ask(message)
-    except APIError:
+    result_container: dict = {}
+    status_queue: "queue.Queue[str]" = queue.Queue()
+
+    def _on_status(msg: str) -> None:
+        status_queue.put(msg)
+
+    def _run() -> None:
+        try:
+            result_container["result"] = ask(message, _on_status=_on_status)
+        except APIError:
+            result_container["api_error"] = True
+        except Exception as exc:
+            result_container["error"] = exc
+
+    thread = threading.Thread(target=_run, daemon=True)
+    thread.start()
+
+    while True:
+        try:
+            status = status_queue.get(timeout=0.3)
+            chat_history[-1]["content"] = status
+            yield chat_history
+        except queue.Empty:
+            if not thread.is_alive():
+                break
+
+    thread.join()
+
+    if "api_error" in result_container:
         chat_history[-1]["content"] = (
             "The AI service is temporarily unavailable. "
             "This may be due to rate limits or API downtime. "
@@ -83,11 +111,18 @@ def respond(message: str, chat_history: list[dict]):
         )
         yield chat_history
         return
-    except Exception as exc:
+
+    if "error" in result_container:
         chat_history[-1]["content"] = (
             f"Something went wrong. Please try again.\n\n"
-            f"Details: {exc!s}"
+            f"Details: {result_container['error']!s}"
         )
+        yield chat_history
+        return
+
+    result = result_container.get("result")
+    if result is None:
+        chat_history[-1]["content"] = "Something went wrong. Please try again."
         yield chat_history
         return
 

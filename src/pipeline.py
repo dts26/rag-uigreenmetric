@@ -48,6 +48,7 @@ def ask(
     *,
     _route_result: dict | None = None,
     _fusion_queries: list[str] | None = None,
+    _on_status: "Callable[[str], None] | None" = None,
 ) -> dict:
     """Run the full RAG pipeline.
 
@@ -83,6 +84,8 @@ def ask(
     if _route_result is not None:
         route_result = _route_result  # pre-computed, no LLM call
     else:
+        if _on_status:
+            _on_status("Routing query...")
         route_result, route_tokens = route(query)
         _budget.track(route_tokens)
 
@@ -99,6 +102,8 @@ def ask(
 
     # ── aggregate ───────────────────────────────────────────────────────
     if route_result["query_type"] == "aggregate":
+        if _on_status:
+            _on_status("Retrieving context...")
         agg_source = route_result.get("csv_source") or route_result["source"]
         stats = aggregate_stats(agg_source)
         if stats:
@@ -108,6 +113,8 @@ def ask(
             context = retrieve(query, route_result)  # fallback to _fetch_all
         if _budget.exceeded():
             return _BUDGET_BLOCKED_RESPONSE
+        if _on_status:
+            _on_status("Generating answer...")
         answer, gen_tokens = generate(query, context, query_type="aggregate")
         _budget.track(gen_tokens)
         log_conversation(query, answer, route_result,
@@ -126,14 +133,20 @@ def ask(
     if _fusion_queries is not None:
         queries = _fusion_queries
     else:
+        if _on_status:
+            _on_status("Paraphrasing query...")
         variants, para_tokens = paraphrase(query)
         _budget.track(para_tokens)
         queries = [query] + variants
 
+    if _on_status:
+        _on_status("Retrieving context...")
     context = retrieve_multi(queries, route_result)
 
     rerank_ms = 0.0
     if _RERANK_ENABLED and context:
+        if _on_status:
+            _on_status("Reranking results...")
         from src.reranker import rerank
         t0 = time.perf_counter()
         context = rerank(query, context, top_n=7)
@@ -144,6 +157,8 @@ def ask(
     if _budget.exceeded():
         return _BUDGET_BLOCKED_RESPONSE
 
+    if _on_status:
+        _on_status("Generating answer...")
     answer, gen_tokens = generate(query, context, query_type=route_result["query_type"])
     _budget.track(gen_tokens)
 
