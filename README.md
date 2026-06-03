@@ -80,7 +80,7 @@ Key libraries beyond the standard Python data stack:
 ## ⚙️ Pipeline Architecture
 
 1. **Ingestion:** Markdown → Heading-Level Chunking, CSV → Group-Based Chunking (118 question groups, 6 green building categories, 6 smart building fields, 30 coordinator countries, 7 category weights, 3 emission scopes) → Embed with BGE-M3 → Store in ChromaDB.
-2. **Retrieval & Generation:** User Query → Budget Guard → Router (LLM) → Paraphrase (3 variants via DeepSeek) → Multi-query ChromaDB search (top-k=10 each) → RRF (k=60) → top 7 chunks → (optional reranker) → Context Concatenation → DeepSeek LLM Generation.
+2. **Retrieval & Generation:** User Query → Budget Guard → Router (LLM) → Paraphrase (3 variants via DeepSeek) → Multi-query ChromaDB search (top-k=10 each) → RRF (k=60) → top 7 chunks → (reranker, enabled by default) → Context Concatenation → DeepSeek LLM Generation.
 
 ---
 
@@ -166,8 +166,8 @@ Sparse added 2.2s latency with no CP gain and degraded G-Eval. Not worth the cos
 
 ## ⚠️ Known Limitations
 
-- **Router accuracy ~91-94%:** Improved with few-shot tuning but 1-4 cases still misrouted per run due to LLM variance (±5-8%). Some queries genuinely span both PDF and CSV sources — neither route is wrong, just incomplete. A lucky run could hit 100%.
-- **CP bottleneck (~0.60-0.74):** Contextual Precision ranges from 0.60 (BGE-M3 solo) to 0.74 (BGE-M3 + reranker + aggregate stats). Sparse hybrid retrieval tested and rejected. Improving further likely requires embedder fine-tuning on domain-specific data.
+- **Router accuracy ~91-94%:** Improved with few-shot tuning but 1-4 cases still misrouted per run due to LLM variance (±5-8%). Some queries genuinely span both PDF and CSV sources — neither route is wrong, just incomplete.
+- **CP bottleneck (0.72):** Contextual Precision remains the weakest metric, improving from 0.60 (BGE-M3 solo) to 0.72 (BGE-M3 + reranker + aggregate stats). Sparse hybrid retrieval tested and rejected. Further gains likely require embedder fine-tuning on domain-specific data.
 - **G-Eval language sensitivity:** Scoring dips when the answer and ground truth differ in language (EN ↔ ID) despite being semantically equivalent.
 - **RAG Fusion latency:** Paraphrase LLM call + 4× embeddings adds ~1-2s per query vs single-query retrieval.
 
