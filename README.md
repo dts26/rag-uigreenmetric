@@ -1,5 +1,5 @@
 ---
-title: rag-uigreenmetric
+title: Ask GreenMetric — Sustainable University Rankings Q&A
 emoji: 📚
 colorFrom: green
 colorTo: blue
